@@ -22,7 +22,7 @@ end
 class Rol 
 end
 
-class Buyer < Rol
+class Buyer < Rol, Addressee
 end 
 
 class Seller < Rol 
@@ -53,13 +53,35 @@ attributes
     maxBid : Integer
 end 
 
-class Messasge
+class Mail
 attributes
     subject : Integer
     body : Integer
 end 
 
-class Group
+class Addressee
+operations
+    receive(mail : Mail)
+end 
+
+class Mailbox
+end
+
+class Group < Addressee
+end 
+
+class AuctionCloseStrategy
+operations
+    close() : Boolean
+end 
+
+class DateClose < AuctionCloseStrategy
+end 
+
+class NumberOfBidsClose < AuctionCloseStrategy
+end 
+
+class PriceClose < AuctionCloseStrategy
 end 
 
 -- Assiciations
@@ -88,34 +110,58 @@ between
     Product [1]
 end
 
+association CloseStrategy
+between
+    Auction [1]
+    AuctionCloseStrategy [0..1] role closeStrategy
+end
+
 association ProductCategory
 between
     Category [*] role categories
     Product [*] role products
 end 
 
-association Sent 
-between 
-    Comercial [1]
-    Messasge [*] role messages
-end 
-
-association AddresseeGroup
-between
-    Messasge [*] role messsages
-    Group [*] role groups
-end 
-
-association GroupMembers
-between
-    Group [*] role groups 
-    Buyer [*] role buyers
-end
-
 associationclass Bid 
 between
-    Auction [*] role Auctions  
+    Auction [*] role auctions  
     Buyer [*] role buyers 
 attributes
     bid : Integer
 end 
+
+association FavoriteProduct
+between
+    Auction [*] role favourites
+    Buyer [*] role favouriteBuyers
+end 
+
+association Sent 
+between 
+    Comercial [1]
+    Mail [*] role mails
+end 
+
+association MailAddressee
+between
+    Mail [*] role mails
+    Addressee [*] role addressees
+end 
+
+composition BuyerMailbox
+between
+    Buyer [1]
+    Mailbox [0..1]
+end 
+
+aggregation Mails
+between 
+    Mailbox [*] role mailboxes
+    Mail [*] role mails
+end
+
+aggregation GroupMembers
+between
+    Group [*] role groups 
+    Buyer [*] role buyers
+end
