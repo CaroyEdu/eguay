@@ -64,7 +64,7 @@ end
 
 -- Assiciations
 
-association RoleOf 
+association Roles
 between
     User [*]
     Rol [*]
@@ -79,7 +79,7 @@ end
 composition SellerAuction
 between
     Seller [1]
-    Auction [*]
+    Auction [*] role auctions
 end 
 
 association AuctionProduct
@@ -90,18 +90,32 @@ end
 
 association ProductCategory
 between
-    Category [*]
-    Product [*]
+    Category [*] role categories
+    Product [*] role products
 end 
 
 association Sent 
 between 
     Comercial [1]
-    Messasge [*]
+    Messasge [*] role messages
 end 
 
 association AddresseeGroup
 between
-    Messasge [*]
-    Group [*]
+    Messasge [*] role messsages
+    Group [*] role groups
+end 
+
+association GroupMembers
+between
+    Group [*] role groups 
+    Buyer [*] role buyers
+end
+
+associationclass Bid 
+between
+    Auction [*] role Auctions  
+    Buyer [*] role buyers 
+attributes
+    bid : Integer
 end 
