@@ -1,0 +1,107 @@
+model eguay
+
+enum Sex {male, female, other}
+
+class User
+attributes
+    username : String
+    password : String
+end 
+
+class Person 
+attributes
+    name : String 
+    surname : String 
+    sex : Sex
+    birthYear : Integer
+    country : String 
+    city : String
+    address : String
+end 
+
+class Rol 
+end
+
+class Buyer < Rol
+end 
+
+class Seller < Rol 
+end 
+
+class Comercial < Rol 
+end 
+
+class Admin < Rol 
+end 
+
+class Product 
+attributes
+    title : String 
+    description : String 
+    fotoURL : String 
+end 
+
+class Category
+attributes
+    name : String
+end 
+
+class Auction
+attributes
+    startDate : Integer
+    startPrice : Integer
+    maxBid : Integer
+end 
+
+class Messasge
+attributes
+    subject : Integer
+    body : Integer
+end 
+
+class Group
+end 
+
+-- Assiciations
+
+association RoleOf 
+between
+    User [*]
+    Rol [*]
+end 
+
+association UserData
+between
+    User [1]
+    Person [0..1]
+end 
+
+composition SellerAuction
+between
+    Seller [1]
+    Auction [*]
+end 
+
+association AuctionProduct
+between
+    Auction [0..1]
+    Product [1]
+end
+
+association ProductCategory
+between
+    Category [*]
+    Product [*]
+end 
+
+association Sent 
+between 
+    Comercial [1]
+    Messasge [*]
+end 
+
+association AddresseeGroup
+between
+    Messasge [*]
+    Group [*]
+end 
