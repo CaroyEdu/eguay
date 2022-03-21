@@ -30,7 +30,11 @@ eguay es una aplicación que busca reunir a vendedores y compradores en una mism
 
 ### Modelo conceptual
 
-![Modelo](./images/model.png)
+![Modelo](./images/conceptualModel.png)
+
+### Database Model
+
+![Modelo de Base de Datos](./images/dbModel.png)
 
 ### Convenciones
 
