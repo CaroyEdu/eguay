@@ -109,9 +109,9 @@ between
     Auction [*] role products
 end
 
-aggregation Mails
+association Mails
 between 
-    User [*] role addressee
+    Group [1]
     Mail [*] role mails
 end
 

@@ -163,5 +163,5 @@ end
 aggregation GroupMembers
 between
     Group [*] role groups 
-    Buyer [*] role buyers
+    Addressee [*] role members
 end
