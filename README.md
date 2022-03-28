@@ -22,7 +22,7 @@ eguay es una aplicación que busca reunir a vendedores y compradores en una mism
     - Podrá registrarse a través de la aplicación. Deberá indicar información personal como nombre, apellidos, domicilio, ciudad de residencia, edad, sexo, categorías preferidas, etc. 
     - Podrá realizar búsquedas de productos, marcar favoritos para hacer seguimientos, pujar por productos, etc. Se le notificará cuándo se ha cerrado el proceso de puja y si si finalmente se queda con el producto.
     - Podrá realizar un CRUD de los productos que ha comprado o que sigue como favoritos, así como listarlos y filtrarlos.
-    Marketing: 
+- Marketing: 
     - Empleados de la plataforma que puede crear y gestionar (editar, borrar, etc.) listas de usuarios compradores a partir de una búsqueda, en función de diversos criterios. Podrán también enviarles notificaciones a todos los compradores de una lista sobre promociones de ciertos artículos, etc.
         Deberán también gestionar la recepción de los mensajes en la bandeja de entrada de mensajes de los usuarios compradores.
 
@@ -30,7 +30,11 @@ eguay es una aplicación que busca reunir a vendedores y compradores en una mism
 
 ### Modelo conceptual
 
-![Modelo](./images/model.png)
+![Modelo](./images/conceptualModel.png)
+
+### Database Model
+
+![Modelo de Base de Datos](./images/dbModel.png)
 
 ### Convenciones
 
