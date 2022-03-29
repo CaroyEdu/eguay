@@ -5,11 +5,8 @@
  */
 package eguay.servlet;
 
-import eguay.dao.UsersFacade;
-import eguay.entity.Users;
 import java.io.IOException;
-import java.util.List;
-import javax.ejb.EJB;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,10 +18,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author jean-
  */
-@WebServlet(name = "CheckLoginServlet", urlPatterns = {"/CheckLoginServlet"})
-public class CheckLoginServlet extends HttpServlet {
-    
-    @EJB UsersFacade userFacade;
+@WebServlet(name = "DisconnectServlet", urlPatterns = {"/DisconnectServlet"})
+public class DisconnectServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,31 +34,10 @@ public class CheckLoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        List<Users> listaUsuario = userFacade.findAll();
-        String username = (String) request.getParameter("username");
-        String password = (String) request.getParameter("password");
-        Boolean connection = false;
-        Users user = null;
         HttpSession session = request.getSession();
+        session.setAttribute("user", null);
         
-        for(Users u : listaUsuario)
-        {
-            if(username.equals(u.getUsername()) && password.equals(u.getPassword()))
-            {
-                connection = true;
-                user = u;
-            }
-        }
-        
-        if(connection)
-        {
-            response.sendRedirect("IndexServlet");
-            session.setAttribute("user", user);
-        }
-        else
-        {
-            response.sendRedirect("LoginServlet");
-        }
+        response.sendRedirect("IndexServlet");
         
     }
 

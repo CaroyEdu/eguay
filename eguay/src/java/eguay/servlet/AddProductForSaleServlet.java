@@ -22,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -46,56 +47,40 @@ public class AddProductForSaleServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        // Primero cogemos la sesión actual para saber quién es el usuario que está añadiendo el producto
+        HttpSession session = request.getSession();
+        
         Auction auction = new Auction();
         String str;
         
+        // Definimos el usuario, título, descrición, URL de la foto y precio inicial
+        Users user = (Users) session.getAttribute("user");
+        auction.setSellerid(user);
         str = (String)request.getParameter("title");
         auction.setTitle(str);
-        
         str = (String)request.getParameter("description");
         auction.setDescription(str);
-        
         str = (String)request.getParameter("fotourl");
         auction.setFotourl(str);
-        
         Float startPrice = Float.parseFloat(request.getParameter("startprice"));
         auction.setStartprice(startPrice);
-        
-        Users user = new Users();
-        List<Users> users = usersFacade.findAll();
-        for(Users u : users)
-        {
-            if(u.getUserid() == 1)
-            {
-                user = u;
-            }
-        }
-        auction.setSellerid(user);
         
         // Conseguimos la fecha de hoy en formato yyyy/MM/dd
         Calendar now = new GregorianCalendar();
         Date nowDate = now.getTime();
         auction.setStartdate(nowDate);
         
+        // Añadimos las diferentes categorías como una lista
         str = (String)request.getParameter("category");
-        
         List<Category> categoryList = new ArrayList();
         categoryList.add(0, new Category(Long.parseLong(str)));
         auction.setCategoryList(categoryList);
-        /*
-        List<Auction> list = auctionFacade.findAll();
-        int id = 0;
-        for(Auction a : list)
-        {
-            id = a.getAuctionid()+1;
-        }
-        auction.setAuctionid(id);
-        */
+        
         // Creamos el objeto y lo insertamos en la base de datos
         auctionFacade.create(auction);
         
+        // Una vez creado e insertado el objeto, nos volvemos a la página de inicio
         response.sendRedirect("IndexServlet");
-        
         
     }
 

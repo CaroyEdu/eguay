@@ -20,5 +20,6 @@
                 <input type="submit" value="Conexión"/>
             </form>
         </div>
+        <a href="IndexServlet">Volver al Inicio</a>
     </body>
 </html>

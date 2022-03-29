@@ -8,6 +8,12 @@
             <file>file:/D:/Documentos/GitHub/eguay/eguay/src/java/eguay/dao/CategoryFacade.java</file>
             <file>file:/D:/Documentos/GitHub/eguay/eguay/src/java/eguay/entity/Auction.java</file>
             <file>file:/D:/Documentos/GitHub/eguay/eguay/web/addProductForSale.jsp</file>
+            <file>file:/D:/Documentos/GitHub/eguay/eguay/src/java/eguay/servlet/DisconnectServlet.java</file>
+            <file>file:/D:/Documentos/GitHub/eguay/eguay/web/login.jsp</file>
+            <file>file:/D:/Documentos/GitHub/eguay/eguay/src/java/eguay/servlet/CheckLoginServlet.java</file>
+            <file>file:/D:/Documentos/GitHub/eguay/eguay/src/java/eguay/servlet/AddProductServlet.java</file>
+            <file>file:/D:/Documentos/GitHub/eguay/eguay/src/java/eguay/servlet/LoginServlet.java</file>
+            <file>file:/D:/Documentos/GitHub/eguay/eguay/web/index.jsp</file>
         </group>
     </open-files>
 </project-private>

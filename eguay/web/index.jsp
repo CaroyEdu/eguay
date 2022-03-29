@@ -4,6 +4,7 @@
     Author     : jean-
 --%>
 
+<%@page import="eguay.entity.Users"%>
 <%@page import="java.util.List"%>
 <%@page import="eguay.entity.Auction"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,13 +16,34 @@
     </head>
     
     <% List<Auction> auctionList = (List) request.getAttribute("auctionList");
-    
+        Users user = (Users) session.getAttribute("user");
     %>
     
     <body>
+        <%
+          if(user != null)
+          {
+        %>
+        <a href="DisconnectServlet">Desconexión</a>
+        <%
+          } else
+        {   
+        %>
         <a href="LoginServlet">Login</a>
-        <a href="AddProductServlet">Añadir producto en venta</a>
+        <%
+          }
+        %>
         <h1>eguay</h1>
+        
+        <%
+          if(user != null)
+          {
+        %>
+        <h4>Bienvenido, <%= user.getName() %></h4>
+        <a href="AddProductServlet">¿Quieres añadir un producto?</a>
+        <%
+          }
+        %>
         
         <h3>Lista de productos en venta</h3>
         <table>
