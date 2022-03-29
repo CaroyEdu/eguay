@@ -8,9 +8,10 @@ package eguay.servlet;
 import eguay.dao.AuctionFacade;
 import eguay.dao.UsersFacade;
 import eguay.entity.Auction;
+import eguay.entity.Category;
 import eguay.entity.Users;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -75,6 +76,12 @@ public class AddProductForSaleServlet extends HttpServlet {
         Calendar now = new GregorianCalendar();
         Date nowDate = now.getTime();
         auction.setStartdate(nowDate);
+        
+        str = (String)request.getParameter("category");
+        
+        List<Category> categoryList = new ArrayList();
+        categoryList.add(0, new Category(Long.parseLong(str)));
+        auction.setCategoryList(categoryList);
         /*
         List<Auction> list = auctionFacade.findAll();
         int id = 0;
