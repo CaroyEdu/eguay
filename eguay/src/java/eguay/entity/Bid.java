@@ -38,7 +38,7 @@ public class Bid implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "bidid")
-    private Integer bidid;
+    private Long bidid;
     @JoinColumn(name = "auctionid", referencedColumnName = "auctionid")
     @ManyToOne(optional = false)
     private Auction auctionid;
@@ -49,7 +49,7 @@ public class Bid implements Serializable {
     public Bid() {
     }
 
-    public Bid(Integer bidid) {
+    public Bid(Long bidid) {
         this.bidid = bidid;
     }
 
@@ -61,11 +61,11 @@ public class Bid implements Serializable {
         this.bid = bid;
     }
 
-    public Integer getBidid() {
+    public Long getBidid() {
         return bidid;
     }
 
-    public void setBidid(Integer bidid) {
+    public void setBidid(Long bidid) {
         this.bidid = bidid;
     }
 

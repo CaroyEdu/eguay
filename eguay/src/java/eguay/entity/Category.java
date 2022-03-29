@@ -41,14 +41,14 @@ public class Category implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "categoryid")
-    private Integer categoryid;
+    private Long categoryid;
     @ManyToMany(mappedBy = "categoryList")
     private List<Auction> auctionList;
 
     public Category() {
     }
 
-    public Category(Integer categoryid) {
+    public Category(Long categoryid) {
         this.categoryid = categoryid;
     }
 
@@ -60,11 +60,11 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public Integer getCategoryid() {
+    public Long getCategoryid() {
         return categoryid;
     }
 
-    public void setCategoryid(Integer categoryid) {
+    public void setCategoryid(Long categoryid) {
         this.categoryid = categoryid;
     }
 

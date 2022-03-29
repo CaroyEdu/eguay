@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name")
     , @NamedQuery(name = "Users.findBySurname", query = "SELECT u FROM Users u WHERE u.surname = :surname")
     , @NamedQuery(name = "Users.findBySex", query = "SELECT u FROM Users u WHERE u.sex = :sex")
-    , @NamedQuery(name = "Users.findByBirthYear", query = "SELECT u FROM Users u WHERE u.birthYear = :birthYear")
+    , @NamedQuery(name = "Users.findByBirthyear", query = "SELECT u FROM Users u WHERE u.birthyear = :birthyear")
     , @NamedQuery(name = "Users.findByCountry", query = "SELECT u FROM Users u WHERE u.country = :country")
     , @NamedQuery(name = "Users.findByCity", query = "SELECT u FROM Users u WHERE u.city = :city")
     , @NamedQuery(name = "Users.findByAddress", query = "SELECT u FROM Users u WHERE u.address = :address")
@@ -78,9 +78,9 @@ public class Users implements Serializable {
     private Integer sex;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "birthYear")
+    @Column(name = "birthyear")
     @Temporal(TemporalType.DATE)
-    private Date birthYear;
+    private Date birthyear;
     @Size(max = 2147483647)
     @Column(name = "country")
     private String country;
@@ -94,7 +94,7 @@ public class Users implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "userid")
-    private Integer userid;
+    private Long userid;
     @ManyToMany(mappedBy = "usersList")
     private List<Rol> rolList;
     @ManyToMany(mappedBy = "usersList")
@@ -113,16 +113,16 @@ public class Users implements Serializable {
     public Users() {
     }
 
-    public Users(Integer userid) {
+    public Users(Long userid) {
         this.userid = userid;
     }
 
-    public Users(Integer userid, String username, String password, String email, Date birthYear) {
+    public Users(Long userid, String username, String password, String email, Date birthyear) {
         this.userid = userid;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.birthYear = birthYear;
+        this.birthyear = birthyear;
     }
 
     public String getUsername() {
@@ -181,12 +181,12 @@ public class Users implements Serializable {
         this.sex = sex;
     }
 
-    public Date getBirthYear() {
-        return birthYear;
+    public Date getBirthyear() {
+        return birthyear;
     }
 
-    public void setBirthYear(Date birthYear) {
-        this.birthYear = birthYear;
+    public void setBirthyear(Date birthyear) {
+        this.birthyear = birthyear;
     }
 
     public String getCountry() {
@@ -213,11 +213,11 @@ public class Users implements Serializable {
         this.address = address;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 

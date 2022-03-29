@@ -40,7 +40,7 @@ public class Groups implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "groupid")
-    private Integer groupid;
+    private Long groupid;
     @Size(max = 2147483647)
     @Column(name = "name")
     private String name;
@@ -58,15 +58,15 @@ public class Groups implements Serializable {
     public Groups() {
     }
 
-    public Groups(Integer groupid) {
+    public Groups(Long groupid) {
         this.groupid = groupid;
     }
 
-    public Integer getGroupid() {
+    public Long getGroupid() {
         return groupid;
     }
 
-    public void setGroupid(Integer groupid) {
+    public void setGroupid(Long groupid) {
         this.groupid = groupid;
     }
 

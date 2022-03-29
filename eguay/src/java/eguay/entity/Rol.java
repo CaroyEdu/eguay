@@ -41,7 +41,7 @@ public class Rol implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "rolid")
-    private Integer rolid;
+    private Long rolid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "type")
@@ -60,21 +60,21 @@ public class Rol implements Serializable {
     public Rol() {
     }
 
-    public Rol(Integer rolid) {
+    public Rol(Long rolid) {
         this.rolid = rolid;
     }
 
-    public Rol(Integer rolid, int type, String name) {
+    public Rol(Long rolid, int type, String name) {
         this.rolid = rolid;
         this.type = type;
         this.name = name;
     }
 
-    public Integer getRolid() {
+    public Long getRolid() {
         return rolid;
     }
 
-    public void setRolid(Integer rolid) {
+    public void setRolid(Long rolid) {
         this.rolid = rolid;
     }
 

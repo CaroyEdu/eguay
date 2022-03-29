@@ -48,9 +48,7 @@ public class Mail implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "mailid")
-    private Integer mailid;
-    @ManyToMany(mappedBy = "mailList")
-    private List<Auction> auctionList;
+    private Long mailid;
     @ManyToMany(mappedBy = "mailList")
     private List<Groups> groupsList;
     @JoinTable(name = "usersmail", joinColumns = {
@@ -58,6 +56,11 @@ public class Mail implements Serializable {
         @JoinColumn(name = "userid", referencedColumnName = "userid")})
     @ManyToMany
     private List<Users> usersList;
+    @JoinTable(name = "suggestedauction", joinColumns = {
+        @JoinColumn(name = "mailid", referencedColumnName = "mailid")}, inverseJoinColumns = {
+        @JoinColumn(name = "auctionid", referencedColumnName = "auctionid")})
+    @ManyToMany
+    private List<Auction> auctionList;
     @JoinColumn(name = "senderid", referencedColumnName = "userid")
     @ManyToOne(optional = false)
     private Users senderid;
@@ -65,7 +68,7 @@ public class Mail implements Serializable {
     public Mail() {
     }
 
-    public Mail(Integer mailid) {
+    public Mail(Long mailid) {
         this.mailid = mailid;
     }
 
@@ -85,21 +88,12 @@ public class Mail implements Serializable {
         this.body = body;
     }
 
-    public Integer getMailid() {
+    public Long getMailid() {
         return mailid;
     }
 
-    public void setMailid(Integer mailid) {
+    public void setMailid(Long mailid) {
         this.mailid = mailid;
-    }
-
-    @XmlTransient
-    public List<Auction> getAuctionList() {
-        return auctionList;
-    }
-
-    public void setAuctionList(List<Auction> auctionList) {
-        this.auctionList = auctionList;
     }
 
     @XmlTransient
@@ -118,6 +112,15 @@ public class Mail implements Serializable {
 
     public void setUsersList(List<Users> usersList) {
         this.usersList = usersList;
+    }
+
+    @XmlTransient
+    public List<Auction> getAuctionList() {
+        return auctionList;
+    }
+
+    public void setAuctionList(List<Auction> auctionList) {
+        this.auctionList = auctionList;
     }
 
     public Users getSenderid() {
