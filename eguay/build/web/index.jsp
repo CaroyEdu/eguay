@@ -15,24 +15,13 @@
         <title>eguay - Página de Inicio</title>
     </head>
     
-    <% List<Auction> auctionList = (List) request.getAttribute("auctionList");
+    <% 
+        List<Auction> auctionList = (List) request.getAttribute("auctionList");
         Users user = (Users) session.getAttribute("user");
     %>
+    <jsp:include page="cabecera.jsp"/>
     
     <body>
-        <%
-          if(user != null)
-          {
-        %>
-        <a href="DisconnectServlet">Desconexión</a>
-        <%
-          } else
-        {   
-        %>
-        <a href="LoginServlet">Login</a>
-        <%
-          }
-        %>
         <h1>eguay</h1>
         
         <%
@@ -56,7 +45,6 @@
             <%for(Auction a : auctionList)
                 {
             %>
-            <br/>
             <tr>
                 <td><%= a.getTitle() %></td>
                 <td><%= a.getDescription() %></td>

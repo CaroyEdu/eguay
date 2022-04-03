@@ -39,30 +39,21 @@ public class CheckLoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        List<Users> listaUsuario = userFacade.findAll();
         String username = (String) request.getParameter("username");
         String password = (String) request.getParameter("password");
-        Boolean connection = false;
-        Users user = null;
+        Users user = userFacade.userLogin(username, password);
         HttpSession session = request.getSession();
         
-        for(Users u : listaUsuario)
+        if(user != null)
         {
-            if(username.equals(u.getUsername()) && password.equals(u.getPassword()))
-            {
-                connection = true;
-                user = u;
-            }
-        }
-        
-        if(connection)
-        {
-            response.sendRedirect("IndexServlet");
             session.setAttribute("user", user);
+            response.sendRedirect("IndexServlet");
         }
         else
         {
-            response.sendRedirect("LoginServlet");
+            String errorStr = "Combinación de usuario y contraseña erronea.";
+            request.setAttribute("error", errorStr);
+            request.getRequestDispatcher("LoginServlet").forward(request, response);
         }
         
     }

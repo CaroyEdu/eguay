@@ -6,9 +6,11 @@
 package eguay.dao;
 
 import eguay.entity.Users;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,23 @@ public class UsersFacade extends AbstractFacade<Users> {
 
     public UsersFacade() {
         super(Users.class);
+    }
+    
+    public Users userLogin(String username, String password)
+    {
+        Query q;
+        q = this.em.createQuery("SELECT u FROM Users u WHERE u.username = :username AND u.password = :password");
+        q.setParameter("username", username);
+        q.setParameter("password", password);
+        List<Users> userList = q.getResultList();
+        if(userList == null || userList.isEmpty())
+        {
+            return null;
+        }
+        else
+        {
+            return userList.get(0);
+        }
     }
     
 }

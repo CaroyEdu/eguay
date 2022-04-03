@@ -25,11 +25,11 @@
         <h3>Información del producto</h3>
         <div>
             <form method="POST" action="AddProductForSaleServlet">
-                Título:<input type="text" name="title" value=""/>
-                Descripción:<input type="text" name="description" value=""/>
-                URL Foto:<input type="text" name="fotourl" value=""/>
-                Precio Inicial:<input type="text" name="startprice" value=""/>
-                Categoría:
+                Título:<input type="text" name="title" value="" required/><br/>
+                Descripción:<input type="text" name="description" value=""/><br/>
+                URL Foto:<input type="text" name="fotourl" value=""/><br/>
+                Precio Inicial:<input type="text" name="startprice" value="" required/><br/>
+                <br/>Categoría:
                 <select name="category">
                     <%  for(Category category : categoryList)
                         {
