@@ -17,25 +17,18 @@
     
     <% 
         List<Auction> auctionList = (List) request.getAttribute("auctionList");
-        Users user = (Users) session.getAttribute("user");
     %>
     <jsp:include page="cabecera.jsp"/>
     
     <body>
-        <h1>eguay</h1>
-        
-        <%
-          if(user != null)
-          {
-        %>
-        <h4>Bienvenido, <%= user.getName() %></h4>
-        <a href="AddProductServlet">¿Quieres añadir un producto?</a>
-        <%
-          }
-        %>
-        
-        <h3>Lista de productos en venta</h3>
-        <table>
+        <h1>¡Busca un producto!</h1>
+        <div class="container">
+            <form>
+                <input type="text" name="searchbar" id="searchbar"/>
+                <input type="submit" value="Buscar" id="submitbutton"/>
+            </form>
+        </div>
+        <table class="table-container">
             <tr>
                 <th>Título</th>
                 <th>Descripción</th>

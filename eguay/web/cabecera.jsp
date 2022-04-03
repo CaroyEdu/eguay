@@ -8,19 +8,41 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    Users user = (Users) session.getAttribute("user");
-%>
+        Users user = (Users) session.getAttribute("user");
+    %>
+ 
+    <head>
+        <link rel="stylesheet" href="css/cabecerastyle.css"/>
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+        </style>
+    </head>
 
-<%
-  if(user != null)
-  {
-%>
-    <a href="DisconnectServlet">Desconexión</a>
-<%
-  } else
-{   
-%>
-    <a href="LoginServlet">Login</a>
-<%
-  }
-%>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div>
+                <img src="img/logo.png" width="125px">
+            </div>
+            <nav>
+                <ul>
+                    <%
+                        if(user != null)
+                        {
+                    %>
+                    <li><a href="AddProductServlet">Añadir Subasta</a></li>
+                    <li><a href="">Mi Perfil</a>
+                    <li><a href="DisconnectServlet">Desconexión</a></li>
+                    <%
+                      } else
+                    {   
+                    %>
+                    <li><a href="LoginServlet">Login</a></li>
+                    <%
+                      }
+                    %>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</body>
