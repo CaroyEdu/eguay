@@ -16,6 +16,7 @@
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
         </style>
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     </head>
 
 <body>
