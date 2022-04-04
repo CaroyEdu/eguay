@@ -83,41 +83,7 @@
             <%
                 }
             %>
-            <div class="title">
-            <p>Categoría: Belleza</p>
-        </div>
-            <%
-                cantidad = 0;
-                for(Auction a : auctionList)
-                {
-                    if(a.getCategoryList().get(0).getCategoryid()==1)
-                    {
-                    if(cantidad == 0)
-                    {
-            %>
-            <div class="flex-container">
-                <%
-                    }
-                %>
-                <div class="card">
-                    <img src="<%= a.getFotourl() %>" style="width:100%">
-                    <h4><%= a.getTitle() %></h4>
-                    <p class="description"><%= a.getDescription() %></p>
-                    <p class="price">$<%= a.getStartprice() %></p>
-                    <p><button>Pujar</button></p>
-                </div>
-            <%
-                cantidad++;
-                    if(cantidad == 6)
-                    {
-            %>
-            </div>
-            <%
-                    cantidad = 0;
-                    }
-                }}
-            %>
-            <script src="js/script.js"></script>
+            
         <script>
             function TimeRemaining(){
                 var els = document.querySelectorAll('[id^="cd_"]');
