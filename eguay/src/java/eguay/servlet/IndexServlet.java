@@ -5,8 +5,11 @@
  */
 package eguay.servlet;
 
+import eguay.dao.AuctionFacade;
+import eguay.entity.Auction;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "IndexServlet", urlPatterns = {"/IndexServlet"})
 public class IndexServlet extends HttpServlet {
+    
+    @EJB AuctionFacade auctionFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,7 +38,11 @@ public class IndexServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        List<Auction> auctionList = this.auctionFacade.findAll();
+        
+        request.setAttribute("auctionList", auctionList);
+        
+        request.getRequestDispatcher("index.jsp").forward(request, response);
         
     }
 

@@ -5,19 +5,26 @@
  */
 package eguay.servlet;
 
+import eguay.dao.UsersFacade;
+import eguay.entity.Users;
 import java.io.IOException;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author jean-
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "CheckLoginServlet", urlPatterns = {"/CheckLoginServlet"})
+public class CheckLoginServlet extends HttpServlet {
+    
+    @EJB UsersFacade userFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,7 +39,22 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        String username = (String) request.getParameter("username");
+        String password = (String) request.getParameter("password");
+        Users user = userFacade.userLogin(username, password);
+        HttpSession session = request.getSession();
+        
+        if(user != null)
+        {
+            session.setAttribute("user", user);
+            response.sendRedirect("IndexServlet");
+        }
+        else
+        {
+            String errorStr = "Combinación de usuario y contraseña erronea.";
+            request.setAttribute("error", errorStr);
+            request.getRequestDispatcher("LoginServlet").forward(request, response);
+        }
         
     }
 

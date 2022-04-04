@@ -1,0 +1,145 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.container{
+    max-width: 1350px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.table-container{
+    max-width: 1350px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 25px;
+}
+
+table{
+    padding-top: 25px;
+    width: 100%;
+}
+
+th{
+    height: 50px;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.searchbar{
+    display: grid;
+    justify-content: center;
+}
+
+#searchbar{
+    height:50px;
+    width: 50%;
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+#submitbutton{
+    background-color: burlywood;
+    padding: 17px;
+    color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+}
+
+#submitbutton:hover{
+    background-color: #333;
+    transition: all 0.8s;
+}
+
+nav{
+    flex: 1;
+    text-align: right;
+}
+
+nav ul{
+    display: inline-block;
+    list-style-type: none;
+}
+
+nav ul li{
+    display: inline-block;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+a{
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover
+{
+    color: rgb(0, 0, 0);
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 200px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+  }
+  
+  .price {
+    color: red;
+    font-size: 24px;
+  }
+
+  .description{
+      font-size: 12px;
+  }
+  
+  .card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 12px;
+  }
+  
+  .card button:hover {
+    opacity: 0.7;
+  }
+
+  .flex-container {
+    margin-top: 25px;
+    display: flex;
+    background-color: burlywood;
+    justify-content: center;
+  }
+  
+  .flex-container > div {
+    background-color: white;
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+  }
+
+  .title{
+      text-align: center;
+      margin-top: 25px;
+      font-size: 24px;
+  }

@@ -5,7 +5,12 @@
  */
 package eguay.servlet;
 
+import eguay.dao.CategoryFacade;
+import eguay.entity.Category;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +21,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jean-
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "AddProductServlet", urlPatterns = {"/AddProductServlet"})
+public class AddProductServlet extends HttpServlet {
+    
+    @EJB CategoryFacade categoryFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,7 +39,11 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        List<Category> categoryList = categoryFacade.findAll();
+        
+        request.setAttribute("categoryList", categoryList);
+        
+        request.getRequestDispatcher("addProductForSale.jsp").forward(request, response);
         
     }
 

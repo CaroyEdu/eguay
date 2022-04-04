@@ -5,19 +5,38 @@
  */
 package eguay.servlet;
 
+import eguay.dao.AuctionFacade;
+import eguay.dao.UsersFacade;
+import eguay.entity.Auction;
+import eguay.entity.Category;
+import eguay.entity.Users;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author jean-
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "AddProductForSaleServlet", urlPatterns = {"/AddProductForSaleServlet"})
+public class AddProductForSaleServlet extends HttpServlet {
+    
+    @EJB AuctionFacade auctionFacade;
+    @EJB UsersFacade usersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,7 +51,40 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        // Primero cogemos la sesión actual para saber quién es el usuario que está añadiendo el producto
+        HttpSession session = request.getSession();
+        
+        Auction auction = new Auction();
+        String str;
+        
+        // Definimos el usuario, título, descrición, URL de la foto y precio inicial
+        Users user = (Users) session.getAttribute("user");
+        auction.setSellerid(user);
+        str = (String)request.getParameter("title");
+        auction.setTitle(str);
+        str = (String)request.getParameter("description");
+        auction.setDescription(str);
+        str = (String)request.getParameter("fotourl");
+        auction.setFotourl(str);
+        Float startPrice = Float.parseFloat(request.getParameter("startprice"));
+        auction.setStartprice(startPrice);
+        
+        // Conseguimos la fecha de hoy en formato yyyy/MM/dd
+        Calendar now = new GregorianCalendar();
+        Date nowDate = now.getTime();
+        auction.setStartdate(nowDate);
+        
+        // Añadimos las diferentes categorías como una lista
+        str = (String)request.getParameter("category");
+        List<Category> categoryList = new ArrayList();
+        categoryList.add(0, new Category(Long.parseLong(str)));
+        auction.setCategoryList(categoryList);
+        
+        // Creamos el objeto y lo insertamos en la base de datos
+        auctionFacade.create(auction);
+        
+        // Una vez creado e insertado el objeto, nos volvemos a la página de inicio
+        response.sendRedirect("IndexServlet");
         
     }
 
