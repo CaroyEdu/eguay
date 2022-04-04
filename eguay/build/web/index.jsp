@@ -63,7 +63,15 @@
                     <p class="price">$<%= a.getStartprice() %></p>
                     <% if(a.getClosedate()!=null)
                     { %>
-                    <p class="description" id="cd_<%= closeDate %>">Null</p>
+                    <p class="description" id="cd_<%= closeDate %>"></p>
+                    <% } %>
+                    <% if(a.getClosenumberofbids()!=null)
+                    { %>
+                    <p class="description">¡Sólo quedan <%= a.getClosenumberofbids() %> pujas disponibles!</p>
+                    <% } %>
+                    <% if(a.getCloseprice()!=null)
+                    { %>
+                    <p class="description" >¡Puja <%= a.getCloseprice() %>$ y te lo llevas!</p>
                     <% } %>
                     <p><button>Pujar</button></p>
                 </div>
@@ -83,7 +91,6 @@
             <%
                 }
             %>
-            
         <script>
             function TimeRemaining(){
                 var els = document.querySelectorAll('[id^="cd_"]');
