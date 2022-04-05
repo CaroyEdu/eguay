@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author jean-
+ * @author parsa
  */
 @Entity
 @Table(name = "bid")
