@@ -27,7 +27,7 @@
     <body>
         <h1>¡Busca un producto!</h1>
         <div class="container">
-            <form>
+            <form method="POST" action="IndexServlet">
                 <input type="text" name="searchbar" id="searchbar"/>
                 <input type="submit" value="Buscar" id="submitbutton"/>
             </form>

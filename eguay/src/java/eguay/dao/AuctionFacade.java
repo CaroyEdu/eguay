@@ -6,9 +6,11 @@
 package eguay.dao;
 
 import eguay.entity.Auction;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,14 @@ public class AuctionFacade extends AbstractFacade<Auction> {
 
     public AuctionFacade() {
         super(Auction.class);
+    }
+    
+    public List<Auction> findByTitle(String title)
+    {
+        Query q;
+        q = this.em.createQuery("SELECT c FROM Auction c WHERE c.title like :title");
+        q.setParameter("title", '%' + title + '%');
+        return q.getResultList();
     }
     
 }
