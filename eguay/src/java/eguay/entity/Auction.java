@@ -55,7 +55,7 @@ public class Auction implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "startdate")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date startdate;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "maxbid")
@@ -74,7 +74,7 @@ public class Auction implements Serializable {
     @Column(name = "closeprice")
     private Float closeprice;
     @Column(name = "closedate")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date closedate;
     @Column(name = "closenumberofbids")
     private Integer closenumberofbids;

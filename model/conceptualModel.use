@@ -1,0 +1,168 @@
+model eguay
+
+enum Sex {male, female, other}
+
+class User
+attributes
+    username : String
+    password : String
+end 
+
+class Person 
+attributes
+    name : String 
+    surname : String 
+    sex : Sex
+    birthYear : Integer
+    country : String 
+    city : String
+    address : String
+end 
+
+class Rol 
+end
+
+class Buyer < Rol, Addressee
+end 
+
+class Seller < Rol 
+end 
+
+class Comercial < Rol 
+end 
+
+class Admin < Rol 
+end 
+
+class Product 
+attributes
+    title : String 
+    description : String 
+    fotoURL : String 
+end 
+
+class Category
+attributes
+    name : String
+end 
+
+class Auction
+attributes
+    startDate : Integer
+    startPrice : Integer
+    maxBid : Integer
+end 
+
+class Mail
+attributes
+    subject : Integer
+    body : Integer
+end 
+
+class Addressee
+operations
+    receive(mail : Mail)
+end 
+
+class Mailbox
+end
+
+class Group < Addressee
+end 
+
+class AuctionCloseStrategy
+operations
+    close() : Boolean
+end 
+
+class DateClose < AuctionCloseStrategy
+end 
+
+class NumberOfBidsClose < AuctionCloseStrategy
+end 
+
+class PriceClose < AuctionCloseStrategy
+end 
+
+-- Assiciations
+
+association Roles
+between
+    User [*]
+    Rol [*]
+end 
+
+association UserData
+between
+    User [1]
+    Person [0..1]
+end 
+
+composition SellerAuction
+between
+    Seller [1]
+    Auction [*] role auctions
+end 
+
+association AuctionProduct
+between
+    Auction [0..1]
+    Product [1]
+end
+
+association CloseStrategy
+between
+    Auction [1]
+    AuctionCloseStrategy [0..1] role closeStrategy
+end
+
+association ProductCategory
+between
+    Category [*] role categories
+    Product [*] role products
+end 
+
+associationclass Bid 
+between
+    Auction [*] role auctions  
+    Buyer [*] role buyers 
+attributes
+    bid : Integer
+    date : Integer
+end 
+
+association FavoriteProduct
+between
+    Auction [*] role favourites
+    Buyer [*] role favouriteBuyers
+end 
+
+association Sent 
+between 
+    Comercial [1]
+    Mail [*] role mails
+end 
+
+association MailAddressee
+between
+    Mail [*] role mails
+    Addressee [*] role addressees
+end 
+
+composition BuyerMailbox
+between
+    Buyer [1]
+    Mailbox [0..1]
+end 
+
+aggregation Mails
+between 
+    Mailbox [*] role mailboxes
+    Mail [*] role mails
+end
+
+aggregation GroupMembers
+between
+    Group [*] role groups 
+    Addressee [*] role members
+end

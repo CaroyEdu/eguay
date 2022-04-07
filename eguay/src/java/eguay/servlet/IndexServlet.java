@@ -38,7 +38,17 @@ public class IndexServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        List<Auction> auctionList = this.auctionFacade.findAll();
+        String filter = (String) request.getParameter("searchbar");
+        List<Auction> auctionList = null;
+        
+        if(filter == null || filter.isEmpty())
+        {
+            auctionList = this.auctionFacade.findAll();
+        }
+        else
+        {
+            auctionList = this.auctionFacade.findByTitle(filter);
+        }
         
         request.setAttribute("auctionList", auctionList);
         

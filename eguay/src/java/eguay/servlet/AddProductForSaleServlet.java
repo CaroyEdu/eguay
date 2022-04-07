@@ -56,6 +56,7 @@ public class AddProductForSaleServlet extends HttpServlet {
         
         Auction auction = new Auction();
         String str;
+        String check;
         
         // Definimos el usuario, título, descrición, URL de la foto y precio inicial
         Users user = (Users) session.getAttribute("user");
@@ -68,6 +69,40 @@ public class AddProductForSaleServlet extends HttpServlet {
         auction.setFotourl(str);
         Float startPrice = Float.parseFloat(request.getParameter("startprice"));
         auction.setStartprice(startPrice);
+        check = (String) request.getParameter("checkBoxClosePrice");
+        str = (String) request.getParameter("inputClosePrice");
+        if(check != null && check.equals("on"))
+        {
+            if(!str.equals(""))
+            {
+                auction.setCloseprice(Float.parseFloat(str));
+            }
+        }
+        
+        check = (String) request.getParameter("checkBoxCloseNumberOfBids");
+        str = (String) request.getParameter("inputCloseNumberOfBids");
+        if(check != null && check.equals("on"))
+        {
+            if(!str.equals(""))
+            {
+                auction.setClosenumberofbids(Integer.parseInt(str));
+            }
+        }
+        
+        check = (String) request.getParameter("checkBoxCloseDate");
+        str = (String) request.getParameter("inputCloseDate");
+        String time = (String) request.getParameter("inputCloseDateTime");
+        if(check != null && check.equals("on"))
+        {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            String dateInString = str + " " + time + ":00";
+            try {
+                Date date = sdf.parse(dateInString);
+                auction.setClosedate(date);
+            } catch (ParseException ex) {
+                Logger.getLogger(AddProductForSaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
         // Conseguimos la fecha de hoy en formato yyyy/MM/dd
         Calendar now = new GregorianCalendar();
