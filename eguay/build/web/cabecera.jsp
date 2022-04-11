@@ -39,6 +39,7 @@
                     {   
                     %>
                     <li><a href="LoginServlet">Login</a></li>
+                    <li><a href="AddUserServlet">Registrar</a></li>
                     <%
                       }
                     %>
