@@ -60,11 +60,19 @@ public class SignupServlet extends HttpServlet {
         String city = (String)request.getParameter("city");
         user.setCity(city);
         
+        String email = (String)request.getParameter("email");
+        user.setEmail(email);
+        
+        String country = (String)request.getParameter("country");
+        user.setCountry(country);
         
         String password = (String)request.getParameter("password");
         user.setPassword(password);
         
-       
+        Date birthday = new Date(); 
+        user.setBirthyear(birthday);
+        
+        
         user.setSex(0);
         
         // Creamos el objeto y lo insertamos en la base de datos

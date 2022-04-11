@@ -40,37 +40,46 @@
 							<form method="POST" action="SignupServlet" class="signin-form" >
 			      		<div class="form-group mb-3">
 			      			<label class="label" for="name">Usuario</label>
-			      			<input name="username" type="text" class="form-control" placeholder="username" required>
+			      			<input name="username" type="text" class="form-control" placeholder="usuario" required>
                                                 
 			      		</div>
+                                        <div class="form-group mb-3">
+			      			<label class="label" for="name">Email</label>
+			      			<input name="Email" type="text" class="form-control" placeholder="email" required>
+
+			      		</div>                        
                             <div class="form-group mb-3">
 			      			<label class="label" for="name">Nombre</label>
-			      			<input name="name" type="text" class="form-control" placeholder="username" required>
+			      			<input name="name" type="text" class="form-control" placeholder="nombre" required>
 
 			      		</div>
                             <div class="form-group mb-3">
 			      			<label class="label" for="name">Apellido</label>
-			      			<input name="surname" type="text" class="form-control" placeholder="username" required>
+			      			<input name="surname" type="text" class="form-control" placeholder="apellido" required>
 			      		</div>
                                                             
                             <div class="form-group mb-3">
 			      			<label class="label" for="name">Domicilio</label>
-			      			<input name="address" type="text" class="form-control" placeholder="username" required>  
+			      			<input name="address" type="text" class="form-control" placeholder="domicilio" >  
+			      		</div>
+                                                            
+                            <div class="form-group mb-3">
+			      			<label class="label" for="name">Pais</label>
+			      			<input name="country" type="text" class="form-control" placeholder="pais" >  
 			      		</div>
                                                             
                             <div class="form-group mb-3">
 			      			<label class="label" for="name">Ciudad</label>
-			      			<input name="city" type="text" class="form-control" placeholder="username" required>  
+			      			<input name="city" type="text" class="form-control" placeholder="ciudad" >  
 			      		</div>   
                             <div class="form-group mb-3">
 			      			<label class="label" for="name">Fecha de nacimiento</label>
-			      			<input name="birthday" type="date" class="form-control" placeholder="username" required>  
+			      			<input name="birthday" type="date" class="form-control" required>  
 			      		</div> 
                         <div class="input-group">
                             <label class="label">sexo</label>
                             <div class="rs-select2 js-select-simple select--no-search">
                                 <select name="sex">
-                                    <option  selected="selected">Sexo</option>
                                     <option>Hombre</option>
                                     <option>Mujer</option>
                                     <option>No especificar</option>

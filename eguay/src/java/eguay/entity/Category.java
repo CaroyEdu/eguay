@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -42,6 +44,11 @@ public class Category implements Serializable {
     @NotNull
     @Column(name = "categoryid")
     private Long categoryid;
+    @JoinTable(name = "userscategory", joinColumns = {
+        @JoinColumn(name = "categoryid", referencedColumnName = "categoryid")}, inverseJoinColumns = {
+        @JoinColumn(name = "userid", referencedColumnName = "userid")})
+    @ManyToMany
+    private List<Users> usersList;
     @ManyToMany(mappedBy = "categoryList")
     private List<Auction> auctionList;
 
@@ -66,6 +73,15 @@ public class Category implements Serializable {
 
     public void setCategoryid(Long categoryid) {
         this.categoryid = categoryid;
+    }
+
+    @XmlTransient
+    public List<Users> getUsersList() {
+        return usersList;
+    }
+
+    public void setUsersList(List<Users> usersList) {
+        this.usersList = usersList;
     }
 
     @XmlTransient

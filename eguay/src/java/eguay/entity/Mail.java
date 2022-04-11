@@ -6,6 +6,7 @@
 package eguay.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,7 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Mail.findAll", query = "SELECT m FROM Mail m")
     , @NamedQuery(name = "Mail.findBySubject", query = "SELECT m FROM Mail m WHERE m.subject = :subject")
     , @NamedQuery(name = "Mail.findByBody", query = "SELECT m FROM Mail m WHERE m.body = :body")
-    , @NamedQuery(name = "Mail.findByMailid", query = "SELECT m FROM Mail m WHERE m.mailid = :mailid")})
+    , @NamedQuery(name = "Mail.findByMailid", query = "SELECT m FROM Mail m WHERE m.mailid = :mailid")
+    , @NamedQuery(name = "Mail.findBySentDate", query = "SELECT m FROM Mail m WHERE m.sentDate = :sentDate")})
 public class Mail implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,6 +53,9 @@ public class Mail implements Serializable {
     @NotNull
     @Column(name = "mailid")
     private Long mailid;
+    @Column(name = "sentDate")
+    @Temporal(TemporalType.DATE)
+    private Date sentDate;
     @ManyToMany(mappedBy = "mailList")
     private List<Groups> groupsList;
     @JoinTable(name = "usersmail", joinColumns = {
@@ -94,6 +101,14 @@ public class Mail implements Serializable {
 
     public void setMailid(Long mailid) {
         this.mailid = mailid;
+    }
+
+    public Date getSentDate() {
+        return sentDate;
+    }
+
+    public void setSentDate(Date sentDate) {
+        this.sentDate = sentDate;
     }
 
     @XmlTransient

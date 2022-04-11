@@ -2,6 +2,7 @@ package eguay.entity;
 
 import eguay.entity.Auction;
 import eguay.entity.Bid;
+import eguay.entity.Category;
 import eguay.entity.Groups;
 import eguay.entity.Mail;
 import eguay.entity.Rol;
@@ -11,7 +12,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2022-04-11T10:49:11")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2022-04-11T12:07:26")
 @StaticMetamodel(Users.class)
 public class Users_ { 
 
@@ -32,6 +33,7 @@ public class Users_ {
     public static volatile ListAttribute<Users, Auction> auctionList1;
     public static volatile SingularAttribute<Users, String> surname;
     public static volatile SingularAttribute<Users, String> name;
+    public static volatile ListAttribute<Users, Category> categoryList;
     public static volatile SingularAttribute<Users, String> email;
     public static volatile SingularAttribute<Users, String> username;
 

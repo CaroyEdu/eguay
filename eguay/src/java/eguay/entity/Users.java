@@ -102,6 +102,8 @@ public class Users implements Serializable {
     @ManyToMany(mappedBy = "usersList")
     private List<Groups> groupsList;
     @ManyToMany(mappedBy = "usersList")
+    private List<Category> categoryList;
+    @ManyToMany(mappedBy = "usersList")
     private List<Auction> auctionList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderid")
     private List<Mail> mailList1;
@@ -246,6 +248,15 @@ public class Users implements Serializable {
 
     public void setGroupsList(List<Groups> groupsList) {
         this.groupsList = groupsList;
+    }
+
+    @XmlTransient
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
     }
 
     @XmlTransient
