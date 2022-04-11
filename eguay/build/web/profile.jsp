@@ -17,6 +17,10 @@
     <jsp:include page="cabecera.jsp"/>
     
     <body>
-        <h1>Hello World!</h1>
+        <h1>Perfil</h1>
+        <form>
+      <input type="button" onclick="window.location.href='AddFavCategoryServlet';" value="Añadir Categorias Favorias" />
+    </form>
+</div>
     </body>
 </html>

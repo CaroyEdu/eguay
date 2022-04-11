@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author parsa
  */
-@WebServlet(name = "AddUserServlet", urlPatterns = {"/AddUserServlet"})
-public class AddUserServlet extends HttpServlet {
+@WebServlet(name = "CheckProfileServlet", urlPatterns = {"/CheckProfileServlet"})
+public class CheckProfileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,8 +31,8 @@ public class AddUserServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");
-         request.getRequestDispatcher("signup.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        request.getRequestDispatcher("profile.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

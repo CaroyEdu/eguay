@@ -44,8 +44,8 @@
                                                 
 			      		</div>
                                         <div class="form-group mb-3">
-			      			<label class="label" for="name">Email</label>
-			      			<input name="Email" type="text" class="form-control" placeholder="email" required>
+			      			<label class="label" for="name">email</label>
+			      			<input name="email" type="text" class="form-control" placeholder="email" required>
 
 			      		</div>                        
                             <div class="form-group mb-3">

@@ -15,14 +15,14 @@
     
       
                 
-<form action="/index.html">                
+<form method="POST" action="RegisterFavCategory">                
  <%
       List<Category> categories = (List) request.getAttribute("categoryFavList");
       for(Category category : categories){
       %>
       
-  <input type="checkbox" id="<%= category.getCategoryid()%>" name="<%= category.getName()%>" value="<%= category.getName() %>">
-  <label for="<%= category.getCategoryid() %>"> <%= category.getName() %> </label><br>
+  <input type="checkbox" id="<%= category.getCategoryid().toString()%>" name="<%= category.getCategoryid().toString()%>" value="<%= category.getName() %>">
+  <label for="<%= category.getCategoryid().toString() %>"> <%= category.getName() %> </label><br>
   
   <% } %>
   <input type="submit" value="Submit">

@@ -32,7 +32,7 @@
                         {
                     %>
                     <li><a href="AddProductServlet">Añadir Subasta</a></li>
-                    <li><a href="">Mi Perfil</a>
+                    <li><a href="CheckProfileServlet">Mi Perfil</a>
                     <li><a href="DisconnectServlet">Desconexión</a></li>
                     <%
                       } else

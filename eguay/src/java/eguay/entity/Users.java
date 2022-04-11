@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -91,10 +93,10 @@ public class Users implements Serializable {
     @Column(name = "address")
     private String address;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "userid")
-    private Long userid;
+    private Integer userid;
     @ManyToMany(mappedBy = "usersList")
     private List<Rol> rolList;
     @ManyToMany(mappedBy = "usersList")
@@ -115,11 +117,11 @@ public class Users implements Serializable {
     public Users() {
     }
 
-    public Users(Long userid) {
+    public Users(Integer userid) {
         this.userid = userid;
     }
 
-    public Users(Long userid, String username, String password, String email, Date birthyear) {
+    public Users(Integer userid, String username, String password, String email, Date birthyear) {
         this.userid = userid;
         this.username = username;
         this.password = password;
@@ -215,11 +217,11 @@ public class Users implements Serializable {
         this.address = address;
     }
 
-    public Long getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
+    public void setUserid(Integer userid) {
         this.userid = userid;
     }
 
