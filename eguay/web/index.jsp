@@ -58,7 +58,7 @@
                     <% }else { %>
                     <img src="img/placeholder.png" style="width:100%">
                     <% } %>
-                    <h4><%= a.getTitle() %></h4>
+                    <h4><a href="ProductServlet?id=<%= a.getAuctionid() %>"><%= a.getTitle() %></a></h4>
                     <p class="description"><%= a.getDescription() %></p>
                     <p class="price">$<%= a.getStartprice() %></p>
                     <% if(a.getClosedate()!=null)
