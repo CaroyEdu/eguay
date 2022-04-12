@@ -44,26 +44,24 @@ public class RegisterFavCategory extends HttpServlet {
         //str = (String)request.getParameter("category");
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
-        
-        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-        List<Category> categoryFavList = new ArrayList();
+        List<Category> categoryFavList = user.getCategoryList(); 
+        if(categoryFavList == null) categoryFavList = new ArrayList() ; 
         List<Category> categoryList = categoryFacade.findAll();
         for(Category category : categoryList ){
             String check = (String)request.getParameter(category.getCategoryid().toString()); 
             if(check != null )
             {
-               categoryFavList.add(category);
-               category.getUsersList().add(user);
-               categoryFacade.edit(category);
+                if(!categoryFavList.contains(category)){  
+                    categoryFavList.add(category);
+                    category.getUsersList().add(user);
+                    categoryFacade.edit(category);
+                }
              }
         }
         response.sendRedirect("AddFavCategoryServlet");
-       
-    }
         }
         
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

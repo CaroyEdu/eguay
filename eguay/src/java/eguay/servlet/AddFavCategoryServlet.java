@@ -38,9 +38,9 @@ public class AddFavCategoryServlet extends HttpServlet {
             
         response.setContentType("text/html;charset=UTF-8");
         
-        List<Category> categoryFavList = categoryFacade.findAll();
+        List<Category> categoryAllList = categoryFacade.findAll();
         
-        request.setAttribute("categoryFavList", categoryFavList);
+        request.setAttribute("categoryAllList", categoryAllList);
         
         request.getRequestDispatcher("favcategory.jsp").forward(request, response);
     }
