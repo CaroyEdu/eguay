@@ -55,34 +55,10 @@ public class RegisterFavCategory extends HttpServlet {
             {
                categoryFavList.add(category);
                category.getUsersList().add(user);
+               categoryFacade.edit(category);
              }
         }
-        user.setCategoryList(categoryFavList);
-        
-        
-        
-         out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-      
-            out.println("<h1>Servlet NewServlet at " + user.getUsername()+ "</h1>");
-            
-        for(Category category : user.getCategoryList() ){
-            
-            out.println("<h1>Your Fav Categories " + category.getName()+ "</h1>");
-             
-        }
-        
-        
-        
-       // categoryList.add(0, new Category(Long.parseLong(str)));
-       // auction.setCategoryList(categoryList);
-            out.println("</body>");
-            out.println("</html>");
-            
+        response.sendRedirect("AddFavCategoryServlet");
        
     }
         }
