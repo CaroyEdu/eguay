@@ -60,6 +60,7 @@ public class RegisterFavCategory extends HttpServlet {
         user.setCategoryList(categoryFavList);
         
         
+        
          out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -71,15 +72,17 @@ public class RegisterFavCategory extends HttpServlet {
             
         for(Category category : user.getCategoryList() ){
             
-            out.println("<h1>Servlet NewServlet at " + "kskks"+ "</h1>");
+            out.println("<h1>Your Fav Categories " + category.getName()+ "</h1>");
              
         }
+        
         
         
        // categoryList.add(0, new Category(Long.parseLong(str)));
        // auction.setCategoryList(categoryList);
             out.println("</body>");
             out.println("</html>");
+            
        
     }
         }

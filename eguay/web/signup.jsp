@@ -92,8 +92,8 @@
 		              <input name="password" type="password" class="form-control" placeholder="password" required>
 		            </div>
                             <div class="form-group mb-3">
-		            	<label class="label" for="password">Repetir Contraseña</label>
-		              <input name="password" type="password" class="form-control" placeholder="password" required>
+		            	<label class="label" for="rpassword">Repetir Contraseña</label>
+		              <input name="rpassword" type="password" class="form-control" placeholder="password" required>
 		            </div>                                 
 		          <input type="submit" value="Añadir"/>
 		          </form>

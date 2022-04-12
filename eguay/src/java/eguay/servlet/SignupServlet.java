@@ -67,13 +67,25 @@ public class SignupServlet extends HttpServlet {
         user.setCountry(country);
         
         String password = (String)request.getParameter("password");
+        String repeatedPassword = (String)request.getParameter("rpassword");
+        if(password !=  repeatedPassword) response.sendRedirect("AddUserServlet");
         user.setPassword(password);
         
-        Date birthday = new Date(); 
-        user.setBirthyear(birthday);
+         
+        String birthday = (String) request.getParameter("birthday");
+        try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = sdf.parse(birthday);
+                user.setBirthyear(date);
+            } catch (ParseException ex) {
+                Logger.getLogger(AddProductForSaleServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         
+        String sex = (String)request.getParameter("sex");
+        if(sex=="Hombre")user.setSex(1); 
+        else if (sex=="Mujer")user.setSex(2);
+        else user.setSex(0);
         
-        user.setSex(0);
         
         // Creamos el objeto y lo insertamos en la base de datos
         usersFacade.create(user);
