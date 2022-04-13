@@ -2,83 +2,76 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
-body{
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-}
-
 .container{
-    max-width: 1350px;
-    margin: auto;
-    padding-left: 25px;
-    padding-right: 25px;
-}
-
-.table-container{
-    max-width: 1350px;
-    margin: auto;
-    padding-left: 25px;
-    padding-right: 25px;
-    padding-top: 25px;
-}
-
-table{
-    padding-top: 25px;
-    width: 100%;
-}
-
-th{
-    height: 50px;
-}
-
-.navbar{
+    position: relative;
+    margin: 10px 50px 10px 50px;
     display: flex;
     align-items: center;
     padding: 20px;
 }
-
 .searchbar{
-    display: grid;
-    justify-content: center;
+    position: absolute;
+}
+.logo{
+    position: absolute;
+}
+.nav{
+    position: absolute;
+    right: 2%;
+}
+li{
+    display: inline-block;
+    margin-right: 20px;
+}
+li a{
+    text-decoration: none;
+    color: black;
 }
 
 #searchbar{
-    height:50px;
-    width: 50%;
-    margin-top: 25px;
-    font-size: 14px;
+    width: 200%;
+    padding: 4px;
+    border: 1px solid black;
 }
-
-#submitbutton{
-    background-color: burlywood;
-    padding: 17px;
-    color: white;
-    border: none;
-    text-align: center;
-    text-decoration: none;
+hr{
+    border-top: 1px solid black;
+    border-bottom: 0;
+    margin: 0 50px 0 50px;
 }
-
-#submitbutton:hover{
-    background-color: #333;
-    transition: all 0.8s;
+.wrapper {
+    position: relative;
+    display: flex;
+    min-width: 100px;
+    margin: 10px 50px 10px 50px;
+    padding: 0px;
 }
-
-nav{
-    flex: 1;
-    text-align: right;
+.search-icon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 14px;
 }
-
-nav ul{
-    display: inline-block;
-    list-style-type: none;
+.clear-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 10px;
+    cursor: pointer;
+    visibility: hidden;
 }
-
-nav ul li{
-    display: inline-block;
-    margin-right: 20px;
-    margin-left: 10px;
+.search {
+    border: 1px solid grey;
+    height: 20px;
+    width: 100%;
+    padding: 20px 20px 20px 40px;
+    outline: 0;
+    background-color: white;
+}
+.search:hover, .search:focus {
+    border: 1px solid #009688;
+    background-color: white;
 }
 
 a{

@@ -22,17 +22,9 @@
         List<Auction> auctionList = (List) request.getAttribute("auctionList");
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
     %>
-    <jsp:include page="cabecera.jsp"/>
     
-    <body>
-        <h1>¡Busca un producto!</h1>
-        <div class="container">
-            <form method="POST" action="IndexServlet">
-                <input type="text" name="searchbar" id="searchbar"/>
-                <input type="submit" value="Buscar" id="submitbutton"/>
-            </form>
-        </div>
-            
+    <body>   
+        <jsp:include page="cabecera.jsp"/>
         <div class="title">
             <p>¡Últimos productos!</p>
         </div>
