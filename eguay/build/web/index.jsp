@@ -13,6 +13,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <jsp:include page="cabecera.jsp"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EGUAY - Inicio</title>
@@ -24,11 +25,10 @@
     %>
     
     <body>   
-        <jsp:include page="cabecera.jsp"/>
         <div class="title">
             <p>¡Últimos productos!</p>
         </div>
-            <%
+                    <%
                 int cantidad = 0;
                 for(Auction a : auctionList)
                 {

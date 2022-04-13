@@ -16,6 +16,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>eguay - Añadir Producto</title>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="css/styleaddproduct.css"/>
     </head>
     
     <%
@@ -24,12 +25,15 @@
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         %>
         <jsp:include page="userConnectedCheck.jsp"/>
+        <jsp:include page="cabecera.jsp"/>
     
     <body>
-        <h1>Página para añadir un producto en venta!</h1>
         
-        <h3>Información del producto</h3>
-        <div>
+        <div class="flex-container">
+            <h1>Introduce información sobre tu producto:</h1>
+        </div>
+        
+        <div class="flex-container">
             <form name="addForm" method="POST" action="AddProductForSaleServlet">
                 Título:<input type="text" name="title" value="" required/><br/>
                 Descripción:<input type="text" name="description" value=""/><br/>
