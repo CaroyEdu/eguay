@@ -57,9 +57,15 @@ public class RegisterFavCategory extends HttpServlet {
                     category.getUsersList().add(user);
                     categoryFacade.edit(category);
                 }
-             }
+             }else{
+                if(categoryFavList.contains(category)){
+                    categoryFavList.remove(category);
+                    category.getUsersList().remove(user);
+                    categoryFacade.edit(category);
+                }
+            }
         }
-        response.sendRedirect("AddFavCategoryServlet");
+        response.sendRedirect("IndexServlet");
         }
         
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
