@@ -11,6 +11,8 @@ import eguay.entity.Auction;
 import eguay.entity.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,11 +44,19 @@ public class FinalizeDirectPurchase extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
      
-        Auction auction = (Auction)request.getAttribute("auction");
+        Long id = Long.parseLong((String)request.getParameter("id"));
+        Auction auction = auctionFacade.find(id);
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
         
+        List<Users> clientList = new ArrayList();
+        clientList.add(0, user);
+        auction.setUsersList1(clientList);
+        auction.setActive(Boolean.FALSE);
         
+        auctionFacade.edit(auction);
+        
+        response.sendRedirect("successful.html");
         
     }
 

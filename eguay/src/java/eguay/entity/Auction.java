@@ -48,7 +48,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Auction.findByClosedate", query = "SELECT a FROM Auction a WHERE a.closedate = :closedate")
     , @NamedQuery(name = "Auction.findByClosenumberofbids", query = "SELECT a FROM Auction a WHERE a.closenumberofbids = :closenumberofbids")
     , @NamedQuery(name = "Auction.findByStartprice", query = "SELECT a FROM Auction a WHERE a.startprice = :startprice")
-    , @NamedQuery(name = "Auction.findByAuctionid", query = "SELECT a FROM Auction a WHERE a.auctionid = :auctionid")})
+    , @NamedQuery(name = "Auction.findByAuctionid", query = "SELECT a FROM Auction a WHERE a.auctionid = :auctionid")
+    , @NamedQuery(name = "Auction.findByActive", query = "SELECT a FROM Auction a WHERE a.active = :active")})
 public class Auction implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -85,6 +86,8 @@ public class Auction implements Serializable {
     @Basic(optional = false)
     @Column(name = "auctionid")
     private Long auctionid;
+    @Column(name = "active")
+    private Boolean active;
     @JoinTable(name = "favoriteauction", joinColumns = {
         @JoinColumn(name = "auctionid", referencedColumnName = "auctionid")}, inverseJoinColumns = {
         @JoinColumn(name = "userid", referencedColumnName = "userid")})
@@ -199,6 +202,14 @@ public class Auction implements Serializable {
 
     public void setAuctionid(Long auctionid) {
         this.auctionid = auctionid;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     @XmlTransient
