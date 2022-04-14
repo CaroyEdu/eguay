@@ -5,8 +5,10 @@
  */
 package eguay.entity;
 
+import eguay.dao.UsersFacade;
 import java.io.Serializable;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -120,5 +122,14 @@ public class Groups implements Serializable {
     public String toString() {
         return "eguay.entity.Groups[ groupid=" + groupid + " ]";
     }
+      
+    // Auxiliary functions
     
+    public void add(Users user){
+        this.usersList.add(user);
+    }
+     
+    public void addAll(List<Users> users){
+        this.usersList.addAll(users);
+    }
 }

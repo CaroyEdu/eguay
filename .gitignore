@@ -3,6 +3,7 @@ eguay/src/java/eguay/entity/*
 eguay/src/conf/persistence.xml
 eguay/setup/glassfish-resources.xml
 eguay/build
+eguay/web/WEB-INF/glassfish-web.xml 
 
 # Net Beans
 

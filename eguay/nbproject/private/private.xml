@@ -3,15 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/parsa/OneDrive/My%20Documents/Taw/GithubEGUAY/eguay/eguay/web/index.jsp</file>
-            <file>file:/C:/Users/parsa/OneDrive/My%20Documents/Taw/GithubEGUAY/eguay/eguay/src/java/eguay/servlet/AddProductForSaleServlet.java</file>
-            <file>file:/C:/Users/parsa/OneDrive/My%20Documents/Taw/GithubEGUAY/eguay/eguay/src/java/eguay/servlet/RegisterFavCategory.java</file>
-            <file>file:/C:/Users/parsa/OneDrive/My%20Documents/Taw/GithubEGUAY/eguay/eguay/nbproject/build-impl.xml</file>
-            <file>file:/C:/Users/parsa/OneDrive/My%20Documents/Taw/GithubEGUAY/eguay/eguay/src/java/eguay/servlet/SignupServlet.java</file>
-            <file>file:/C:/Users/parsa/OneDrive/My%20Documents/Taw/GithubEGUAY/eguay/eguay/web/signup.jsp</file>
-            <file>file:/C:/Users/parsa/OneDrive/My%20Documents/Taw/GithubEGUAY/eguay/eguay/src/java/eguay/servlet/DirectPurchaseServlet.java</file>
-            <file>file:/C:/Users/parsa/OneDrive/My%20Documents/Taw/GithubEGUAY/eguay/eguay/src/java/eguay/servlet/FinalizeDirectPurchase.java</file>
-            <file>file:/C:/Users/parsa/OneDrive/My%20Documents/Taw/GithubEGUAY/eguay/eguay/src/java/eguay/servlet/IndexServlet.java</file>
+            <file>file:/home/pedro/projects/eguay/eguay/src/java/eguay/servlet/AddFavCategoryServlet.java</file>
+            <file>file:/home/pedro/projects/eguay/eguay/src/java/eguay/dao/MailFacade.java</file>
+            <file>file:/home/pedro/projects/eguay/eguay/src/java/eguay/servlet/RegisterFavCategory.java</file>
+            <file>file:/home/pedro/projects/eguay/eguay/src/java/eguay/entity/Mail.java</file>
+            <file>file:/home/pedro/projects/eguay/eguay/src/java/eguay/entity/Users.java</file>
+            <file>file:/home/pedro/projects/eguay/eguay/src/java/eguay/dao/UsersFacade.java</file>
+            <file>file:/home/pedro/projects/eguay/eguay/src/java/eguay/dao/RolFacade.java</file>
+            <file>file:/home/pedro/projects/eguay/eguay/web/favcategory.jsp</file>
+            <file>file:/home/pedro/projects/eguay/eguay/src/java/eguay/entity/Groups.java</file>
+            <file>file:/home/pedro/projects/eguay/eguay/src/java/eguay/dao/AbstractFacade.java</file>
         </group>
     </open-files>
 </project-private>
