@@ -108,6 +108,7 @@ public class AddProductForSaleServlet extends HttpServlet {
         Calendar now = new GregorianCalendar();
         Date nowDate = now.getTime();
         auction.setStartdate(nowDate);
+        auction.setActive(true);
         
         // Añadimos las diferentes categorías como una lista
         str = (String)request.getParameter("category");

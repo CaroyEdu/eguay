@@ -32,6 +32,7 @@
                 int cantidad = 0;
                 for(Auction a : auctionList)
                 {
+                    if(a.getActive()){
                     if(cantidad == 0)
                     {
             %>
@@ -81,7 +82,7 @@
             %>
             </div>
             <%
-                }
+                }}
             %>
         <script>
             function TimeRemaining(){
