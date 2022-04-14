@@ -27,5 +27,7 @@
         <br>
         <h1>Con el address <%= user.getAddress() %></h1>
         <br>
+        <button onclick="window.location.href='FinalizeDirectPurchase?id=<%= auction.getAuctionid() %>';">
+         Finalizar el pago </button>
     </body>
 </html>

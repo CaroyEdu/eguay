@@ -5,29 +5,29 @@
  */
 package eguay.servlet;
 
+import eguay.dao.AuctionFacade;
 import eguay.dao.UsersFacade;
+import eguay.entity.Auction;
+import eguay.entity.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
-import eguay.entity.Users;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author parsa
  */
-@WebServlet(name = "SignupServlet", urlPatterns = {"/SignupServlet"})
-public class SignupServlet extends HttpServlet {
+@WebServlet(name = "FinalizeDirectPurchase", urlPatterns = {"/FinalizeDirectPurchase"})
+public class FinalizeDirectPurchase extends HttpServlet {
 
+    @EJB AuctionFacade auctionFacade;
+    @EJB UsersFacade usersFacede;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,62 +37,18 @@ public class SignupServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @EJB UsersFacade usersFacade;
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        Users user = new Users(); 
-        
-        String username = (String)request.getParameter("username");
-        user.setUsername(username);
-        
-        String name = (String)request.getParameter("name");
-        user.setName(name);
-        
-        String surname = (String)request.getParameter("surname");
-        user.setName(surname);
-        
-        String address = (String)request.getParameter("address");
-        user.setAddress(address);
-        
-        String city = (String)request.getParameter("city");
-        user.setCity(city);
-        
-        String email = (String)request.getParameter("email");
-        user.setEmail(email);
-        
-        String country = (String)request.getParameter("country");
-        user.setCountry(country);
-        
-        String password = (String)request.getParameter("password");
-        user.setPassword(password);
-        
-         
-        String birthday = (String) request.getParameter("birthday");
-        try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = sdf.parse(birthday);
-                user.setBirthyear(date);
-            } catch (ParseException ex) {
-                Logger.getLogger(AddProductForSaleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
-        String sex = (String)request.getParameter("sex");
-        if(sex=="Hombre")user.setSex(1); 
-        else if (sex=="Mujer")user.setSex(2);
-        else user.setSex(0);
+     
+        Auction auction = (Auction)request.getAttribute("auction");
+        HttpSession session = request.getSession();
+        Users user = (Users) session.getAttribute("user");
         
         
-        // Creamos el objeto y lo insertamos en la base de datos
-        usersFacade.create(user);
         
-        // Una vez creado e insertado el objeto, nos volvemos a la página de inicio
-        response.sendRedirect("IndexServlet");
-        
-        }
-    
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
