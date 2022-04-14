@@ -43,7 +43,10 @@
         { %>
         <p class="description" >¡Puja <%= auction.getCloseprice() %>$ y te lo llevas!</p>
         <% } %>
+        <button onclick="window.location.href='DirectPurchaseServlet?id=<%= auction.getAuctionid() %>';">
+         Puja Directa</button>
         <button>Pujar</button>
+        
         
     <script>
             function TimeRemaining(){

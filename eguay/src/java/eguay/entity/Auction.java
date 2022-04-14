@@ -90,6 +90,11 @@ public class Auction implements Serializable {
         @JoinColumn(name = "userid", referencedColumnName = "userid")})
     @ManyToMany
     private List<Users> usersList;
+    @JoinTable(name = "purchasedauction", joinColumns = {
+        @JoinColumn(name = "auctionid", referencedColumnName = "auctionid")}, inverseJoinColumns = {
+        @JoinColumn(name = "userid", referencedColumnName = "userid")})
+    @ManyToMany
+    private List<Users> usersList1;
     @JoinTable(name = "auctioncategory", joinColumns = {
         @JoinColumn(name = "auctionid", referencedColumnName = "auctionid")}, inverseJoinColumns = {
         @JoinColumn(name = "categoryid", referencedColumnName = "categoryid")})
@@ -203,6 +208,15 @@ public class Auction implements Serializable {
 
     public void setUsersList(List<Users> usersList) {
         this.usersList = usersList;
+    }
+
+    @XmlTransient
+    public List<Users> getUsersList1() {
+        return usersList1;
+    }
+
+    public void setUsersList1(List<Users> usersList1) {
+        this.usersList1 = usersList1;
     }
 
     @XmlTransient

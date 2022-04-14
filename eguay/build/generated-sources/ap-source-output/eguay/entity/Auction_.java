@@ -10,11 +10,12 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2022-04-13T16:34:56")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2022-04-14T12:46:27")
 @StaticMetamodel(Auction.class)
 public class Auction_ { 
 
     public static volatile ListAttribute<Auction, Users> usersList;
+    public static volatile ListAttribute<Auction, Users> usersList1;
     public static volatile SingularAttribute<Auction, Date> closedate;
     public static volatile SingularAttribute<Auction, String> description;
     public static volatile ListAttribute<Auction, Mail> mailList;

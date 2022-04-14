@@ -107,12 +107,14 @@ public class Users implements Serializable {
     private List<Category> categoryList;
     @ManyToMany(mappedBy = "usersList")
     private List<Auction> auctionList;
+    @ManyToMany(mappedBy = "usersList1")
+    private List<Auction> auctionList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderid")
     private List<Mail> mailList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "biderid")
     private List<Bid> bidList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sellerid")
-    private List<Auction> auctionList1;
+    private List<Auction> auctionList2;
 
     public Users() {
     }
@@ -271,6 +273,15 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
+    public List<Auction> getAuctionList1() {
+        return auctionList1;
+    }
+
+    public void setAuctionList1(List<Auction> auctionList1) {
+        this.auctionList1 = auctionList1;
+    }
+
+    @XmlTransient
     public List<Mail> getMailList1() {
         return mailList1;
     }
@@ -289,12 +300,12 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
-    public List<Auction> getAuctionList1() {
-        return auctionList1;
+    public List<Auction> getAuctionList2() {
+        return auctionList2;
     }
 
-    public void setAuctionList1(List<Auction> auctionList1) {
-        this.auctionList1 = auctionList1;
+    public void setAuctionList2(List<Auction> auctionList2) {
+        this.auctionList2 = auctionList2;
     }
 
     @Override
