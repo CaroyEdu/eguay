@@ -19,7 +19,8 @@
     <body>
         <h1>Perfil</h1>
         <form>
-      <input type="button" onclick="window.location.href='AddFavCategoryServlet';" value="Añadir Categorias Favorias" />
+      <input type="button" onclick="window.location.href='AddFavCategoryServlet';" value="Editar Categorias Favorias" />
+      <input type="button" onclick="window.location.href='AddFavAuctionServlet';" value="Editar Pujas Favorias" />
     </form>
 </div>
     </body>

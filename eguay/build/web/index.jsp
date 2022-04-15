@@ -19,9 +19,31 @@
         <title>EGUAY - Inicio</title>
     </head>
     
+    <style>
+        .star {
+    visibility:hidden;
+    font-size:30px;
+    cursor:pointer;
+    pointer-events:none;  /*to make the star button uneditable*/
+}
+.star:before {
+   content: "\2605";
+   position: absolute;
+   visibility:visible;
+}
+.star:checked:before {
+   content: "\2606";
+   position: absolute;
+}
+
+
+</style>
+
     <% 
         List<Auction> auctionList = (List) request.getAttribute("auctionList");
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
+        Users user = (Users) session.getAttribute("user");
+        List<Auction> auctionFavList = null;
     %>
     
     <body>   
@@ -30,6 +52,8 @@
         </div>
                     <%
                 int cantidad = 0;
+                if(user!=null){
+                auctionFavList = user.getAuctionList();  }
                 for(Auction a : auctionList)
                 {
                     if(a.getActive()){
@@ -67,6 +91,14 @@
                     <p class="description" >¡Puja <%= a.getCloseprice() %>$ y te lo llevas!</p>
                     <% } %>
                     <p><button>Pujar</button></p>
+                    
+                    <% if (user!=null) {
+                        if(auctionFavList!= null && auctionFavList.contains(a)){
+                    %>    
+                    <input class="star" type="checkbox" title="bookmark page" name="<%=a.getAuctionid()%>"><br/><br/>
+                    <% } else{ %>
+                    <input class="star" type="checkbox" title="bookmark page" checked="unchecked" name="<%=a.getAuctionid()%>"><br/><br/>
+                    <% }} %>
                 </div>
             <%
                 cantidad++;
