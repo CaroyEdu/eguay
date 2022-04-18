@@ -21,6 +21,7 @@
         <form>
       <input type="button" onclick="window.location.href='AddFavCategoryServlet';" value="Editar Categorias Favorias" />
       <input type="button" onclick="window.location.href='AddFavAuctionServlet';" value="Editar Pujas Favorias" />
+      <input type="button" onclick="window.location.href='CheckPurchasedAuctionsServlet';" value="Pujas Compradas" /> 
     </form>
 </div>
     </body>
