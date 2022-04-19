@@ -5,11 +5,9 @@
 package eguay.servlet;
 
 import eguay.dao.GroupsFacade;
-import eguay.entity.Groups;
-import eguay.servlet.utils.ServletUtils;
+import eguay.dao.UsersFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,10 +19,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedro
  */
-@WebServlet(name = "RemoveGroups", urlPatterns = {"/RemoveGroups"})
-public class RemoveGroups extends HttpServlet {
-    
-    @EJB GroupsFacade groupsFacade;
+@WebServlet(name = "ShowSelectedGroup", urlPatterns = {"/ShowSelectedGroup"})
+public class ShowSelectedGroup extends HttpServlet {
+
+    @EJB UsersFacade usersFacade;
+    @EJB GroupsFacade  groupsFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,8 +38,10 @@ public class RemoveGroups extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        removeSelectedGroups(request);
-        response.sendRedirect("ShowGroupList");
+        long groupId = Long.valueOf(request.getParameter("id"));
+        request.setAttribute("group", groupsFacade.find(groupId));
+        request.setAttribute("users", usersFacade.findAll());
+        request.getRequestDispatcher("group.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -81,18 +82,5 @@ public class RemoveGroups extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void removeSelectedGroups(HttpServletRequest request) {
-        List<Long> groupsIds;
-        List<Groups> selectedGroups;
-        ServletUtils<Groups> servletUtils = new ServletUtils<>();
-        
-        groupsIds = servletUtils.getIdsFromCheckedLong(request);
-        selectedGroups = servletUtils.getObjectsFromIdsLong(groupsIds, this.groupsFacade);
-        
-        for(Groups group : selectedGroups){
-            this.groupsFacade.remove(group);
-        }
-    }
 
 }

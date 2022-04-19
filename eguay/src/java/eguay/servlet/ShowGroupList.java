@@ -33,8 +33,9 @@ public class ShowGroupList extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        loadGroups(request);
         response.setContentType("text/html;charset=UTF-8");
+        
+        loadGroups(request);
         request.getRequestDispatcher("groupList.jsp").forward(request, response);
     }
     

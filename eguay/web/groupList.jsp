@@ -12,7 +12,7 @@
     <jsp:include page="cabecera.jsp"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Lista de Grupos</title>
     </head>
     <body>
         <h1>Lista de Grupos</h1>
@@ -28,14 +28,15 @@
                 %>
                 <tr>
                     <td><a href="ShowSelectedGroup?id=<%=group.getGroupid()%>"><%=group.getName()%></a></td>
-                    <td><input type="checkbox" name="groupCheck" value="<%=group.getGroupid()%>"/></td>
+                    <td><input type="checkbox" name="check" value="<%=group.getGroupid()%>"/></td>
                 </tr>
                 <%
                     }
                 %>
             </table>
             <button type="submit" formaction="RemoveGroups">Eliminar Seleccionados</button>
-                <button type="submit" formaction="NewGroupFromSelectedGroups">Nuevo Grupo con los grupos seleccionados</button>
+            <button type="submit" formaction="NewGroupFromSelectedGroups">Nuevo Grupo con los grupos seleccionados</button>
+            <button type="submit" formaction="CreateNewGroup">Crear nuevo grupo</button>
         </form>
     </body>
 </html>
