@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 28-mar-2022, 10:54:36
-    Author     : jean-
---%>
-
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -19,17 +13,88 @@
         <title>EGUAY - Inicio</title>
     </head>
     
+
     <% 
         List<Auction> auctionList = (List) request.getAttribute("auctionList");
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
+        Users user = (Users) session.getAttribute("user");
     %>
-    
+    <style>
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>
     <body>   
         <div class="title">
             <p>¡Últimos productos!</p>
         </div>
+        <form method="POST" action="RegisterFavAuction">
                     <%
                 int cantidad = 0;
+                List<Auction> auctionFavList = user.getAuctionList(); 
                 for(Auction a : auctionList)
                 {
                     if(a.getActive()){
@@ -66,7 +131,14 @@
                     { %>
                     <p class="description" >¡Puja <%= a.getCloseprice() %>$ y te lo llevas!</p>
                     <% } %>
-                    <p><button>Pujar</button></p>
+                    <% if((auctionFavList != null) && (auctionFavList.contains(a))) { %>
+                    <input type="checkbox" id="<%= a.getAuctionid().toString()%>" name="<%= a.getAuctionid().toString()%>" value="<%= a.getTitle()%>" checked=checked>
+                    <label for="<%= a.getAuctionid().toString() %>"> 😍 </label><br>
+                    
+                    <% }else{ %>
+                    <input type="checkbox" id="<%= a.getAuctionid().toString()%>" name="<%= a.getAuctionid().toString()%>" value="<%= a.getTitle()%>" >
+                    <label for="<%= a.getAuctionid().toString() %>"> 😍 </label><br>
+                    <% } %>
                 </div>
             <%
                 cantidad++;
@@ -82,8 +154,13 @@
             %>
             </div>
             <%
-                }}
-            %>
+                } %>
+  
+
+<%}%>
+              <input type="submit" value="Submit">
+    </form>
+                
         <script>
             function TimeRemaining(){
                 var els = document.querySelectorAll('[id^="cd_"]');
