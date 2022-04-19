@@ -1,11 +1,10 @@
 <%-- 
-    Document   : index
-    Created on : 28-mar-2022, 10:54:36
-    Author     : jean-
+    Document   : purchasedauction
+    Created on : Apr 17, 2022, 10:53:57 AM
+    Author     : parsa
 --%>
 
 <%@page import="java.util.Locale"%>
-<%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="eguay.entity.Users"%>
 <%@page import="java.util.List"%>
@@ -13,13 +12,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <jsp:include page="cabecera.jsp"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>EGUAY - Inicio</title>
+        <title>JSP Page</title>
     </head>
-    
-    <style>
+        <style>
         .star {
     visibility:hidden;
     font-size:30px;
@@ -38,25 +35,31 @@
 
 
 </style>
+    <%    
+           Users user = (Users) session.getAttribute("user"); 
+    
+           List<Auction> purchasedAuctionList = null ; 
+           
+           List<Auction> auctionFavList = null;
 
-    <% 
-        List<Auction> auctionList = (List) request.getAttribute("auctionList");
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
-        Users user = (Users) session.getAttribute("user");
-        List<Auction> auctionFavList = null;
+           SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
+           
     %>
     
     <body>   
         <div class="title">
-            <p>¡Últimos productos!</p>
+            <p>Pujas compradas</p>
         </div>
+        <form method="POST" action="EditPurchasedAuctions"> 
                     <%
                 int cantidad = 0;
                 if(user!=null){
-                auctionFavList = user.getAuctionList();  }
-                for(Auction a : auctionList)
+                purchasedAuctionList = user.getAuctionList1(); 
+                auctionFavList = user.getAuctionList(); 
+                }
+                if(purchasedAuctionList != null){
+                for(Auction a : purchasedAuctionList)
                 {
-                    if(a.getActive()){
                     if(cantidad == 0)
                     {
             %>
@@ -71,9 +74,9 @@
                 <div class="card">
                     <% if(!a.getFotourl().equals("") )
                     { %>
-                    <img src="<%= a.getFotourl() %>" style="width:100%">
+                    <img src="<%= a.getFotourl() %>" style="width:10%">
                     <% }else { %>
-                    <img src="img/placeholder.png" style="width:100%">
+                    <img src="img/placeholder.png" style="width:10%">
                     <% } %>
                     <h4><a href="ProductServlet?id=<%= a.getAuctionid() %>"><%= a.getTitle() %></a></h4>
                     <p class="description"><%= a.getDescription() %></p>
@@ -86,36 +89,25 @@
                     { %>
                     <p class="description">¡Sólo quedan <%= a.getClosenumberofbids() %> pujas disponibles!</p>
                     <% } %>
-                    <% if(a.getCloseprice()!=null)
-                    { %>
-                    <p class="description" >¡Puja <%= a.getCloseprice() %>$ y te lo llevas!</p>
-                    <% } %>
-                    <p><button>Pujar</button></p>
                     
                     <% if (user!=null) {
                         if(auctionFavList!= null && auctionFavList.contains(a)){
                     %>    
-                    <input class="star" type="checkbox" title="bookmark page" name="<%=a.getAuctionid()%>"><br/><br/>
+                    <input class="star" type="checkbox" title="bookmark page" name="<%=a.getAuctionid() +"Fav"%>"><br/><br/>
                     <% } else{ %>
-                    <input class="star" type="checkbox" title="bookmark page" checked="unchecked" name="<%=a.getAuctionid()%>"><br/><br/>
+                    <input class="star" type="checkbox" title="bookmark page" checked="unchecked" name="<%=a.getAuctionid() + "Fav" %>"><br/><br/>
                     <% }} %>
+                    <br>
+                    <br>
+                    <input type="checkbox" id="<%= a.getAuctionid().toString()%>" name="<%= a.getAuctionid().toString()%>" value="<%= "Borrar " + a.getTitle() %>" >
+                    <label for="<%= a.getAuctionid().toString() %>"> <%= "Borrar " + a.getTitle() %> </label><br><br>
                 </div>
-            <%
-                cantidad++;
-                    if(cantidad == 6)
-                    {
-            %>
+            
             </div>
-            <%
-                    cantidad = 0;
-                    }
-                }
-                if(cantidad > 0){
-            %>
-            </div>
-            <%
-                }}
-            %>
+            
+                <%}%> 
+                <input type="submit" value="Borrar">
+                <%}%>
         <script>
             function TimeRemaining(){
                 var els = document.querySelectorAll('[id^="cd_"]');
