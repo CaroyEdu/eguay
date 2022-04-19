@@ -18,18 +18,44 @@ import javax.servlet.http.HttpServletRequest;
 public class ServletUtils<T>{
     public ServletUtils(){}
     
-    public static List<Long> getIdsFromChecked(HttpServletRequest request) {
+    public void loadListToRequest(HttpServletRequest request, AbstractFacade facade, String label){
+        request.setAttribute(label, facade.findAll());
+    }
+    
+    public static List<Long> getIdsFromCheckedLong(HttpServletRequest request) {        
+        return integerListToLong(getIdsFromChecked(request));
+    }
+    
+    public static List<Integer> getIdsFromChecked(HttpServletRequest request) {
         String checked = request.getParameter("check");
-        List<Long> ids = new LinkedList<>();
+        List<Integer> ids = null;
         
-        for(String id : checked.split(",")){
-            ids.add(Long.valueOf(id));
+        if(checked != null){
+            ids = new LinkedList<>();
+        
+            for(String id : checked.split(",")){
+                ids.add(Integer.valueOf(id));
+            }
         }
         
         return ids;
     }
 
-    public List<T> getObjectsFromIds(List<Long> ids, AbstractFacade facade) {
+    public List<T> getObjectsFromIds(List<Integer> ids, AbstractFacade facade) {
+        List<T> objects = null;
+        
+        if(ids != null && !ids.isEmpty()){
+            objects = new LinkedList<>();
+        
+            for(Integer id : ids){
+                objects.add((T) facade.find(id));
+            }
+        }
+        
+        return objects;
+    }
+    
+    public List<T> getObjectsFromIdsLong(List<Long> ids, AbstractFacade facade) {
         List<T> objects = new LinkedList<>();
         
         for(Long id : ids){
@@ -37,5 +63,9 @@ public class ServletUtils<T>{
         }
         
         return objects;
+    }
+    
+    private static List<Long> integerListToLong(List<Integer> integers){
+        return integers.stream().map(Long::new).collect(Collectors.toUnmodifiableList());
     }
 }

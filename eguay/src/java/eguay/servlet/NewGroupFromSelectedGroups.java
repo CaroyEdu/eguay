@@ -51,13 +51,15 @@ public class NewGroupFromSelectedGroups extends HttpServlet {
         Groups newGroup = new Groups();
         ServletUtils<Groups> servletUtils = new ServletUtils<>();
         
-        groupsIds = servletUtils.getIdsFromChecked(request);
-        selectedGroups = servletUtils.getObjectsFromIds(groupsIds, this.groupsFacade);
+        groupsIds = servletUtils.getIdsFromCheckedLong(request);
+        selectedGroups = servletUtils.getObjectsFromIdsLong(groupsIds, this.groupsFacade);
         newGroup.addAllGroups(selectedGroups);
         
         if(!newGroup.getUsersList().isEmpty())
             groupsFacade.create(newGroup);
-    }    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    }    
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

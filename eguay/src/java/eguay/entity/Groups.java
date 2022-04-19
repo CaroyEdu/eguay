@@ -149,4 +149,8 @@ public class Groups implements Serializable {
             }
         }
     }
+    
+    public boolean contains(Users user){
+        return this.usersList.contains(user);
+    }
 }
