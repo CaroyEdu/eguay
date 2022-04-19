@@ -1,14 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package eguay.servlet;
 
-import eguay.dao.CategoryFacade;
-import eguay.entity.Category;
+import eguay.dao.GroupsFacade;
+import eguay.entity.Groups;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -19,12 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author jean-
+ * @author pedro
  */
-@WebServlet(name = "AddProductServlet", urlPatterns = {"/AddProductServlet"})
-public class AddProductServlet extends HttpServlet {
+@WebServlet(name = "NewGroupFromSelectedGroups", urlPatterns = {"/NewGroupFromSelectedGroups"})
+public class NewGroupFromSelectedGroups extends HttpServlet {
     
-    @EJB CategoryFacade categoryFacade;
+    @EJB GroupsFacade groupsFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,9 +37,44 @@ public class AddProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");        
-        request.getRequestDispatcher("addProductForSale.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
         
+        createNewGroupFromSelected(request);
+        response.sendRedirect("ShowGroupList");
+    }
+    
+    private void createNewGroupFromSelected(HttpServletRequest request) {
+        List<Long> groupsIds;
+        List<Groups> selectedGroups;
+        Groups newGroup = new Groups();
+        
+        groupsIds = getIdsFromCheckedGroups(request);
+        selectedGroups = getGroupsFromIds(groupsIds);
+        newGroup.addAllGroups(selectedGroups);
+        
+        if(!newGroup.getUsersList().isEmpty())
+            groupsFacade.create(newGroup);
+    }
+
+    private List<Long> getIdsFromCheckedGroups(HttpServletRequest request) {
+        String checkedGroupsIds = request.getParameter("groupCheck");
+        List<Long> groupIds = new LinkedList<>();
+        
+        for(String id : checkedGroupsIds.split(",")){
+            groupIds.add(Long.valueOf(id));
+        }
+        
+        return groupIds;
+    }
+
+    private List<Groups> getGroupsFromIds(List<Long> groupsIds) {
+        List<Groups> groups = new LinkedList<>();
+        
+        for(Long groupId : groupsIds){
+            groups.add(groupsFacade.find(groupId));
+        }
+        
+        return groups;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
