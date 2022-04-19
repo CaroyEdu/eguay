@@ -4,8 +4,13 @@
  */
 package eguay.servlet;
 
+import eguay.dao.GroupsFacade;
+import eguay.entity.Groups;
+import eguay.servlet.utils.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "RemoveGroups", urlPatterns = {"/RemoveGroups"})
 public class RemoveGroups extends HttpServlet {
+    
+    @EJB GroupsFacade groupsFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,18 +38,9 @@ public class RemoveGroups extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RemoveGroups</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RemoveGroups at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
+        removeSelectedGroups(request);
+        response.sendRedirect("ShowGroupList");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -83,5 +81,18 @@ public class RemoveGroups extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void removeSelectedGroups(HttpServletRequest request) {
+        List<Long> groupsIds;
+        List<Groups> selectedGroups;
+        ServletUtils<Groups> servletUtils = new ServletUtils<>();
+        
+        groupsIds = servletUtils.getIdsFromChecked(request);
+        selectedGroups = servletUtils.getObjectsFromIds(groupsIds, this.groupsFacade);
+        
+        for(Groups group : selectedGroups){
+            this.groupsFacade.remove(group);
+        }
+    }
 
 }

@@ -6,10 +6,12 @@ package eguay.servlet;
 
 import eguay.dao.GroupsFacade;
 import eguay.entity.Groups;
+import eguay.servlet.utils.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,37 +49,15 @@ public class NewGroupFromSelectedGroups extends HttpServlet {
         List<Long> groupsIds;
         List<Groups> selectedGroups;
         Groups newGroup = new Groups();
+        ServletUtils<Groups> servletUtils = new ServletUtils<>();
         
-        groupsIds = getIdsFromCheckedGroups(request);
-        selectedGroups = getGroupsFromIds(groupsIds);
+        groupsIds = servletUtils.getIdsFromChecked(request);
+        selectedGroups = servletUtils.getObjectsFromIds(groupsIds, this.groupsFacade);
         newGroup.addAllGroups(selectedGroups);
         
         if(!newGroup.getUsersList().isEmpty())
             groupsFacade.create(newGroup);
-    }
-
-    private List<Long> getIdsFromCheckedGroups(HttpServletRequest request) {
-        String checkedGroupsIds = request.getParameter("groupCheck");
-        List<Long> groupIds = new LinkedList<>();
-        
-        for(String id : checkedGroupsIds.split(",")){
-            groupIds.add(Long.valueOf(id));
-        }
-        
-        return groupIds;
-    }
-
-    private List<Groups> getGroupsFromIds(List<Long> groupsIds) {
-        List<Groups> groups = new LinkedList<>();
-        
-        for(Long groupId : groupsIds){
-            groups.add(groupsFacade.find(groupId));
-        }
-        
-        return groups;
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    }    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -115,5 +95,4 @@ public class NewGroupFromSelectedGroups extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

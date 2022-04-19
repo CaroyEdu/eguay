@@ -28,7 +28,7 @@
                 %>
                 <tr>
                     <td><a href="ShowSelectedGroup?id=<%=group.getGroupid()%>"><%=group.getName()%></a></td>
-                    <td><input type="checkbox" name="groupCheck" value="<%=group.getGroupid()%>"/></td>
+                    <td><input type="checkbox" name="check" value="<%=group.getGroupid()%>"/></td>
                 </tr>
                 <%
                     }
