@@ -4,9 +4,8 @@
  */
 package eguay.servlet;
 
-import eguay.dao.GroupsFacade;
 import java.io.IOException;
-import javax.ejb.EJB;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,10 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedro
  */
-@WebServlet(name = "showGroupList", urlPatterns = {"/ShowGroupList"})
-public class ShowGroupList extends HttpServlet {
-    
-    @EJB GroupsFacade groupsFacade;
+@WebServlet(name = "RemoveGroups", urlPatterns = {"/RemoveGroups"})
+public class RemoveGroups extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,13 +30,19 @@ public class ShowGroupList extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        loadGroups(request);
         response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("groupList.jsp").forward(request, response);
-    }
-    
-    public void loadGroups(HttpServletRequest request){
-        request.setAttribute("groupList", groupsFacade.findAll());
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RemoveGroups</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet RemoveGroups at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

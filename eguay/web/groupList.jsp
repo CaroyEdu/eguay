@@ -4,6 +4,8 @@
     Author     : pedro
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="eguay.entity.Groups"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,5 +16,26 @@
     </head>
     <body>
         <h1>Lista de Grupos</h1>
+
+        <form>
+            <table>
+                <tr>
+                    <th>Nombre del Grupo</th>
+                    <th>Seleccionados</th>
+                </tr>
+                <%
+                    for (Groups group : (List<Groups>) request.getAttribute("groupList")) {
+                %>
+                <tr>
+                    <td><a href="ShowSelectedGroup?id=<%=group.getGroupid()%>"><%=group.getName()%></a></td>
+                    <td><input type="checkbox" name="groupCheck" value="<%=group.getGroupid()%>"/></td>
+                </tr>
+                <%
+                    }
+                %>
+            </table>
+            <button type="submit" formaction="RemoveGroups">Eliminar Seleccionados</button>
+                <button type="submit" formaction="NewGroupFromSelectedGroups">Nuevo Grupo con los grupos seleccionados</button>
+        </form>
     </body>
 </html>

@@ -5,7 +5,11 @@
 package eguay.servlet;
 
 import eguay.dao.GroupsFacade;
+import eguay.entity.Groups;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.LinkedList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedro
  */
-@WebServlet(name = "showGroupList", urlPatterns = {"/ShowGroupList"})
-public class ShowGroupList extends HttpServlet {
+@WebServlet(name = "NewGroupFromSelectedGroups", urlPatterns = {"/NewGroupFromSelectedGroups"})
+public class NewGroupFromSelectedGroups extends HttpServlet {
     
     @EJB GroupsFacade groupsFacade;
 
@@ -33,13 +37,44 @@ public class ShowGroupList extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        loadGroups(request);
         response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("groupList.jsp").forward(request, response);
+        
+        createNewGroupFromSelected(request);
+        response.sendRedirect("ShowGroupList");
     }
     
-    public void loadGroups(HttpServletRequest request){
-        request.setAttribute("groupList", groupsFacade.findAll());
+    private void createNewGroupFromSelected(HttpServletRequest request) {
+        List<Long> groupsIds;
+        List<Groups> selectedGroups;
+        Groups newGroup = new Groups();
+        
+        groupsIds = getIdsFromCheckedGroups(request);
+        selectedGroups = getGroupsFromIds(groupsIds);
+        newGroup.addAllGroups(selectedGroups);
+        
+        if(!newGroup.getUsersList().isEmpty())
+            groupsFacade.create(newGroup);
+    }
+
+    private List<Long> getIdsFromCheckedGroups(HttpServletRequest request) {
+        String checkedGroupsIds = request.getParameter("groupCheck");
+        List<Long> groupIds = new LinkedList<>();
+        
+        for(String id : checkedGroupsIds.split(",")){
+            groupIds.add(Long.valueOf(id));
+        }
+        
+        return groupIds;
+    }
+
+    private List<Groups> getGroupsFromIds(List<Long> groupsIds) {
+        List<Groups> groups = new LinkedList<>();
+        
+        for(Long groupId : groupsIds){
+            groups.add(groupsFacade.find(groupId));
+        }
+        
+        return groups;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
