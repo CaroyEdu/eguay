@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <%
         Users user = (Users) session.getAttribute("user");
-        List<Category> categoryList = (List) request.getAttribute("categoryList");
+        List<Category> categoryList = (List) request.getSession().getAttribute("categoryList");
     %>
     <html>
     <head>
@@ -33,6 +33,7 @@
                     <li><a href="AddProductServlet">Añadir Subasta</a></li>
                     <li><a href="CheckProfileServlet">Mi Perfil</a>
                     <li><a href="DisconnectServlet">Desconexión</a></li>
+                    <li><a href="ShowGroupList">Lista de Grupos</a></li>
                     <%
                       } else
                     {   

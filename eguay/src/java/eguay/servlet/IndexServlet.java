@@ -54,8 +54,11 @@ public class IndexServlet extends HttpServlet {
             auctionList = this.auctionFacade.findByTitle(filter);
         }
         
-        request.setAttribute("auctionList", auctionList);
         request.setAttribute("categoryList", categoryList);
+        request.setAttribute("auctionList", auctionList);
+        
+        request.getSession().setAttribute("categoryList", categoryList);
+        //request.getSession().setAttribute("auctionList", auctionList);
         
         request.getRequestDispatcher("index.jsp").forward(request, response);
         
