@@ -20,7 +20,7 @@
     </head>
     
     <%
-        List<Category> categoryList = (List) request.getAttribute("categoryList");
+        List<Category> categoryList = (List) request.getSession().getAttribute("categoryList");
         Calendar now = new GregorianCalendar();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         %>
