@@ -6,7 +6,11 @@
 package eguay.dao;
 
 import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
 
 /**
  *
@@ -23,7 +27,17 @@ public abstract class AbstractFacade<T> {
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
-        getEntityManager().persist(entity);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        javax.validation.Validator validator = factory.getValidator();
+        Set<ConstraintViolation<T>> constraintViolations = validator.validate(entity);
+        if (!constraintViolations.isEmpty()) {
+            System.out.println("Constraint Violations occurred..");
+            for (ConstraintViolation<T> contraints : constraintViolations) {
+                System.out.println(contraints.getRootBeanClass().getSimpleName()
+                        + "." + contraints.getPropertyPath() + " " + contraints.getMessage());
+            }
+            getEntityManager().persist(entity);
+        }
     }
 
     public void edit(T entity) {
@@ -60,5 +74,5 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
+
 }

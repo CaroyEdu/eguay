@@ -333,4 +333,9 @@ public class Users implements Serializable {
         return "eguay.entity.Users[ userid=" + userid + " ]";
     }
     
+    // Auxiliary functions  
+
+    public boolean interestedIn(Category category) {
+        return this.categoryList.contains(category);
+    }
 }

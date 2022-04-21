@@ -28,5 +28,4 @@ public class MailFacade extends AbstractFacade<Mail> {
     public MailFacade() {
         super(Mail.class);
     }
-    
 }

@@ -1,12 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package eguay.servlet;
 
-import eguay.dao.CategoryFacade;
-import eguay.entity.Category;
+import eguay.dao.GroupsFacade;
+import eguay.entity.Groups;
+import eguay.servlet.utils.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -19,12 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author jean-
+ * @author pedro
  */
-@WebServlet(name = "AddProductServlet", urlPatterns = {"/AddProductServlet"})
-public class AddProductServlet extends HttpServlet {
+@WebServlet(name = "RemoveGroups", urlPatterns = {"/RemoveGroups"})
+public class RemoveGroups extends HttpServlet {
     
-    @EJB CategoryFacade categoryFacade;
+    @EJB GroupsFacade groupsFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,9 +37,10 @@ public class AddProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");        
-        request.getRequestDispatcher("addProductForSale.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
         
+        removeSelectedGroups(request);
+        response.sendRedirect("ShowGroupList");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -80,5 +81,18 @@ public class AddProductServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void removeSelectedGroups(HttpServletRequest request) {
+        List<Long> groupsIds;
+        List<Groups> selectedGroups;
+        ServletUtils<Groups> servletUtils = new ServletUtils<>();
+        
+        groupsIds = servletUtils.getIdsFromCheckedLong(request);
+        selectedGroups = servletUtils.getObjectsFromIdsLong(groupsIds, this.groupsFacade);
+        
+        for(Groups group : selectedGroups){
+            this.groupsFacade.remove(group);
+        }
+    }
 
 }
