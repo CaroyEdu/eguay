@@ -66,7 +66,8 @@ public class NewGroupFromSelectedUsers extends HttpServlet {
         groupsFacade.create(newGroup);
         
         if(newGroup.getGroupid() != null){
-            request.setAttribute("id", newGroup.getGroupid());
+            request.setAttribute("users", usersFacade.findAll());
+            request.setAttribute("group", newGroup);
             request.getRequestDispatcher("group.jsp").forward(request, response);
         }else{
             response.sendRedirect("ShowGroupList");
