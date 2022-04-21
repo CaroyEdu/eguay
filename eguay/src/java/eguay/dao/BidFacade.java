@@ -5,10 +5,13 @@
  */
 package eguay.dao;
 
+import eguay.entity.Auction;
 import eguay.entity.Bid;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +32,12 @@ public class BidFacade extends AbstractFacade<Bid> {
         super(Bid.class);
     }
     
+     public List<Bid> highestBid(Auction auction)
+    {
+        Query q;
+        q = this.em.createQuery("SELECT bi FROM Bid bi where bi.bid = ( SELECT MAX(bii.bid) from Bid bii WHERE bii.auctionid = :id)");
+        q.setParameter("id",auction );
+        List<Bid> results = (List<Bid>) q.getResultList();
+        return results; 
+    }
 }

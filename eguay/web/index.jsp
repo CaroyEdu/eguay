@@ -56,7 +56,7 @@
                 auctionFavList = user.getAuctionList();  }
                 for(Auction a : auctionList)
                 {
-                    if(a.getActive()){
+                    if(a.getActive()){ 
                     if(cantidad == 0)
                     {
             %>
