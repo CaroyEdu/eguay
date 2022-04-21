@@ -41,7 +41,17 @@ public abstract class AbstractFacade<T> {
     }
 
     public void edit(T entity) {
-        getEntityManager().merge(entity);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        javax.validation.Validator validator = factory.getValidator();
+        Set<ConstraintViolation<T>> constraintViolations = validator.validate(entity);
+        if (!constraintViolations.isEmpty()) {
+            System.out.println("Constraint Violations occurred..");
+            for (ConstraintViolation<T> contraints : constraintViolations) {
+                System.out.println(contraints.getRootBeanClass().getSimpleName()
+                        + "." + contraints.getPropertyPath() + " " + contraints.getMessage());
+            }
+            getEntityManager().merge(entity);
+        }
     }
 
     public void remove(T entity) {

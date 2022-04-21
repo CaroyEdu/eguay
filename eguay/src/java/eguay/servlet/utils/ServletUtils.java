@@ -23,17 +23,26 @@ public class ServletUtils<T>{
     }
     
     public static List<Long> getIdsFromCheckedLong(HttpServletRequest request) {        
-        return integerListToLong(getIdsFromChecked(request));
+        String[] checkedList = request.getParameterValues("check");
+        List<Long> ids = null;
+        
+        if(checkedList != null){
+            ids = new LinkedList<>();
+            for(String id : checkedList){
+                ids.add(Long.valueOf(id));
+            }
+        }
+        
+        return ids;
     }
     
     public static List<Integer> getIdsFromChecked(HttpServletRequest request) {
-        String checked = request.getParameter("check");
+        String[] checkedList = request.getParameterValues("check");
         List<Integer> ids = null;
         
-        if(checked != null){
+        if(checkedList != null){
             ids = new LinkedList<>();
-        
-            for(String id : checked.split(",")){
+            for(String id : checkedList){
                 ids.add(Integer.valueOf(id));
             }
         }
@@ -63,9 +72,5 @@ public class ServletUtils<T>{
         }
         
         return objects;
-    }
-    
-    private static List<Long> integerListToLong(List<Integer> integers){
-        return integers.stream().map(Long::new).collect(Collectors.toUnmodifiableList());
     }
 }

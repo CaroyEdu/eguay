@@ -56,11 +56,12 @@ public class NewGroupFromSelectedUsers extends HttpServlet {
         usersIds = ServletUtils.getIdsFromChecked(request);
         users = servletUtils.getObjectsFromIds(usersIds, usersFacade);
         
-        Random random = new Random();
-        newGroup.setGroupid(random.nextLong());
         newGroup.setName(name);
-        //newGroup.setUsersList(users);
-        
+        newGroup.setUsersList(users);
+        for(Users user : users){
+            user.addToGroup(newGroup);
+            usersFacade.edit(user);
+        }
         
         groupsFacade.create(newGroup);
         
