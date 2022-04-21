@@ -69,7 +69,7 @@ public class NewGroupFromSelectedUsers extends HttpServlet {
             request.setAttribute("id", newGroup.getGroupid());
             request.getRequestDispatcher("group.jsp").forward(request, response);
         }else{
-            request.getRequestDispatcher("groupList.jsp").forward(request, response);
+            response.sendRedirect("ShowGroupList");
         }
     }
 

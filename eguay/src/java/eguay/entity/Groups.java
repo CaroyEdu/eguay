@@ -5,14 +5,14 @@
  */
 package eguay.entity;
 
-import eguay.dao.UsersFacade;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -20,7 +20,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -40,8 +39,8 @@ public class Groups implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "groupid")
     private Long groupid;
     @Size(max = 2147483647)
@@ -123,7 +122,7 @@ public class Groups implements Serializable {
     public String toString() {
         return "eguay.entity.Groups[ groupid=" + groupid + " ]";
     }
-      
+    
     // Auxiliary functions
     
     public void add(Users user){
