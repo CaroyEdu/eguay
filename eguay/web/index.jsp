@@ -44,25 +44,27 @@
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
         Users user = (Users) session.getAttribute("user");
         List<Auction> auctionFavList = null;
+        if(user!=null){
+            auctionFavList = user.getAuctionList();
+        }
     %>
     
     <body>   
         <div class="title">
             <p>¡Últimos productos!</p>
         </div>
-                    <%
+                <%
                 int cantidad = 0;
-                if(user!=null){
-                auctionFavList = user.getAuctionList();  }
+                
                 for(Auction a : auctionList)
                 {
                     if(a.getActive()){ 
-                    if(cantidad == 0)
-                    {
-            %>
+                        if(cantidad == 0)
+                        {
+                %>
             <div class="flex-container">
                 <%
-                    }
+                        }
                     String closeDate = "";
                     if(a.getClosedate() != null){ 
                         closeDate = sdf.format(a.getClosedate());
@@ -109,12 +111,12 @@
             <%
                     cantidad = 0;
                     }
-                }
+                }}
                 if(cantidad > 0){
             %>
             </div>
             <%
-                }}
+                }
             %>
         <script>
             function TimeRemaining(){
