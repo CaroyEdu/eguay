@@ -73,9 +73,9 @@
                 <div class="card">
                     <% if(!a.getFotourl().equals("") )
                     { %>
-                    <img src="<%= a.getFotourl() %>" style="width:100%">
+                    <img src="<%= a.getFotourl() %>" style="width:100%; height: 50%">
                     <% }else { %>
-                    <img src="img/placeholder.png" style="width:100%">
+                    <img src="img/placeholder.png" style="width:100%; height: 50%">
                     <% } %>
                     <h4><a href="ProductServlet?id=<%= a.getAuctionid() %>"><%= a.getTitle() %></a></h4>
                     <p class="description"><%= a.getDescription() %></p>
