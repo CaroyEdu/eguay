@@ -19,7 +19,7 @@
     <jsp:include page="cabecera.jsp"/>
     <%
         Users user = (Users) session.getAttribute("user");
-        List<Auction> userAuctions = user.getAuctionList();
+        List<Auction> userAuctions = user.getAuctionList2();
     %>
     
     <body>
@@ -44,8 +44,8 @@
                             <tr>
                             <td><%= a.getTitle() %></td>
                             <td><%= a.getActive() %></td>
-                            <td><a href="">X</a></td>
-                            <td><a href="">X</a></td>
+                            <td><a href="">Editar</a></td>
+                            <td><a href="DeleteAuctionServlet?id=<%= a.getAuctionid() %>">Borrar</a></td>
                             </tr>
                             <%
                         }
