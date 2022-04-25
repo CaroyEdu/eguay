@@ -5,7 +5,9 @@
  */
 package eguay.servlet;
 
+import eguay.dao.AuctionFacade;
 import eguay.dao.CategoryFacade;
+import eguay.entity.Auction;
 import eguay.entity.Category;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AddProductServlet extends HttpServlet {
     
     @EJB CategoryFacade categoryFacade;
+    @EJB AuctionFacade auctionFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,6 +41,15 @@ public class AddProductServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");        
+        
+        String idParameter = (String) request.getParameter("id");
+        if(idParameter!=null)
+        {
+            Long id = Long.parseLong((String) request.getParameter("id"));
+            Auction auction = auctionFacade.find(id);
+            request.setAttribute("auction", auction);
+        }
+        
         request.getRequestDispatcher("addProductForSale.jsp").forward(request, response);
         
     }

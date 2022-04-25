@@ -4,6 +4,7 @@
     Author     : jean-
 --%>
 
+<%@page import="eguay.entity.Auction"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="java.util.Calendar"%>
@@ -23,44 +24,64 @@
         List<Category> categoryList = (List) request.getSession().getAttribute("categoryList");
         Calendar now = new GregorianCalendar();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Auction auction = (Auction)request.getAttribute("auction");
+        Long categoryID = Long.parseLong("0");
+        if(auction!=null)
+        {
+            for(Category c : auction.getCategoryList())
+            {
+                categoryID = c.getCategoryid();
+            }
+        }
         %>
         <jsp:include page="userConnectedCheck.jsp"/>
         <jsp:include page="cabecera.jsp"/>
     
     <body>
-        
+        <%
+            if(auction == null){
+        %>
         <div class="flex-container">
             <h1>Introduce información sobre tu producto:</h1>
         </div>
+        <%
+            }else{
+        %>
+        <div class="flex-container">
+            <h1>Modifica la información sobre tu producto:</h1>
+        </div>
+        <%
+            }
+        %>
         
         <div class="flex-container">
             <form name="addForm" method="POST" action="AddProductForSaleServlet">
-                Título:<input type="text" name="title" value="" required/><br/>
-                Descripción:<input type="text" name="description" value=""/><br/>
-                URL Foto:<input type="text" name="fotourl" value=""/><br/>
-                Precio Inicial:<input type="text" name="startprice" value="" required/><br/>
+                Título:<input type="text" name="title" value="<%= auction==null? "": auction.getTitle() %>" required/><br/>
+                Descripción:<input type="text" name="description" value="<%= auction==null? "": auction.getDescription()%>"/><br/>
+                URL Foto:<input type="text" name="fotourl" value="<%= auction==null? "": auction.getFotourl() %>"/><br/>
+                Precio Inicial:<input type="text" name="startprice" value="<%= auction==null? "": auction.getStartprice() %>" required/><br/>
                 <br/>Categoría:
                 <select name="category">
                     <%  for(Category category : categoryList)
                         {
                     %>
-                    <option value="<%= category.getCategoryid()%>"><%= category.getName()%></option>
+                    <option <% if(auction!=null && category.getCategoryid()==categoryID){%> selected <%} %> value="<%= category.getCategoryid()%>"><%= category.getName()%></option>
                     <%
                         }
                     %>
                 </select>
                 <br/>
                 Elige cómo cerrar tu puja:<br/>
-                <input type="checkbox" id="closePrice" name="checkBoxClosePrice" onclick="checkInput()"/>
-                Cerrar cuando llegue a <input type="text" id="inputClosePrice" name="inputClosePrice"/> $.
+                <input <% if(auction!=null){if(auction.getCloseprice()!=null){ %> checked <%}}%>type="checkbox" id="closePrice" name="checkBoxClosePrice" onclick="checkInput()"/>
+                Cerrar cuando llegue a <input type="text" id="inputClosePrice" name="inputClosePrice" value="<% if(auction!=null){if(auction.getCloseprice()!=null){%><%= auction.getCloseprice() %><%}} %>"/> $.
                 <br/>
                 
-                <input type="checkbox" id="closeDate" name="checkBoxCloseDate"/>
-                Cerrar cuando llegue a la fecha <input type="date" name="inputCloseDate" id="inputCloseDate1" min="<%= sdf.format(now.getTime()) %>"/> <input type="time" id="inputCloseDate2" name="inputCloseDateTime" />
+                <input <% if(auction!=null){if(auction.getClosedate()!=null){ %> checked <%}}%>type="checkbox" id="closeDate" name="checkBoxCloseDate"/>
+                Cerrar cuando llegue a la fecha <input type="date" name="inputCloseDate" id="inputCloseDate1" min="<%= sdf.format(now.getTime()) %>" value="<% if(auction!=null){if(auction.getClosedate()!=null){%><%= sdf.format(auction.getClosedate()) %><%}} %>"/> <input type="time" id="inputCloseDate2" name="inputCloseDateTime" />
                 <br/>
                 
-                <input type="checkbox" id="closeNumberOfBids" name="checkBoxCloseNumberOfBids"/>
-                Cerrar cuando llegue a: <input type="text" id="inputCloseNumberOfBids" name="inputCloseNumberOfBids"/> pujas.
+                <input <% if(auction!=null){if(auction.getClosenumberofbids()!=null){ %> checked <%}}%>type="checkbox" id="closeNumberOfBids" name="checkBoxCloseNumberOfBids"/>
+                Cerrar cuando llegue a: <input type="text" id="inputCloseNumberOfBids" name="inputCloseNumberOfBids" value="<% if(auction!=null){if(auction.getClosenumberofbids()!=null){%><%= auction.getClosenumberofbids()%><%}} %>"/> pujas.
                 <br/>
                 <input type="submit" id="checkBtn" value="Añadir"/>
             </form>
