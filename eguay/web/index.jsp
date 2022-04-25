@@ -24,7 +24,6 @@
     visibility:hidden;
     font-size:30px;
     cursor:pointer;
-    pointer-events:none;  /*to make the star button uneditable*/
 }
 .star:before {
    content: "\2605";
@@ -53,6 +52,10 @@
         <div class="title">
             <p>¡Últimos productos!</p>
         </div>
+        <% if (user!=null){ %>
+        <form method="POST" action="RegisterFavAuction"> 
+            <%}
+        %>
                 <%
                 int cantidad = 0;
                 
@@ -117,7 +120,11 @@
             </div>
             <%
                 }
+                if(user!= null){
             %>
+            <input type="submit" value="Submit">
+             </form>
+            <% } %>
         <script>
             function TimeRemaining(){
                 var els = document.querySelectorAll('[id^="cd_"]');
