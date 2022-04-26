@@ -47,25 +47,30 @@ public class RegisterFavAuction extends HttpServlet {
         List<Auction> auctionFavList = user.getAuctionList(); 
         if(auctionFavList == null) auctionFavList = new ArrayList() ; 
         List<Auction> auctionList = auctionFacade.findAll();
-        for(Auction auction : auctionList ){
-            String check = (String)request.getParameter(auction.getAuctionid().toString()); 
-            if(check != null )
+        String idParameter = (String) request.getParameter("id");
+        Auction auction = null ;
+        if(idParameter!=null)
+        {
+            Long id = Long.parseLong((String) request.getParameter("id"));
+            auction = auctionFacade.find(id);
+        }
+        
+            if(auction != null )
             {
                 if(!auctionFavList.contains(auction)){  
                     auctionFavList.add(auction);
                     auction.getUsersList().add(user);
                     auctionFacade.edit(auction);
-                }
-             }else{
-                if(auctionFavList.contains(auction)){
+                }else {
                     auctionFavList.remove(auction);
+                    user.getAuctionList().remove(auction);
                     auction.getUsersList().remove(user);
                     auctionFacade.edit(auction);
                 }
             }
-        }
+        
         response.sendRedirect("IndexServlet");
-    }
+            }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

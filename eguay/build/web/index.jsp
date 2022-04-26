@@ -20,19 +20,62 @@
     </head>
     
     <style>
-        .star {
-    visibility:hidden;
-    font-size:30px;
-    cursor:pointer;
+
+.dislike-button {
+  display: inline-block;
+  position: relative;
+  font-size: 32px;
+  cursor: pointer;
+  color: #ffffff;
+  background : #7d7373;
+   
+  &::before {
+    font-size: 3em;
+     color: #ffffff;
+    content: '♥';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &::after {
+    font-size: 3em;
+    content: '♥';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    color: #ffffff;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s;
+  }
 }
-.star:before {
-   content: "\2605";
-   position: absolute;
-   visibility:visible;
-}
-.star:checked:before {
-   content: "\2606";
-   position: absolute;
+.like-button {
+  display: inline-block;
+  position: relative;
+  font-size: 32px;
+  cursor: pointer;
+  color: #ffffff;
+  background : #7d7373;
+   
+  &::before {
+    font-size: 3em;
+     color: #ff3252;
+    content: '♥';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &::after {
+    font-size: 3em;
+    content: '♥';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    color: #ff3252;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s;
+  }
 }
 
 
@@ -52,10 +95,6 @@
         <div class="title">
             <p>¡Últimos productos!</p>
         </div>
-        <% if (user!=null){ %>
-        <form method="POST" action="RegisterFavAuction"> 
-            <%}
-        %>
                 <%
                 int cantidad = 0;
                 
@@ -100,9 +139,9 @@
                     <% if (user!=null) {
                         if(auctionFavList!= null && auctionFavList.contains(a)){
                     %>    
-                    <input class="star" type="checkbox" title="bookmark page" name="<%=a.getAuctionid()%>"><br/><br/>
+                    <button onclick="location.href='RegisterFavAuction?id=<%= a.getAuctionid() %>'" class="like-buttonlike-button">♥ </button>
                     <% } else{ %>
-                    <input class="star" type="checkbox" title="bookmark page" checked="unchecked" name="<%=a.getAuctionid()%>"><br/><br/>
+                    <button onclick="location.href='RegisterFavAuction?id=<%= a.getAuctionid() %>'" class="dislike-button">x </button>
                     <% }} %>
                 </div>
             <%
@@ -120,11 +159,7 @@
             </div>
             <%
                 }
-                if(user!= null){
             %>
-            <input type="submit" value="Submit">
-             </form>
-            <% } %>
         <script>
             function TimeRemaining(){
                 var els = document.querySelectorAll('[id^="cd_"]');
