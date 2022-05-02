@@ -5,11 +5,7 @@
 package eguay.servlet;
 
 import eguay.dao.GroupsFacade;
-import eguay.entity.Groups;
-import eguay.servlet.utils.ServletUtils;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedro
  */
-@WebServlet(name = "RemoveGroups", urlPatterns = {"/RemoveGroups"})
-public class RemoveGroups extends HttpServlet {
+@WebServlet(name = "showGroupList", urlPatterns = {"/ShowGroupList"})
+public class Groups_ShowGroupList extends HttpServlet {
     
     @EJB GroupsFacade groupsFacade;
 
@@ -39,8 +35,12 @@ public class RemoveGroups extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        removeSelectedGroups(request);
-        response.sendRedirect("ShowGroupList");
+        loadGroups(request);
+        request.getRequestDispatcher("groupList.jsp").forward(request, response);
+    }
+    
+    public void loadGroups(HttpServletRequest request){
+        request.setAttribute("groupList", groupsFacade.findAll());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -81,18 +81,5 @@ public class RemoveGroups extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void removeSelectedGroups(HttpServletRequest request) {
-        List<Long> groupsIds;
-        List<Groups> selectedGroups;
-        ServletUtils<Groups> servletUtils = new ServletUtils<>();
-        
-        groupsIds = servletUtils.getIdsFromCheckedLong(request);
-        selectedGroups = servletUtils.getObjectsFromIdsLong(groupsIds, this.groupsFacade);
-        
-        for(Groups group : selectedGroups){
-            this.groupsFacade.remove(group);
-        }
-    }
 
 }

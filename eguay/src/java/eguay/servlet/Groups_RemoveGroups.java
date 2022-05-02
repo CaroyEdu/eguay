@@ -4,9 +4,13 @@
  */
 package eguay.servlet;
 
-import eguay.dao.UsersFacade;
+import eguay.dao.GroupsFacade;
+import eguay.entity.Groups;
+import eguay.services.GroupServices;
+import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,10 +22,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedro
  */
-@WebServlet(name = "CreateNewGroup", urlPatterns = {"/CreateNewGroup"})
-public class CreateNewGroup extends HttpServlet {
+@WebServlet(name = "RemoveGroups", urlPatterns = {"/RemoveGroups"})
+public class Groups_RemoveGroups extends HttpServlet {
     
-    @EJB UsersFacade usersFacade;
+    @EJB GroupsFacade groupsFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,8 +40,8 @@ public class CreateNewGroup extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        request.setAttribute("users", usersFacade.findAll());
-        request.getRequestDispatcher("group.jsp").forward(request, response);
+        GroupServices.removeSelectedGroups(request, "selectedGroup", groupsFacade);
+        response.sendRedirect("ShowGroupList");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
