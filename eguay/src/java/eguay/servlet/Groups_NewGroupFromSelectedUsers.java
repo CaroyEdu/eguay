@@ -8,6 +8,7 @@ import eguay.dao.GroupsFacade;
 import eguay.dao.UsersFacade;
 import eguay.entity.Groups;
 import eguay.entity.Users;
+import eguay.services.GroupServices;
 import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,36 +44,7 @@ public class Groups_NewGroupFromSelectedUsers extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        ServletUtils<Users> servletUtils;
-        String name;
-        //Long id;
-        List<Integer> usersIds;
-        List<Users> users;
-        Groups newGroup, group;
-        
-        newGroup = new Groups();
-        servletUtils = new ServletUtils<>();
-        name = request.getParameter("name");
-        usersIds = ServletUtils.getIdsFromChecked(request, "selectedUser");
-        users = servletUtils.getObjectsFromIds(usersIds, usersFacade);
-        
-        newGroup.setName(name);
-        newGroup.setUsersList(users);
-        
-        groupsFacade.create(newGroup);
-        
-        for(Users user : users){
-            user.addToGroup(newGroup);
-            usersFacade.edit(user);
-        }
-        
-        if(newGroup.getGroupid() != null){
-            request.setAttribute("users", usersFacade.findAll());
-            request.setAttribute("group", newGroup);
-            request.getRequestDispatcher("group.jsp").forward(request, response);
-        }else{
-            response.sendRedirect("ShowGroupList");
-        }
+        GroupServices.newGroupFromSelectedUsers(request, response, "name", "selectedUser", this.groupsFacade, this.usersFacade);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

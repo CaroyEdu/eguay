@@ -39,6 +39,8 @@ public class Groups_CreateNewGroup extends HttpServlet {
         request.setAttribute("users", usersFacade.findAll());
         request.getRequestDispatcher("group.jsp").forward(request, response);
     }
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

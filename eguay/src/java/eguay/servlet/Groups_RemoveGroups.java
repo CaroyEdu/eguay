@@ -6,6 +6,7 @@ package eguay.servlet;
 
 import eguay.dao.GroupsFacade;
 import eguay.entity.Groups;
+import eguay.services.GroupServices;
 import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,7 +40,7 @@ public class Groups_RemoveGroups extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        removeSelectedGroups(request);
+        GroupServices.removeSelectedGroups(request, "selectedGroup", groupsFacade);
         response.sendRedirect("ShowGroupList");
     }
 
@@ -81,18 +82,5 @@ public class Groups_RemoveGroups extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void removeSelectedGroups(HttpServletRequest request) {
-        List<Long> groupsIds;
-        List<Groups> selectedGroups;
-        ServletUtils<Groups> servletUtils = new ServletUtils<>();
-        
-        groupsIds = servletUtils.getIdsFromCheckedLong(request, "selectedGroup");
-        selectedGroups = servletUtils.getObjectsFromIdsLong(groupsIds, this.groupsFacade);
-        
-        for(Groups group : selectedGroups){
-            this.groupsFacade.remove(group);
-        }
-    }
 
 }
