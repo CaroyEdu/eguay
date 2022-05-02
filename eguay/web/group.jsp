@@ -26,16 +26,19 @@
         nuevoGrupo = group == null;
     %>
     <body>
-        <h1><%=nuevoGrupo ? "Nuevo Grupo" : group.getName()%></h1>
         <form>
             <%
                 if (!nuevoGrupo) {
             %>
-            <input type="text" name="id" value="<%=group.getGroupid()%>"/>
+            <input type="text" name="id" value="<%=group.getGroupid()%>" hidden/>
+            Nombre del Grupo: <input type="text" name="name" value="<%=group.getName()%>" required/>
+            <%
+                } else{
+            %>
+            Nombre del Grupo: <input type="text" name="name" required/>
             <%
                 }
             %>
-            Nombre del Grupo <input type="text" name="name" required/>
             <table>
                 <tr>
                     <th>Usuarios</th>
@@ -46,14 +49,14 @@
                 %>
                 <tr>
                     <td><%=user.getName()%></td>
-                    <td><input type="checkbox" name="check" value="<%=user.getUserid()%>" <%=!nuevoGrupo && group.contains(user) ? "checked" : ""%>/></td>
+                    <td><input type="checkbox" name="selectedUser" value="<%=user.getUserid()%>" <%=!nuevoGrupo && group.contains(user) ? "checked" : ""%>/></td>
                 </tr>
                 <%
                     }
                 %>
             </table>
             <button type="submit" formaction="UptateGroup" <%=nuevoGrupo ? "hidden" : ""%>>Actualizar Grupo</button>
-            <button type="submit" formaction="NewGroupFromSelectedUsers">Nuevo Grupo con los usuarios seleccionados</button>
+            <button type="submit" formaction="NewGroupFromSelectedUsers">Nuevo grupo con los usuarios seleccionados</button>
             <button type="submit" formaction="ShowCategoryList">Añadir usuarios por categoría</button>
         </form>
     </body>

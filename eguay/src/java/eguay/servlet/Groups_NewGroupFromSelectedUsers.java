@@ -4,9 +4,15 @@
  */
 package eguay.servlet;
 
+import eguay.dao.GroupsFacade;
 import eguay.dao.UsersFacade;
+import eguay.entity.Groups;
+import eguay.entity.Users;
+import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Random;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,10 +24,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedro
  */
-@WebServlet(name = "CreateNewGroup", urlPatterns = {"/CreateNewGroup"})
-public class CreateNewGroup extends HttpServlet {
+@WebServlet(name = "NewGroupFromSelectedUsers", urlPatterns = {"/NewGroupFromSelectedUsers"})
+public class Groups_NewGroupFromSelectedUsers extends HttpServlet {
     
     @EJB UsersFacade usersFacade;
+    @EJB GroupsFacade groupsFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,8 +43,35 @@ public class CreateNewGroup extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        request.setAttribute("users", usersFacade.findAll());
-        request.getRequestDispatcher("group.jsp").forward(request, response);
+        ServletUtils<Users> servletUtils;
+        String name;
+        //Long id;
+        List<Integer> usersIds;
+        List<Users> users;
+        Groups newGroup, group;
+        
+        newGroup = new Groups();
+        servletUtils = new ServletUtils<>();
+        name = request.getParameter("name");
+        usersIds = ServletUtils.getIdsFromChecked(request, "selectedUser");
+        users = servletUtils.getObjectsFromIds(usersIds, usersFacade);
+        
+        newGroup.setName(name);
+        newGroup.setUsersList(users);
+        for(Users user : users){
+            user.addToGroup(newGroup);
+            usersFacade.edit(user);
+        }
+        
+        groupsFacade.create(newGroup);
+        
+        if(newGroup.getGroupid() != null){
+            request.setAttribute("users", usersFacade.findAll());
+            request.setAttribute("group", newGroup);
+            request.getRequestDispatcher("group.jsp").forward(request, response);
+        }else{
+            response.sendRedirect("ShowGroupList");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

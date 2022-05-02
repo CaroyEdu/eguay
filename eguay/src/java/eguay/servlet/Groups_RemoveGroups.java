@@ -6,7 +6,7 @@ package eguay.servlet;
 
 import eguay.dao.GroupsFacade;
 import eguay.entity.Groups;
-import eguay.servlet.utils.ServletUtils;
+import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author pedro
  */
 @WebServlet(name = "RemoveGroups", urlPatterns = {"/RemoveGroups"})
-public class RemoveGroups extends HttpServlet {
+public class Groups_RemoveGroups extends HttpServlet {
     
     @EJB GroupsFacade groupsFacade;
 
@@ -87,7 +87,7 @@ public class RemoveGroups extends HttpServlet {
         List<Groups> selectedGroups;
         ServletUtils<Groups> servletUtils = new ServletUtils<>();
         
-        groupsIds = servletUtils.getIdsFromCheckedLong(request);
+        groupsIds = servletUtils.getIdsFromCheckedLong(request, "selectedGroup");
         selectedGroups = servletUtils.getObjectsFromIdsLong(groupsIds, this.groupsFacade);
         
         for(Groups group : selectedGroups){

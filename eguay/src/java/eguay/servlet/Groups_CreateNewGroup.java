@@ -4,14 +4,9 @@
  */
 package eguay.servlet;
 
-import eguay.dao.GroupsFacade;
-import eguay.entity.Groups;
-import eguay.servlet.utils.ServletUtils;
+import eguay.dao.UsersFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,10 +18,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedro
  */
-@WebServlet(name = "NewGroupFromSelectedGroups", urlPatterns = {"/NewGroupFromSelectedGroups"})
-public class NewGroupFromSelectedGroups extends HttpServlet {
+@WebServlet(name = "CreateNewGroup", urlPatterns = {"/CreateNewGroup"})
+public class Groups_CreateNewGroup extends HttpServlet {
     
-    @EJB GroupsFacade groupsFacade;
+    @EJB UsersFacade usersFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,23 +36,9 @@ public class NewGroupFromSelectedGroups extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        createNewGroupFromSelected(request);
-        response.sendRedirect("ShowGroupList");
+        request.setAttribute("users", usersFacade.findAll());
+        request.getRequestDispatcher("group.jsp").forward(request, response);
     }
-    
-    private void createNewGroupFromSelected(HttpServletRequest request) {
-        List<Long> groupsIds;
-        List<Groups> selectedGroups;
-        Groups newGroup = new Groups();
-        ServletUtils<Groups> servletUtils = new ServletUtils<>();
-        
-        groupsIds = servletUtils.getIdsFromCheckedLong(request);
-        selectedGroups = servletUtils.getObjectsFromIdsLong(groupsIds, this.groupsFacade);
-        newGroup.addAllGroups(selectedGroups);
-        
-        if(!newGroup.getUsersList().isEmpty())
-            groupsFacade.create(newGroup);
-    }    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -97,4 +78,5 @@ public class NewGroupFromSelectedGroups extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

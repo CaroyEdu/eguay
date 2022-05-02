@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package eguay.servlet.utils;
+package eguay.services;
 
 import eguay.dao.AbstractFacade;
 import eguay.entity.Groups;
@@ -22,8 +22,8 @@ public class ServletUtils<T>{
         request.setAttribute(label, facade.findAll());
     }
     
-    public static List<Long> getIdsFromCheckedLong(HttpServletRequest request) {        
-        String[] checkedList = request.getParameterValues("check");
+    public static List<Long> getIdsFromCheckedLong(HttpServletRequest request, String label) {        
+        String[] checkedList = request.getParameterValues(label);
         List<Long> ids = null;
         
         if(checkedList != null){
@@ -36,8 +36,8 @@ public class ServletUtils<T>{
         return ids;
     }
     
-    public static List<Integer> getIdsFromChecked(HttpServletRequest request) {
-        String[] checkedList = request.getParameterValues("check");
+    public static List<Integer> getIdsFromChecked(HttpServletRequest request, String label) {
+        String[] checkedList = request.getParameterValues(label);
         List<Integer> ids = null;
         
         if(checkedList != null){

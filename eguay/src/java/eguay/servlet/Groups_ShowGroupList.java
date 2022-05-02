@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author pedro
  */
 @WebServlet(name = "showGroupList", urlPatterns = {"/ShowGroupList"})
-public class ShowGroupList extends HttpServlet {
+public class Groups_ShowGroupList extends HttpServlet {
     
     @EJB GroupsFacade groupsFacade;
 

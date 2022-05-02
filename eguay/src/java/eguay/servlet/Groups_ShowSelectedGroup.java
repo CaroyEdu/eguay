@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author pedro
  */
 @WebServlet(name = "ShowSelectedGroup", urlPatterns = {"/ShowSelectedGroup"})
-public class ShowSelectedGroup extends HttpServlet {
+public class Groups_ShowSelectedGroup extends HttpServlet {
 
     @EJB UsersFacade usersFacade;
     @EJB GroupsFacade  groupsFacade;

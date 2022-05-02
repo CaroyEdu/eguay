@@ -3,6 +3,8 @@ eguay/setup/glassfish-resources.xml
 eguay/build
 eguay/web/WEB-INF/glassfish-web.xml 
 eguay/build.xml
+eguay/nbproject/ant-deploy.xml
+eguay/nbproject/project.properties
 
 # Net Beans
 
