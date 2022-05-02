@@ -58,12 +58,13 @@ public class Groups_NewGroupFromSelectedUsers extends HttpServlet {
         
         newGroup.setName(name);
         newGroup.setUsersList(users);
+        
+        groupsFacade.create(newGroup);
+        
         for(Users user : users){
             user.addToGroup(newGroup);
             usersFacade.edit(user);
         }
-        
-        groupsFacade.create(newGroup);
         
         if(newGroup.getGroupid() != null){
             request.setAttribute("users", usersFacade.findAll());
