@@ -7,6 +7,7 @@ package eguay.servlet;
 
 import eguay.dao.AuctionFacade;
 import eguay.dao.CategoryFacade;
+import eguay.dao.UsersFacade;
 import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.entity.Users;
@@ -29,6 +30,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "RegisterFavAuction", urlPatterns = {"/RegisterFavAuction"})
 public class RegisterFavAuction extends HttpServlet {
 @EJB AuctionFacade auctionFacade;
+@EJB UsersFacade userFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -59,13 +61,24 @@ public class RegisterFavAuction extends HttpServlet {
             {
                 if(!auctionFavList.contains(auction)){  
                     auctionFavList.add(auction);
-                    auction.getUsersList().add(user);
+                    user.setAuctionList(auctionFavList);
+                    userFacade.edit(user);
+                    
+                    List<Users> auctionUserFav = auction.getUsersList();
+                    auctionUserFav.add(user);
+                    auction.setUsersList(auctionUserFav);
                     auctionFacade.edit(auction);
+                    
                 }else {
                     auctionFavList.remove(auction);
-                    user.getAuctionList().remove(auction);
-                    auction.getUsersList().remove(user);
+                    user.setAuctionList(auctionFavList);
+                    userFacade.edit(user);
+                    
+                     List<Users> auctionUserFav = auction.getUsersList();
+                     auctionUserFav.remove(user) ; 
+                     auction.setUsersList(auctionUserFav);
                     auctionFacade.edit(auction);
+                    
                 }
             }
         

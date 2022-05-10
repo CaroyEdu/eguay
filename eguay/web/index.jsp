@@ -137,7 +137,7 @@
                     <p><button>Pujar</button></p>
                     
                     <% if (user!=null) {
-                        if(auctionFavList!= null && auctionFavList.contains(a)){
+                        if( auctionFavList.contains(a)){
                     %>    
                     <button onclick="location.href='RegisterFavAuction?id=<%= a.getAuctionid() %>'" class="like-buttonlike-button">♥ </button>
                     <% } else{ %>
