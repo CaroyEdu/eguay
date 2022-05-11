@@ -7,6 +7,7 @@ package eguay.servlet;
 
 import eguay.dao.CategoryFacade;
 import eguay.entity.Category;
+import eguay.service.CategoryService;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "MyProductsServlet", urlPatterns = {"/MyProductsServlet"})
 public class MyProductsServlet extends HttpServlet {
     
-    @EJB CategoryFacade categoryFacade;
+    @EJB CategoryService categoryService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,7 +39,7 @@ public class MyProductsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        List<Category> categoryList = categoryFacade.findAll();
+        List<Category> categoryList =  categoryService.getAllCategories();
         
         request.setAttribute("categoryList", categoryList);
         

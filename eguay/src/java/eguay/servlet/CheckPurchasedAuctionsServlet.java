@@ -25,8 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "CheckPurchasedAuctionsServlet", urlPatterns = {"/CheckPurchasedAuctionsServlet"})
 public class CheckPurchasedAuctionsServlet extends HttpServlet {
-
-    @EJB UsersFacade userFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

@@ -119,6 +119,13 @@ public class AddProductForSaleServlet extends HttpServlet {
         // Creamos el objeto y lo insertamos en la base de datos
         auctionFacade.create(auction);
         
+        List<Auction> usersSubmitedAuctions = user.getAuctionList2();
+        if(usersSubmitedAuctions == null) usersSubmitedAuctions = new ArrayList();
+        usersSubmitedAuctions.add(auction);
+        user.setAuctionList2(usersSubmitedAuctions);
+        
+        usersFacade.edit(user);
+        
         // Una vez creado e insertado el objeto, nos volvemos a la página de inicio
         response.sendRedirect("IndexServlet");
         

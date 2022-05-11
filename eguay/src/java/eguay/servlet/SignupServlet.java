@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
 import eguay.entity.Users;
+import eguay.service.UsersService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,56 +39,36 @@ public class SignupServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @EJB UsersFacade usersFacade;
+    @EJB UsersService usersService;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        Users user = new Users(); 
-        
+        Users user = new Users();
         String username = (String)request.getParameter("username");
-        user.setUsername(username);
-        
         String name = (String)request.getParameter("name");
-        user.setName(name);
-        
         String surname = (String)request.getParameter("surname");
-        user.setName(surname);
-        
         String address = (String)request.getParameter("address");
-        user.setAddress(address);
-        
         String city = (String)request.getParameter("city");
-        user.setCity(city);
-        
         String email = (String)request.getParameter("email");
-        user.setEmail(email);
-        
         String country = (String)request.getParameter("country");
-        user.setCountry(country);
-        
         String password = (String)request.getParameter("password");
-        user.setPassword(password);
-        
-         
+        Date birthdayDate = null;
         String birthday = (String) request.getParameter("birthday");
         try {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = sdf.parse(birthday);
-                user.setBirthyear(date);
+                birthdayDate = sdf.parse(birthday);
+               
             } catch (ParseException ex) {
                 Logger.getLogger(AddProductForSaleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+        int sexId = 0 ; 
         String sex = (String)request.getParameter("sex");
-        if(sex=="Hombre")user.setSex(1); 
-        else if (sex=="Mujer")user.setSex(2);
-        else user.setSex(0);
+        if(sex=="Hombre")sexId =1; 
+        else if (sex=="Mujer")sexId=2;
+        else sexId = 3;
         
-        
-        // Creamos el objeto y lo insertamos en la base de datos
-        usersFacade.create(user);
-        
+        usersService.createUser(user, username, name, surname, address, city, email, country, password, birthdayDate, sexId);
         // Una vez creado e insertado el objeto, nos volvemos a la página de inicio
         response.sendRedirect("IndexServlet");
         

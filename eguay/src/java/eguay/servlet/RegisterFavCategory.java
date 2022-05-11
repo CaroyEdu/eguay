@@ -8,6 +8,8 @@ package eguay.servlet;
 import eguay.dao.CategoryFacade;
 import eguay.entity.Category;
 import eguay.entity.Users;
+import eguay.service.CategoryService;
+import eguay.service.UsersService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -26,7 +28,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "RegisterFavCategory", urlPatterns = {"/RegisterFavCategory"})
 public class RegisterFavCategory extends HttpServlet {
-@EJB CategoryFacade categoryFacade;
+
+@EJB UsersService usersService ; 
+@EJB CategoryService categoryService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,23 +51,10 @@ public class RegisterFavCategory extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
         List<Category> categoryFavList = user.getCategoryList(); 
         if(categoryFavList == null) categoryFavList = new ArrayList() ; 
-        List<Category> categoryList = categoryFacade.findAll();
+        List<Category> categoryList = categoryService.getAllCategories();
         for(Category category : categoryList ){
             String check = (String)request.getParameter(category.getCategoryid().toString()); 
-            if(check != null )
-            {
-                if(!categoryFavList.contains(category)){  
-                    categoryFavList.add(category);
-                    category.getUsersList().add(user);
-                    categoryFacade.edit(category);
-                }
-             }else{
-                if(categoryFavList.contains(category)){
-                    categoryFavList.remove(category);
-                    category.getUsersList().remove(user);
-                    categoryFacade.edit(category);
-                }
-            }
+            usersService.editFavCategories(user, category, check);
         }
         response.sendRedirect("IndexServlet");
         }

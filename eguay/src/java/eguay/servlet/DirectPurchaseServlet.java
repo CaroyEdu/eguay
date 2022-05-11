@@ -7,6 +7,7 @@ package eguay.servlet;
 
 import eguay.dao.AuctionFacade;
 import eguay.entity.Auction;
+import eguay.service.AuctionService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DirectPurchaseServlet extends HttpServlet {
 
-    @EJB AuctionFacade auctionFacade ; 
+    @EJB AuctionService auctionService ; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,7 +37,7 @@ public class DirectPurchaseServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         Long id = Long.parseLong((String)request.getParameter("id"));
-        Auction auction = auctionFacade.find(id);
+        Auction auction = auctionService.findById(id);
         
         request.setAttribute("auction", auction);
         

@@ -9,6 +9,8 @@ import eguay.dao.AuctionFacade;
 import eguay.dao.BidFacade;
 import eguay.entity.Auction;
 import eguay.entity.Bid;
+import eguay.service.AuctionService;
+import eguay.service.BidService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -25,8 +27,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "SubmitBidServlet", urlPatterns = {"/SubmitBidServlet"})
 public class SubmitBidServlet extends HttpServlet {
-@EJB AuctionFacade auctionFacade; 
-@EJB BidFacade bidFacade ; 
+@EJB AuctionService auctionService; 
+@EJB BidService bidService ; 
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,10 +43,10 @@ public class SubmitBidServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Long id = Long.parseLong((String)request.getParameter("id"));
-        Auction auction = auctionFacade.find(id);
+        Auction auction = auctionService.findById(id);
         
         List<Bid> highestBidList = null ; 
-        highestBidList = bidFacade.highestBid(auction);
+        highestBidList = bidService.getHighestBid(auction);
         Bid highestBid = null ; 
         if(highestBidList != null && !highestBidList.isEmpty()){
             highestBid = highestBidList.get(0);

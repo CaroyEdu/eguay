@@ -9,6 +9,8 @@ import eguay.dao.AuctionFacade;
 import eguay.dao.CategoryFacade;
 import eguay.entity.Auction;
 import eguay.entity.Category;
+import eguay.service.AuctionService;
+import eguay.service.CategoryService;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -25,9 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ProductServlet", urlPatterns = {"/ProductServlet"})
 public class ProductServlet extends HttpServlet {
     
-    @EJB AuctionFacade auctionFacade;
-    @EJB CategoryFacade categoryFacade;
-
+    @EJB CategoryService categoryService;
+    @EJB AuctionService auctionService; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,8 +43,8 @@ public class ProductServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         Long id = Long.parseLong((String)request.getParameter("id"));
-        Auction auction = auctionFacade.find(id);
-        List<Category> categoryList = categoryFacade.findAll();
+        Auction auction = auctionService.findById(id);
+        List<Category> categoryList = categoryService.getAllCategories();
         request.setAttribute("categoryList", categoryList);
         request.setAttribute("auction", auction);
         

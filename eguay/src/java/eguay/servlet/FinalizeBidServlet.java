@@ -10,6 +10,8 @@ import eguay.dao.BidFacade;
 import eguay.entity.Auction;
 import eguay.entity.Bid;
 import eguay.entity.Users;
+import eguay.service.AuctionService;
+import eguay.service.BidService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -29,8 +31,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "FinalizeBidServlet", urlPatterns = {"/FinalizeBidServlet"})
 public class FinalizeBidServlet extends HttpServlet {
     
-    @EJB BidFacade bidFacade ; 
-    @EJB AuctionFacade auctionFacade ; 
+    @EJB AuctionService auctionService; 
+    @EJB BidService bidService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,20 +46,16 @@ public class FinalizeBidServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Long id = Long.parseLong((String)request.getParameter("id"));
-        Auction auction = auctionFacade.find(id);
+        Auction auction = auctionService.findById(id);
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
         
-        Bid newBid = new Bid();
-        newBid.setAuctionid(auction);
-        
         String BidAmount = (String)request.getParameter("Bid");
+        Integer BidAmountInt = Integer.parseInt(BidAmount) ; 
         
-        newBid.setBid(Integer.parseInt(BidAmount));
+        Bid newBid = new Bid();
         
-        newBid.setBiderid(user);
-        
-        bidFacade.create(newBid);
+        bidService.createBid(newBid, BidAmountInt, auction, user);
         
         
         response.sendRedirect("IndexServlet");

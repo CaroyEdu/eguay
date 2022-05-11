@@ -11,6 +11,8 @@ import eguay.dao.UsersFacade;
 import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.entity.Users;
+import eguay.service.AuctionService;
+import eguay.service.UsersService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -29,8 +31,8 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "RegisterFavAuction", urlPatterns = {"/RegisterFavAuction"})
 public class RegisterFavAuction extends HttpServlet {
-@EJB AuctionFacade auctionFacade;
-@EJB UsersFacade userFacade;
+@EJB UsersService usersServices;
+@EJB AuctionService auctionService; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,44 +48,21 @@ public class RegisterFavAuction extends HttpServlet {
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
             /* TODO output your page here. You may use following sample code. */
-        List<Auction> auctionFavList = user.getAuctionList(); 
-        if(auctionFavList == null) auctionFavList = new ArrayList() ; 
-        List<Auction> auctionList = auctionFacade.findAll();
+        
         String idParameter = (String) request.getParameter("id");
+        
         Auction auction = null ;
         if(idParameter!=null)
         {
             Long id = Long.parseLong((String) request.getParameter("id"));
-            auction = auctionFacade.find(id);
+            auction = auctionService.findById(id);
         }
         
-            if(auction != null )
-            {
-                if(!auctionFavList.contains(auction)){  
-                    auctionFavList.add(auction);
-                    user.setAuctionList(auctionFavList);
-                    userFacade.edit(user);
-                    
-                    List<Users> auctionUserFav = auction.getUsersList();
-                    auctionUserFav.add(user);
-                    auction.setUsersList(auctionUserFav);
-                    auctionFacade.edit(auction);
-                    
-                }else {
-                    auctionFavList.remove(auction);
-                    user.setAuctionList(auctionFavList);
-                    userFacade.edit(user);
-                    
-                     List<Users> auctionUserFav = auction.getUsersList();
-                     auctionUserFav.remove(user) ; 
-                     auction.setUsersList(auctionUserFav);
-                    auctionFacade.edit(auction);
-                    
-                }
-            }
+        this.usersServices.editFavAuctions(user, auction);
         
         response.sendRedirect("IndexServlet");
-            }
+        
+         }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

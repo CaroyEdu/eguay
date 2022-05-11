@@ -9,6 +9,8 @@ import eguay.dao.AuctionFacade;
 import eguay.dao.CategoryFacade;
 import eguay.entity.Auction;
 import eguay.entity.Category;
+import eguay.service.AuctionService;
+import eguay.service.CategoryService;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -26,7 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 public class IndexServlet extends HttpServlet {
     
     @EJB AuctionFacade auctionFacade;
-    @EJB CategoryFacade categoryFacade;
+    @EJB CategoryService categoryService;
+    @EJB AuctionService auctionService; 
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,16 +46,9 @@ public class IndexServlet extends HttpServlet {
         
         String filter = (String) request.getParameter("searchbar");
         List<Auction> auctionList = null;
-        List<Category> categoryList = categoryFacade.findAll();
+        List<Category> categoryList =  categoryService.getAllCategories();
         
-        if(filter == null || filter.isEmpty())
-        {
-            auctionList = this.auctionFacade.findAll();
-        }
-        else
-        {
-            auctionList = this.auctionFacade.findByTitle(filter);
-        }
+        auctionList = this.auctionService.filterAuction(filter);
         
         request.setAttribute("categoryList", categoryList);
         request.setAttribute("auctionList", auctionList);

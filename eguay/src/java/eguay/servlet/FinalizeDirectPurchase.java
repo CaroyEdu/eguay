@@ -9,6 +9,8 @@ import eguay.dao.AuctionFacade;
 import eguay.dao.UsersFacade;
 import eguay.entity.Auction;
 import eguay.entity.Users;
+import eguay.service.AuctionService;
+import eguay.service.UsersService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -27,9 +29,10 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "FinalizeDirectPurchase", urlPatterns = {"/FinalizeDirectPurchase"})
 public class FinalizeDirectPurchase extends HttpServlet {
-
-    @EJB AuctionFacade auctionFacade;
+    
+    @EJB AuctionService auctionService; 
     @EJB UsersFacade usersFacede;
+    @EJB UsersService userService ; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,7 +48,7 @@ public class FinalizeDirectPurchase extends HttpServlet {
         
      
         Long id = Long.parseLong((String)request.getParameter("id"));
-        Auction auction = auctionFacade.find(id);
+        Auction auction = auctionService.findById(id);
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
         
@@ -54,7 +57,14 @@ public class FinalizeDirectPurchase extends HttpServlet {
         auction.setUsersList1(clientList);
         auction.setActive(Boolean.FALSE);
         
-        auctionFacade.edit(auction);
+        List<Auction> purchasedAuction = user.getAuctionList1() ;
+        if(purchasedAuction == null) purchasedAuction = new ArrayList() ;
+        purchasedAuction.add(auction); 
+        
+        
+        
+        auctionService.editAuction(auction);
+        usersFacede.edit(user);
         
         response.sendRedirect("successful.html");
         
