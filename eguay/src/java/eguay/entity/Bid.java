@@ -33,8 +33,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Bid implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "bid")
-    private Integer bid;
+    private Double bid;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -54,11 +55,11 @@ public class Bid implements Serializable {
         this.bidid = bidid;
     }
 
-    public Integer getBid() {
+    public Double getBid() {
         return bid;
     }
 
-    public void setBid(Integer bid) {
+    public void setBid(Double bid) {
         this.bid = bid;
     }
 

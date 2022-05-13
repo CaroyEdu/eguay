@@ -40,7 +40,7 @@
              <h2> La puja debe ser mayor que <%= bid.getBid() %> </h2>
              <br> <br>
              <h3> Nueva puja <h3> <br>
-             Puja:<input type="number" name="Bid" value="<%= bid.getBid() + 1 %>" required/><br/>
+                     Puja:<input type=number name="Bid" value="<%= bid.getBid() + 1 %>" min="<%= bid.getBid() + 1 %>" step="0.01" required/><br/>
              <br>
              <p> Para el usuario <%= user.getUsername()%> con el nombre <%= user.getName() + "\t" + user.getSurname() + "\t" %> con la direccion <%= user.getAddress() %> y el correro <%= user.getEmail() %> </p> 
         <% } %>

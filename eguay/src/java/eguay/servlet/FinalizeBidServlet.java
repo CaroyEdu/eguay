@@ -51,11 +51,11 @@ public class FinalizeBidServlet extends HttpServlet {
         Users user = (Users) session.getAttribute("user");
         
         String BidAmount = (String)request.getParameter("Bid");
-        Integer BidAmountInt = Integer.parseInt(BidAmount) ; 
+        Double BidAmountDbl = Double.parseDouble(BidAmount) ; 
         
         Bid newBid = new Bid();
         
-        bidService.createBid(newBid, BidAmountInt, auction, user);
+        bidService.createBid(newBid, BidAmountDbl, auction, user);
         
         
         response.sendRedirect("IndexServlet");

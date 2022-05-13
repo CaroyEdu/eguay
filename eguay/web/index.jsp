@@ -14,6 +14,7 @@
 <!DOCTYPE html>
 <html>
     <jsp:include page="cabecera.jsp"/>
+    
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EGUAY - Inicio</title>
@@ -119,7 +120,11 @@
                     <% }else { %>
                     <img src="img/placeholder.png" style="width:100%; height: 50%">
                     <% } %>
+                    <% if(user != null) { %> 
                     <h4><a href="ProductServlet?id=<%= a.getAuctionid() %>"><%= a.getTitle() %></a></h4>
+                    <% }else {  %>
+                    <h4><a href="LoginServlet"><%= a.getTitle() %></a></h4>
+                    <% } %>
                     <p class="description"><%= a.getDescription() %></p>
                     <p class="price">$<%= a.getStartprice() %></p>
                     <% if(a.getClosedate()!=null)
@@ -134,9 +139,12 @@
                     { %>
                     <p class="description" >¡Puja <%= a.getCloseprice() %>$ y te lo llevas!</p>
                     <% } %>
-                    <p><button>Pujar</button></p>
                     
                     <% if (user!=null) {
+                        
+                        %>
+                        <p><button onclick="location.href='ProductServlet?id=<%= a.getAuctionid() %>'">Pujar</button></p>
+                        <%
                         if( auctionFavList.contains(a)){
                     %>    
                     <button onclick="location.href='RegisterFavAuction?id=<%= a.getAuctionid() %>'" class="like-buttonlike-button">♥ </button>

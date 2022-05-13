@@ -25,7 +25,7 @@ public class BidService {
      return highest ; 
     }
     
-    public void createBid(Bid newBid , Integer BidAmount , Auction auction , Users user){
+    public void createBid(Bid newBid , Double BidAmount , Auction auction , Users user){
                 
         newBid.setAuctionid(auction);
         newBid.setBid(BidAmount);
