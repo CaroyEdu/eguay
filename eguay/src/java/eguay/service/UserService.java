@@ -18,8 +18,10 @@ import javax.ejb.Stateless;
 import eguay.entity.Users;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 /**
  *
  * @author parsa
@@ -32,8 +34,16 @@ public class UserService {
     
     // Query
     
-    public List<UserDTO> getAllUsers(){
-        return toDTO(this.usersFacade.findAll());
+    Users getUser(Integer id) {
+        return usersFacade.find(id);
+    }
+    
+    public List<UserDTO> getAllUsersDTO(){
+        return toDTO(getAllUsers());
+    }
+    
+    public List<Users> getAllUsers(){
+        return this.usersFacade.findAll();
     }
     
     public List<Users> getUsersInterestedIn(Category category){
@@ -156,7 +166,4 @@ public class UserService {
         auction.getUsersList1().remove(user);
                 auctionFacade.edit(auction);
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }

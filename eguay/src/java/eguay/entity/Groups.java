@@ -132,7 +132,6 @@ public class Groups implements Serializable {
         
         dto.setId(groupid);
         dto.setName(name);
-        dto.setUsersList(UserService.toDTO(usersList));
         
         return dto;
     }

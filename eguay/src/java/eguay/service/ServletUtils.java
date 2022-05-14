@@ -23,7 +23,12 @@ public class ServletUtils<T>{
     }
     
     public static Integer getId(HttpServletRequest request, String label){
-        return Integer.valueOf(request.getParameter(label));
+        String idStrg = request.getParameter(label);
+        return idStrg==null ? null : Integer.valueOf(idStrg);
+    }
+    
+    public static Long getIdLong(HttpServletRequest request, String label){
+        return Long.valueOf(request.getParameter(label));
     }
     
     public static List<Long> getIdsFromCheckedLong(HttpServletRequest request, String label) {        
