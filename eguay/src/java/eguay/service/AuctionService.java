@@ -6,7 +6,9 @@
 package eguay.service;
 
 import eguay.dao.AuctionFacade;
+import eguay.dto.AuctionDTO;
 import eguay.entity.Auction;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -17,32 +19,41 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AuctionService {
-@EJB AuctionFacade auctionFacade;
-
-public Auction findById(Long id){
-    Auction auction = auctionFacade.find(id);
+    @EJB AuctionFacade auctionFacade;
     
-    return auction;
-}
+    // Query
+    public Auction findById(Long id){
+        Auction auction = auctionFacade.find(id);
 
-public List<Auction> filterAuction(String filter){
-    List<Auction> auctions ;
-    if(filter == null || filter.isEmpty())
-        {
-            auctions = this.auctionFacade.findAll();
+        return auction;
+    }
+
+    // Auxiliary functions
+    public List<Auction> filterAuction(String filter){
+        List<Auction> auctions ;
+        if(filter == null || filter.isEmpty())
+            {
+                auctions = this.auctionFacade.findAll();
+            }
+            else
+            {
+                auctions = this.auctionFacade.findByTitle(filter);
+            }
+        return auctions;
+    }
+
+    public void editAuction(Auction auction){
+        auctionFacade.edit(auction);
+    }
+    
+    // Logic
+    public static List<AuctionDTO> toDTO(List<Auction> auctions){
+        List<AuctionDTO> dtos = new ArrayList<AuctionDTO>(auctions.size());
+        
+        for(Auction auction : auctions){
+            dtos.add(auction.toDTO());
         }
-        else
-        {
-            auctions = this.auctionFacade.findByTitle(filter);
-        }
-    return auctions;
-}
-
-public void editAuction(Auction auction){
-    auctionFacade.edit(auction);
-}
-
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+        
+        return dtos;
+    }
 }

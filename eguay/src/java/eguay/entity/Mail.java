@@ -5,6 +5,7 @@
  */
 package eguay.entity;
 
+import eguay.dto.MailDTO;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -172,4 +173,14 @@ public class Mail implements Serializable {
         return "eguay.entity.Mail[ mailid=" + mailid + " ]";
     }
     
+    public MailDTO toDTO(){
+        MailDTO dto = new MailDTO();
+        
+        dto.setId(mailid);
+        dto.setSubject(subject);
+        dto.setBody(body);
+        dto.setSentDate(sentDate);
+        
+        return dto;
+    }
 }

@@ -5,6 +5,12 @@
  */
 package eguay.entity;
 
+import eguay.dto.UserDTO;
+import eguay.service.AuctionService;
+import eguay.service.CategoryService;
+import eguay.service.MailService;
+import eguay.service.RolService;
+import eguay.service.UserService;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -332,14 +338,32 @@ public class Users implements Serializable {
     public String toString() {
         return "eguay.entity.Users[ userid=" + userid + " ]";
     }
-    
-    // Auxiliary functions  
 
-    public boolean interestedIn(Category category) {
-        return this.categoryList.contains(category);
-    }
-    
-    public void addToGroup(Groups group){
-        this.groupsList.add(group);
+    // DTO
+    public UserDTO toDTO(){
+        UserDTO dto = new UserDTO();
+        
+        // DB
+        dto.setId(userid);
+        
+        // Conceptual
+        dto.setUsername(username);
+        dto.setPassword(password);
+        dto.setEmail(email);
+        dto.setName(name);
+        dto.setUsername(username);
+        dto.setSex(sex);
+        dto.setBirthyear(birthyear);
+        dto.setCountry(country);
+        dto.setCity(city);
+        dto.setAddress(address);
+        
+        // Relationships
+        dto.setRols(RolService.toDTO(rolList));
+        dto.setMails(MailService.toDTO(UserService.getMails(this)));
+        dto.setFavoriteCategories(CategoryService.toDTO(categoryList));
+        dto.setFollowingAuctions(AuctionService.toDTO(auctionList));
+        
+        return dto;
     }
 }
