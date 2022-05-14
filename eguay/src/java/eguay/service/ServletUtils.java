@@ -22,6 +22,10 @@ public class ServletUtils<T>{
         request.setAttribute(label, facade.findAll());
     }
     
+    public static Integer getId(HttpServletRequest request, String label){
+        return Integer.valueOf(request.getParameter(label));
+    }
+    
     public static List<Long> getIdsFromCheckedLong(HttpServletRequest request, String label) {        
         String[] checkedList = request.getParameterValues(label);
         List<Long> ids = null;

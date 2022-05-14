@@ -94,9 +94,10 @@ public class GroupService {
             groupsFacade.create(newGroup);
     }  
     
-    public void newGroupFromSelectedUsers(HttpServletRequest request, HttpServletResponse response, String groupNameLabel, String userCheckedLabel) throws IOException, ServletException {
+    public void newGroupFromSelectedUsers(HttpServletRequest request, HttpServletResponse response, String groupIdLabel, String groupNameLabel, String userCheckedLabel) throws IOException, ServletException {
         ServletUtils<Users> servletUtils;
-        String name;
+        String formName, originalGroupName;
+        Integer originalGroupId;
         //Long id;
         List<Integer> usersIds;
         List<Users> users;
@@ -104,10 +105,19 @@ public class GroupService {
         newGroup = new Groups();
         servletUtils = new ServletUtils<>();
         
-        name = request.getParameter(groupNameLabel);
+        originalGroupId = ServletUtils.getId(request, "id");
+        Groups originalGroup = getGroup(originalGroupId);
+        originalGroupName = originalGroup.getName();
+        formName = request.getParameter(groupNameLabel);
+        if(formName.equals(originalGroupName)){
+            newGroup.setName(originalGroupName + "2");
+        }else{
+            newGroup.setName(formName);
+        }
+        
         usersIds = ServletUtils.getIdsFromChecked(request, userCheckedLabel);
         users = servletUtils.getObjectsFromIds(usersIds, usersFacade);
-        newGroup.setName(name);
+        newGroup.setName(formName + "-2");
         newGroup.setUsersList(users);
         groupsFacade.create(newGroup);
         

@@ -43,7 +43,7 @@ public class Groups_NewGroupFromSelectedUsers extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        groupService.newGroupFromSelectedUsers(request, response, "name", "selectedUser");
+        groupService.newGroupFromSelectedUsers(request, response, "id", "name", "selectedUser");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
