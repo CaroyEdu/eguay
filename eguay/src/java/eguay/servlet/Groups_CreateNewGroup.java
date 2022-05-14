@@ -5,6 +5,8 @@
 package eguay.servlet;
 
 import eguay.dao.UsersFacade;
+import eguay.service.GroupService;
+import eguay.service.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -21,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "CreateNewGroup", urlPatterns = {"/CreateNewGroup"})
 public class Groups_CreateNewGroup extends HttpServlet {
     
-    @EJB UsersFacade usersFacade;
+    @EJB UserService userService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +38,7 @@ public class Groups_CreateNewGroup extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        request.setAttribute("users", usersFacade.findAll());
+        request.setAttribute("users", userService.getAllUsersDTO());
         request.getRequestDispatcher("group.jsp").forward(request, response);
     }
     

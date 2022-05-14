@@ -10,6 +10,7 @@ import eguay.entity.Mail;
 import eguay.entity.Rol;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -30,12 +31,6 @@ public class UserDTO {
     private String country;
     private String city;
     private String address;
-    
-    // Relationships
-    private List<RolDTO> rols;
-    private List<MailDTO> mails;
-    private List<CategoryDTO> favoriteCategories;
-    private List<AuctionDTO> followingAuctions;
 
     public Integer getId() {
         return id;
@@ -125,35 +120,25 @@ public class UserDTO {
         this.address = address;
     }
 
-    public List<RolDTO> getRols() {
-        return rols;
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        return hash;
     }
 
-    public void setRols(List<RolDTO> rols) {
-        this.rols = rols;
-    }
-
-    public List<MailDTO> getMails() {
-        return mails;
-    }
-
-    public void setMails(List<MailDTO> mails) {
-        this.mails = mails;
-    }
-
-    public List<CategoryDTO> getFavoriteCategories() {
-        return favoriteCategories;
-    }
-
-    public void setFavoriteCategories(List<CategoryDTO> favoriteCategories) {
-        this.favoriteCategories = favoriteCategories;
-    }
-
-    public List<AuctionDTO> getFollowingAuctions() {
-        return followingAuctions;
-    }
-
-    public void setFollowingAuctions(List<AuctionDTO> followingAuctions) {
-        this.followingAuctions = followingAuctions;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final UserDTO other = (UserDTO) obj;
+        return Objects.equals(this.id, other.id);
     }
 }

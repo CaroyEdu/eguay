@@ -55,7 +55,7 @@ public class Mail implements Serializable {
     @Basic(optional = false)
     @Column(name = "mailid")
     private Long mailid;
-    @Column(name = "sentDate")
+    @Column(name = "sentdate")
     @Temporal(TemporalType.DATE)
     private Date sentDate;
     @ManyToMany(mappedBy = "mailList")

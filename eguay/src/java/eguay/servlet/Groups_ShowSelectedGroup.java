@@ -6,8 +6,10 @@ package eguay.servlet;
 
 import eguay.dao.GroupsFacade;
 import eguay.dao.UsersFacade;
+import eguay.dto.GroupDTO;
 import eguay.service.GroupService;
 import eguay.service.UserService;
+import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -40,9 +42,11 @@ public class Groups_ShowSelectedGroup extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        long groupId = Long.valueOf(request.getParameter("id"));
-        request.setAttribute("group", groupService.getGroup(groupId));
-        request.setAttribute("users", userService.getAllUsers());
+        long groupId = ServletUtils.getIdLong(request, "id");
+        GroupDTO group = groupService.getGroupDTO(groupId);
+        
+        request.setAttribute("group", group);
+        request.setAttribute("usersMap", groupService.GetUsersInGroupMap(group));
         request.getRequestDispatcher("group.jsp").forward(request, response);
     }
 

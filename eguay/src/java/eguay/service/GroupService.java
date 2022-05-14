@@ -6,12 +6,18 @@ package eguay.service;
 
 import eguay.dao.GroupsFacade;
 import eguay.dao.UsersFacade;
+import eguay.dto.GroupDTO;
+import eguay.dto.UserDTO;
 import eguay.entity.Groups;
 import eguay.entity.Users;
 import eguay.services.ServletUtils;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.StringJoiner;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.ServletException;
@@ -31,12 +37,24 @@ public class GroupService {
     
     // Query
     
+    public List<GroupDTO> getAllGroupsDTO() {
+        return toDTO(getAllGroups());
+    }
+    
     public List<Groups> getAllGroups() {
-        return (List<Groups>) this.groupsFacade.findAll();
+        return groupsFacade.findAll();
     }
 
+    public GroupDTO getGroupDTO(long groupId) {
+        return this.groupsFacade.find(groupId).toDTO();
+    }
+    
     public Groups getGroup(long groupId) {
-        return (Groups) this.groupsFacade.find(groupId);
+        return this.groupsFacade.find(groupId);
+    }
+    
+    public Groups getGroup(GroupDTO group) {
+        return getGroup(group.getId());
     }
     
     // Extra functionalities
@@ -66,13 +84,25 @@ public class GroupService {
         }
     }
     
-    public boolean contains(Groups group, Users user){
+    public boolean contains(GroupDTO groupDTO, UserDTO userDTO){
+        Groups group = getGroup(groupDTO.getId());
+        Users user = userService.getUser(userDTO.getId());
         return group.getUsersList().contains(user);
     }
     
     private void createUserListIfDontExist(Groups group){
         if(group.getUsersList() == null)
                 group.setUsersList(new LinkedList<>());
+    }
+    
+    public static List<GroupDTO> toDTO(List<Groups> groups){
+        List<GroupDTO> dtos = new ArrayList<>(groups.size());
+        
+        for(Groups group : groups){
+            dtos.add(group.toDTO());
+        }
+        
+        return dtos;
     }
 
     // Logic
@@ -85,26 +115,40 @@ public class GroupService {
         
         groupsIds = servletUtils.getIdsFromCheckedLong(request, groupCheckedLabel);
         selectedGroups = servletUtils.getObjectsFromIdsLong(groupsIds, groupsFacade);
+        
+        newGroup.setName(concatGroupNames(selectedGroups));
         addAllUsersInGroups(newGroup, selectedGroups);
         
         if(!newGroup.getUsersList().isEmpty())
             groupsFacade.create(newGroup);
     }  
     
-    public void newGroupFromSelectedUsers(HttpServletRequest request, HttpServletResponse response, String groupNameLabel, String userCheckedLabel) throws IOException, ServletException {
+    public void newGroupFromSelectedUsers(HttpServletRequest request, HttpServletResponse response, String groupIdLabel, String groupNameLabel, String userCheckedLabel) throws IOException, ServletException {
         ServletUtils<Users> servletUtils;
-        String name;
+        String formName, originalGroupName = null;
+        Integer originalGroupId;
         //Long id;
         List<Integer> usersIds;
         List<Users> users;
-        Groups newGroup, group;
+        Groups newGroup, originalGroup;
         newGroup = new Groups();
         servletUtils = new ServletUtils<>();
         
-        name = request.getParameter(groupNameLabel);
+        originalGroupId = ServletUtils.getId(request, "id");
+        if(originalGroupId != null){
+            originalGroup = getGroup(originalGroupId);
+            originalGroupName = originalGroup.getName();
+        }
+        
+        formName = request.getParameter(groupNameLabel);
+        if(originalGroupId != null && formName.equals(originalGroupName)){
+            newGroup.setName(originalGroupName + "2");
+        }else{
+            newGroup.setName(formName);
+        }
+        
         usersIds = ServletUtils.getIdsFromChecked(request, userCheckedLabel);
         users = servletUtils.getObjectsFromIds(usersIds, usersFacade);
-        newGroup.setName(name);
         newGroup.setUsersList(users);
         groupsFacade.create(newGroup);
         
@@ -133,5 +177,34 @@ public class GroupService {
         for(Groups group : selectedGroups){
             groupsFacade.remove(group);
         }
+    }
+    
+    private String concatGroupNames(List<Groups> groups){
+        StringJoiner sj = new StringJoiner("-");
+        
+        for(Groups group : groups){
+            sj.add(group.getName());
+        }
+        
+        return sj.toString();
+    }
+
+    public Object getUsersInGroup(GroupDTO groupDTO) {
+        Groups group = getGroup(groupDTO.getId());
+        return userService.toDTO(group.getUsersList());
+    }
+
+    public Map<UserDTO, Boolean> GetUsersInGroupMap(GroupDTO groupDTO) {
+        HashMap<UserDTO, Boolean> map = new HashMap<>();
+        
+        Groups group = getGroup(groupDTO);
+        List<UserDTO> allUsers = userService.getAllUsersDTO();
+        List<UserDTO> usersInGroup = UserService.toDTO(group.getUsersList());
+        
+        for(UserDTO user : allUsers){
+            map.put(user, usersInGroup.contains(user));
+        }
+        
+        return map;        
     }
 }

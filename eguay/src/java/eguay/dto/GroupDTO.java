@@ -17,9 +17,6 @@ public class GroupDTO {
     
     // Conceptual
     private String name;
-    
-    // Relationships
-    private List<UserDTO> usersList;
 
     public Long getId() {
         return id;
@@ -35,13 +32,5 @@ public class GroupDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<UserDTO> getUsersList() {
-        return usersList;
-    }
-
-    public void setUsersList(List<UserDTO> usersList) {
-        this.usersList = usersList;
     }
 }

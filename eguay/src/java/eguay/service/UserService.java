@@ -8,6 +8,7 @@ package eguay.service;
 import eguay.dao.AuctionFacade;
 import eguay.dao.CategoryFacade;
 import eguay.dao.UsersFacade;
+import eguay.dto.UserDTO;
 import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.entity.Groups;
@@ -17,8 +18,10 @@ import javax.ejb.Stateless;
 import eguay.entity.Users;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 /**
  *
  * @author parsa
@@ -31,12 +34,20 @@ public class UserService {
     
     // Query
     
+    Users getUser(Integer id) {
+        return usersFacade.find(id);
+    }
+    
+    public List<UserDTO> getAllUsersDTO(){
+        return toDTO(getAllUsers());
+    }
+    
     public List<Users> getAllUsers(){
         return this.usersFacade.findAll();
     }
     
     public List<Users> getUsersInterestedIn(Category category){
-       List<Users> userList = getAllUsers();
+       List<Users> userList = this.usersFacade.findAll();
        
        for(Users user : userList){
            if(isInterestedIn(user, category))
@@ -65,6 +76,16 @@ public class UserService {
     
     public void addToGroup(Users user, Groups group){
         user.getGroupsList().add(group);
+    }
+    
+    public static List<UserDTO> toDTO(List<Users> users){
+        List<UserDTO> dtos = new ArrayList<>(users.size());
+        
+        for(Users user : users){
+            dtos.add(user.toDTO());
+        }
+        
+        return dtos;
     }
     
     // Logic
@@ -145,7 +166,4 @@ public class UserService {
         auction.getUsersList1().remove(user);
                 auctionFacade.edit(auction);
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }

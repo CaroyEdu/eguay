@@ -358,12 +358,6 @@ public class Users implements Serializable {
         dto.setCity(city);
         dto.setAddress(address);
         
-        // Relationships
-        dto.setRols(RolService.toDTO(rolList));
-        dto.setMails(MailService.toDTO(UserService.getMails(this)));
-        dto.setFavoriteCategories(CategoryService.toDTO(categoryList));
-        dto.setFollowingAuctions(AuctionService.toDTO(auctionList));
-        
         return dto;
     }
 }

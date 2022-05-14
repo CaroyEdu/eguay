@@ -41,7 +41,7 @@ public class Groups_ShowGroupList extends HttpServlet {
     }
     
     public void loadGroups(HttpServletRequest request){
-        request.setAttribute("groupList", groupService.getAllGroups());
+        request.setAttribute("groupList", groupService.getAllGroupsDTO());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
