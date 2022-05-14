@@ -5,8 +5,11 @@
  */
 package eguay.servlet;
 
-import eguay.dao.CategoryFacade;
+import eguay.dao.AuctionFacade;
+import eguay.entity.Auction;
 import eguay.entity.Category;
+import eguay.entity.Users;
+import eguay.service.AuctionService;
 import eguay.service.CategoryService;
 import java.io.IOException;
 import java.util.List;
@@ -16,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -25,7 +29,9 @@ import javax.servlet.http.HttpServletResponse;
 public class MyProductsServlet extends HttpServlet {
     
     @EJB CategoryService categoryService;
-
+    @EJB AuctionService auctionService; 
+    @EJB AuctionFacade auctionFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,8 +45,26 @@ public class MyProductsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        List<Category> categoryList =  categoryService.getAllCategories();
+        HttpSession session = request.getSession();
+        Users user = (Users) session.getAttribute("user");
+        String filter = (String) request.getParameter("searchbar");
         
+        List<Category> categoryList =  categoryService.getAllCategories();
+        List<Auction> userAuctions = auctionService.filterAuctionOrederedByUser(user.getUserid());
+        
+        if(filter==null)
+        {
+            request.setAttribute("userAuctions", userAuctions);
+        }else{
+            List<Auction> auctionList = auctionService.filterAuctionByUser(filter, user.getUserid());
+            if(auctionList.isEmpty())
+            {
+                request.setAttribute("userAuctions", userAuctions);
+                request.setAttribute("error", "No se ha encontrado ninguna subasta con este filtro. Se ha devuelto el listado completo de sus subastas.");
+            }else{
+                request.setAttribute("userAuctions", auctionList);
+            }
+        }
         request.setAttribute("categoryList", categoryList);
         
         request.getRequestDispatcher("myProducts.jsp").forward(request, response);
