@@ -48,17 +48,4 @@ public class UsersFacade extends AbstractFacade<Users> {
             return userList.get(0);
         }
     }
-
-    // Auxiliary functions
-    
-    public List<Users> usersInterestedIn(Category category){
-       List<Users> userList = this.findAll();
-       
-       for(Users user : userList){
-           if(!user.interestedIn(category))
-               userList.remove(user);
-       }
-       
-       return userList;
-    }
 }

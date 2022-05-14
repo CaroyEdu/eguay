@@ -332,14 +332,4 @@ public class Users implements Serializable {
     public String toString() {
         return "eguay.entity.Users[ userid=" + userid + " ]";
     }
-    
-    // Auxiliary functions  
-
-    public boolean interestedIn(Category category) {
-        return this.categoryList.contains(category);
-    }
-    
-    public void addToGroup(Groups group){
-        this.groupsList.add(group);
-    }
 }

@@ -27,6 +27,8 @@ public class GroupService {
     @EJB GroupsFacade groupsFacade;
     @EJB UsersFacade usersFacade;
     
+    @EJB UserService userService;
+    
     // Query
     
     public List<Groups> getAllGroups() {
@@ -107,7 +109,7 @@ public class GroupService {
         groupsFacade.create(newGroup);
         
         for(Users user : users){
-            user.addToGroup(newGroup);
+            userService.addToGroup(user, newGroup);
             usersFacade.edit(user);
         }
         
