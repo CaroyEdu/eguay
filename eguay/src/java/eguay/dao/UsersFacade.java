@@ -7,7 +7,9 @@ package eguay.dao;
 
 import eguay.entity.Category;
 import eguay.entity.Users;
+import eguay.service.UserService;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,6 +24,9 @@ public class UsersFacade extends AbstractFacade<Users> {
 
     @PersistenceContext(unitName = "eguayPU")
     private EntityManager em;
+    
+    @EJB
+    UserService userService;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -55,18 +60,5 @@ public class UsersFacade extends AbstractFacade<Users> {
         q = this.em.createQuery("SELECT u FROM Users u WHERE u.userid = :id");
         q.setParameter("id", id);
         return (Users) q.getSingleResult();
-    }
-
-    // Auxiliary functions
-    
-    public List<Users> usersInterestedIn(Category category){
-       List<Users> userList = this.findAll();
-       
-       for(Users user : userList){
-           if(!user.interestedIn(category))
-               userList.remove(user);
-       }
-       
-       return userList;
     }
 }
