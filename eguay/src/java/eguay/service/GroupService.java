@@ -80,4 +80,12 @@ public class GroupService {
             groupsFacade.remove(group);
         }
     }
+
+    public List<Groups> getAllGroups() {
+        return (List<Groups>) this.groupsFacade.findAll();
+    }
+
+    public Groups getGroup(long groupId) {
+        return (Groups) this.groupsFacade.find(groupId);
+    }
 }

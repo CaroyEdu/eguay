@@ -6,6 +6,7 @@ package eguay.servlet;
 
 import eguay.dao.GroupsFacade;
 import eguay.dao.UsersFacade;
+import eguay.service.GroupService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Groups_ShowSelectedGroup extends HttpServlet {
 
     @EJB UsersFacade usersFacade;
-    @EJB GroupsFacade  groupsFacade;
+    @EJB GroupService groupService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,7 +40,7 @@ public class Groups_ShowSelectedGroup extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         long groupId = Long.valueOf(request.getParameter("id"));
-        request.setAttribute("group", groupsFacade.find(groupId));
+        request.setAttribute("group", groupService.getGroup(groupId));
         request.setAttribute("users", usersFacade.findAll());
         request.getRequestDispatcher("group.jsp").forward(request, response);
     }
