@@ -12,6 +12,7 @@ import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.StringJoiner;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.ServletException;
@@ -85,6 +86,8 @@ public class GroupService {
         
         groupsIds = servletUtils.getIdsFromCheckedLong(request, groupCheckedLabel);
         selectedGroups = servletUtils.getObjectsFromIdsLong(groupsIds, groupsFacade);
+        
+        newGroup.setName(concatGroupNames(selectedGroups));
         addAllUsersInGroups(newGroup, selectedGroups);
         
         if(!newGroup.getUsersList().isEmpty())
@@ -133,5 +136,15 @@ public class GroupService {
         for(Groups group : selectedGroups){
             groupsFacade.remove(group);
         }
+    }
+    
+    private String concatGroupNames(List<Groups> groups){
+        StringJoiner sj = new StringJoiner("-");
+        
+        for(Groups group : groups){
+            sj.add(group.getName());
+        }
+        
+        return sj.toString();
     }
 }
