@@ -7,7 +7,6 @@ package eguay.servlet;
 import eguay.dao.GroupsFacade;
 import eguay.entity.Groups;
 import eguay.service.GroupService;
-import eguay.services.GroupServices;
 import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
