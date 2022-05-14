@@ -55,4 +55,11 @@ public class AuctionFacade extends AbstractFacade<Auction> {
         q.setParameter("userid", userid);
         return q.getResultList();
     }
+    
+    public List<Auction> findByActive()
+    {
+        Query q;
+        q = this.em.createQuery("SELECT c FROM Auction c WHERE c.active = TRUE");
+        return q.getResultList();
+    }
 }

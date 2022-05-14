@@ -28,7 +28,8 @@
             if(userAuctions.isEmpty())
             {
                 %>
-                <h1>Aún no ha puesto en venta ningún artículo.</h1>
+                <br/>
+                <h1 class="wrapper">Aún no ha puesto en venta ningún artículo.</h1>
                 <%
             }else{
                 %>

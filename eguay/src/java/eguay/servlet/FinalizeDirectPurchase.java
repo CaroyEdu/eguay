@@ -59,7 +59,8 @@ public class FinalizeDirectPurchase extends HttpServlet {
         
         List<Auction> purchasedAuction = user.getAuctionList1() ;
         if(purchasedAuction == null) purchasedAuction = new ArrayList() ;
-        purchasedAuction.add(auction); 
+        purchasedAuction.add(auction);
+        user.setAuctionList1(purchasedAuction);
         
         
         
