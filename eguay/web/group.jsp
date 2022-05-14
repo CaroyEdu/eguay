@@ -4,6 +4,7 @@
     Author     : pedro
 --%>
 
+<%@page import="eguay.service.GroupService"%>
 <%@page import="eguay.entity.Users"%>
 <%@page import="java.util.List"%>
 <%@page import="eguay.entity.Groups"%>
@@ -16,6 +17,8 @@
         <title>Grupo</title>
     </head>
     <%
+        GroupService groupService = new GroupService();
+        
         boolean nuevoGrupo = false;
         Groups group = null;
         List<Users> users;
@@ -50,7 +53,7 @@
                 %>
                 <tr>
                     <td><%=user.getName()%></td>
-                    <td><input type="checkbox" name="selectedUser" value="<%=user.getUserid()%>" <%=!nuevoGrupo && group.contains(user) ? "checked" : ""%>/></td>
+                    <td><input type="checkbox" name="selectedUser" value="<%=user.getUserid()%>" <%=!nuevoGrupo && groupService.contains(group, user) ? "checked" : ""%>/></td>
                 </tr>
                 <%
                     }
