@@ -19,7 +19,8 @@
     <jsp:include page="cabecera.jsp"/>
     <%
         Users user = (Users) session.getAttribute("user");
-        List<Auction> userAuctions = user.getAuctionList2();
+        List<Auction> userAuctions = (List) request.getAttribute("userAuctions");
+        String error = (String) request.getAttribute("error");
     %>
     
     <body>
@@ -31,12 +32,22 @@
                 <%
             }else{
                 %>
-                <table border="1px">
+                <br/>
+                <br/>
+                <% if(error!=null){ %>
+                <label style="color:red"class="wrapper"><%=error%></label>
+                <% } %>
+                <div>
+                    <form method="POST" action="MyProductsServlet" class="wrapper">
+                        <input class="search" placeholder="Filtrar subastas..." type="text" name="searchbar">
+                    </form>
+                </div>
+                <table border="1px" width="90%" style="margin:  0 5% 0 5%">
                     <tr>
-                        <th>Título</th>
-                        <th>Activo</th>
-                        <th>Editar Subasta</th>
-                        <th>Borrar Subasta</th>
+                        <th width="50%">Título</th>
+                        <th width="10%">Activo</th>
+                        <th width="20%">Editar Subasta</th>
+                        <th width="20%">Borrar Subasta</th>
                     </tr>
                     <%
                         for(Auction a : userAuctions){
@@ -44,8 +55,8 @@
                             <tr>
                             <td><%= a.getTitle() %></td>
                             <td><%= a.getActive() %></td>
-                            <td><a href="AddProductServlet?id=<%= a.getAuctionid() %>">Editar</a></td>
-                            <td><a href="DeleteAuctionServlet?id=<%= a.getAuctionid() %>&userid=<%= user.getUserid() %>">Borrar</a></td>
+                            <td><a href="AddProductServlet?id=<%= a.getAuctionid() %>" style="padding: 2px 5px 2px 5px; color: white; background-color: #333; margin-left: 50%">X</a></td>
+                            <td><a href="DeleteAuctionServlet?id=<%= a.getAuctionid() %>&userid=<%= user.getUserid() %>" style="padding: 2px 5px 2px 5px; color: white; background-color: #333; margin-left: 50%">X</a></td>
                             </tr>
                             <%
                         }

@@ -41,6 +41,25 @@ public class AuctionService {
             }
         return auctions;
     }
+    
+    public List<Auction> filterAuctionByUser(String filter, int userid){
+        List<Auction> auctions ;
+        if(filter == null || filter.isEmpty())
+            {
+                auctions = this.auctionFacade.findByTitleAndUser("", userid);
+            }
+            else
+            {
+                auctions = this.auctionFacade.findByTitleAndUser(filter, userid);
+            }
+        return auctions;
+    }
+    
+    public List<Auction> filterAuctionOrederedByUser(int userid){
+        List<Auction> auctions ;
+        auctions = this.auctionFacade.findOrderedByUser(userid);
+        return auctions;
+    }
 
     public void editAuction(Auction auction){
         auctionFacade.edit(auction);

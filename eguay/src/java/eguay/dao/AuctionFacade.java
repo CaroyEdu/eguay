@@ -39,4 +39,20 @@ public class AuctionFacade extends AbstractFacade<Auction> {
         return q.getResultList();
     }
     
+    public List<Auction> findByTitleAndUser(String title, int userid)
+    {
+        Query q;
+        q = this.em.createQuery("SELECT c FROM Auction c WHERE c.sellerid.userid = :userid AND c.title LIKE :title");
+        q.setParameter("title", '%' + title + '%');
+        q.setParameter("userid", userid);
+        return q.getResultList();
+    }
+    
+    public List<Auction> findOrderedByUser(int userid)
+    {
+        Query q;
+        q = this.em.createQuery("SELECT c FROM Auction c WHERE c.sellerid.userid = :userid ORDER BY c.startdate DESC");
+        q.setParameter("userid", userid);
+        return q.getResultList();
+    }
 }
