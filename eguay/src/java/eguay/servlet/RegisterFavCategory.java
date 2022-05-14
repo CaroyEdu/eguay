@@ -9,7 +9,7 @@ import eguay.dao.CategoryFacade;
 import eguay.entity.Category;
 import eguay.entity.Users;
 import eguay.service.CategoryService;
-import eguay.service.UsersService;
+import eguay.service.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "RegisterFavCategory", urlPatterns = {"/RegisterFavCategory"})
 public class RegisterFavCategory extends HttpServlet {
 
-@EJB UsersService usersService ; 
+@EJB UserService usersService ; 
 @EJB CategoryService categoryService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

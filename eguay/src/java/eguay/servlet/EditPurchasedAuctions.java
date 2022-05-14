@@ -9,7 +9,7 @@ import eguay.dao.AuctionFacade;
 import eguay.dao.UsersFacade;
 import eguay.entity.Auction;
 import eguay.entity.Users;
-import eguay.service.UsersService;
+import eguay.service.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "EditPurchasedAuctions", urlPatterns = {"/EditPurchasedAuctions"})
 public class EditPurchasedAuctions extends HttpServlet {
-    @EJB UsersService userService;
+    @EJB UserService userService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

@@ -8,7 +8,7 @@ import eguay.dao.GroupsFacade;
 import eguay.dao.UsersFacade;
 import eguay.entity.Groups;
 import eguay.entity.Users;
-import eguay.services.GroupServices;
+import eguay.service.GroupService;
 import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,8 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "NewGroupFromSelectedUsers", urlPatterns = {"/NewGroupFromSelectedUsers"})
 public class Groups_NewGroupFromSelectedUsers extends HttpServlet {
     
-    @EJB UsersFacade usersFacade;
-    @EJB GroupsFacade groupsFacade;
+    @EJB GroupService groupService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,7 +43,7 @@ public class Groups_NewGroupFromSelectedUsers extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        GroupServices.newGroupFromSelectedUsers(request, response, "name", "selectedUser", this.groupsFacade, this.usersFacade);
+        groupService.newGroupFromSelectedUsers(request, response, "name", "selectedUser");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

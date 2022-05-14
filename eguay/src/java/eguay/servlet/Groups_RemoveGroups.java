@@ -6,7 +6,7 @@ package eguay.servlet;
 
 import eguay.dao.GroupsFacade;
 import eguay.entity.Groups;
-import eguay.services.GroupServices;
+import eguay.service.GroupService;
 import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "RemoveGroups", urlPatterns = {"/RemoveGroups"})
 public class Groups_RemoveGroups extends HttpServlet {
     
-    @EJB GroupsFacade groupsFacade;
+    @EJB GroupService groupService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +40,7 @@ public class Groups_RemoveGroups extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        GroupServices.removeSelectedGroups(request, "selectedGroup", groupsFacade);
+        groupService.removeSelectedGroups(request, "selectedGroup");
         response.sendRedirect("ShowGroupList");
     }
 

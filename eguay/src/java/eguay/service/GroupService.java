@@ -1,16 +1,18 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB30/StatelessEjbClass.java to edit this template
  */
-package eguay.services;
+package eguay.service;
 
 import eguay.dao.GroupsFacade;
 import eguay.dao.UsersFacade;
 import eguay.entity.Groups;
 import eguay.entity.Users;
+import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +21,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedro
  */
-public class GroupServices {    
-    public static void createNewGroupFromSelectedGroups(HttpServletRequest request, String groupCheckedLabel, GroupsFacade groupsFacade) {
+@Stateless
+public class GroupService {
+    @EJB GroupsFacade groupsFacade;
+    @EJB UsersFacade usersFacade;
+
+    public void createNewGroupFromSelectedGroups(HttpServletRequest request, String groupCheckedLabel) {
         List<Long> groupsIds;
         List<Groups> selectedGroups;
         Groups newGroup = new Groups();
@@ -34,7 +40,7 @@ public class GroupServices {
             groupsFacade.create(newGroup);
     }  
     
-    public static void newGroupFromSelectedUsers(HttpServletRequest request, HttpServletResponse response, String groupNameLabel, String userCheckedLabel, GroupsFacade groupsFacade, UsersFacade usersFacade) throws IOException, ServletException {
+    public void newGroupFromSelectedUsers(HttpServletRequest request, HttpServletResponse response, String groupNameLabel, String userCheckedLabel) throws IOException, ServletException {
         ServletUtils<Users> servletUtils;
         String name;
         //Long id;
@@ -62,7 +68,7 @@ public class GroupServices {
         }
     }
     
-    public static void removeSelectedGroups(HttpServletRequest request, String groupCheckedLabel, GroupsFacade groupsFacade) {
+    public void removeSelectedGroups(HttpServletRequest request, String groupCheckedLabel) {
         List<Long> groupsIds;
         List<Groups> selectedGroups;
         ServletUtils<Groups> servletUtils = new ServletUtils<>();
@@ -73,5 +79,13 @@ public class GroupServices {
         for(Groups group : selectedGroups){
             groupsFacade.remove(group);
         }
+    }
+
+    public List<Groups> getAllGroups() {
+        return (List<Groups>) this.groupsFacade.findAll();
+    }
+
+    public Groups getGroup(long groupId) {
+        return (Groups) this.groupsFacade.find(groupId);
     }
 }

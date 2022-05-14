@@ -5,6 +5,7 @@
 package eguay.servlet;
 
 import eguay.dao.GroupsFacade;
+import eguay.service.GroupService;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "showGroupList", urlPatterns = {"/ShowGroupList"})
 public class Groups_ShowGroupList extends HttpServlet {
     
-    @EJB GroupsFacade groupsFacade;
+    @EJB GroupService groupService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +41,7 @@ public class Groups_ShowGroupList extends HttpServlet {
     }
     
     public void loadGroups(HttpServletRequest request){
-        request.setAttribute("groupList", groupsFacade.findAll());
+        request.setAttribute("groupList", groupService.getAllGroups());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

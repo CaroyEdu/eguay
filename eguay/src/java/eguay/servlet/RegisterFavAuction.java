@@ -12,7 +12,7 @@ import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.entity.Users;
 import eguay.service.AuctionService;
-import eguay.service.UsersService;
+import eguay.service.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "RegisterFavAuction", urlPatterns = {"/RegisterFavAuction"})
 public class RegisterFavAuction extends HttpServlet {
-@EJB UsersService usersServices;
+@EJB UserService usersServices;
 @EJB AuctionService auctionService; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
