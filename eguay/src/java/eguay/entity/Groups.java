@@ -122,34 +122,4 @@ public class Groups implements Serializable {
     public String toString() {
         return "eguay.entity.Groups[ groupid=" + groupid + " ]";
     }
-    
-    // Auxiliary functions
-    
-    public void add(Users user){
-        if(this.usersList == null)
-            this.usersList = new LinkedList<>();
-        this.usersList.add(user);
-    }
-     
-    public void addAll(List<Users> users){
-        if(users != null && !users.isEmpty()){
-            if(this.usersList == null)
-                this.usersList = new LinkedList<>();
-            this.usersList.addAll(users);
-        }
-    }
-    
-    public void addAllGroups(List<Groups> groups){
-        if(groups!= null && !groups.isEmpty()){
-            if(this.usersList == null)
-                this.usersList = new LinkedList<>();
-            for(Groups group : groups){
-                this.usersList.addAll(group.getUsersList());
-            }
-        }
-    }
-    
-    public boolean contains(Users user){
-        return this.usersList.contains(user);
-    }
 }
