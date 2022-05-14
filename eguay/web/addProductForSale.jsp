@@ -83,7 +83,12 @@
                 <input <% if(auction!=null){if(auction.getClosenumberofbids()!=null){ %> checked <%}}%>type="checkbox" id="closeNumberOfBids" name="checkBoxCloseNumberOfBids"/>
                 Cerrar cuando llegue a: <input type="text" id="inputCloseNumberOfBids" name="inputCloseNumberOfBids" value="<% if(auction!=null){if(auction.getClosenumberofbids()!=null){%><%= auction.getClosenumberofbids()%><%}} %>"/> pujas.
                 <br/>
+                <input type="text" name="auctionid" value="<%= auction==null? "": auction.getAuctionid() %>" hidden />
+                <% if(auction!=null){ %>
+                <input type="submit" id="checkBtn" value="Editar"/>
+                <% }else{ %>
                 <input type="submit" id="checkBtn" value="Añadir"/>
+                <% } %>
             </form>
         </div>
         <script>

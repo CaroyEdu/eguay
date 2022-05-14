@@ -31,7 +31,7 @@
                 <%
             }else{
                 %>
-                <table>
+                <table border="1px">
                     <tr>
                         <th>Título</th>
                         <th>Activo</th>
@@ -45,7 +45,7 @@
                             <td><%= a.getTitle() %></td>
                             <td><%= a.getActive() %></td>
                             <td><a href="AddProductServlet?id=<%= a.getAuctionid() %>">Editar</a></td>
-                            <td><a href="DeleteAuctionServlet?id=<%= a.getAuctionid() %>">Borrar</a></td>
+                            <td><a href="DeleteAuctionServlet?id=<%= a.getAuctionid() %>&userid=<%= user.getUserid() %>">Borrar</a></td>
                             </tr>
                             <%
                         }

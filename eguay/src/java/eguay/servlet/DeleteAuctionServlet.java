@@ -6,15 +6,19 @@
 package eguay.servlet;
 
 import eguay.dao.AuctionFacade;
+import eguay.dao.UsersFacade;
 import eguay.entity.Auction;
+import eguay.entity.Users;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -24,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteAuctionServlet extends HttpServlet {
 
     @EJB AuctionFacade auctionFacade;
+    @EJB UsersFacade usersFacade;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,14 +43,23 @@ public class DeleteAuctionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        HttpSession session = request.getSession();
         Long id = Long.parseLong((String)request.getParameter("id"));
         Auction auction = auctionFacade.find(id);
+        Users user = (Users) session.getAttribute("user");
         if(auction != null)
         {
             auctionFacade.remove(auction);
+            
+            List<Auction> usersSubmitedAuctions = user.getAuctionList2();
+            usersSubmitedAuctions.remove(auction);
+            user.setAuctionList2(usersSubmitedAuctions);
+            usersFacade.edit(user);
         }
         
-        request.getRequestDispatcher("MyProductsServlet").forward(request, response);
+        session.setAttribute("user", user);
+        
+        response.sendRedirect("myProducts.jsp");
         
     }
 

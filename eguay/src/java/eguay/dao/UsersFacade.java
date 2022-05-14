@@ -48,4 +48,25 @@ public class UsersFacade extends AbstractFacade<Users> {
             return userList.get(0);
         }
     }
+    
+    public Users getUserByID(Long id)
+    {
+        Query q;
+        q = this.em.createQuery("SELECT u FROM Users u WHERE u.userid = :id");
+        q.setParameter("id", id);
+        return (Users) q.getSingleResult();
+    }
+
+    // Auxiliary functions
+    
+    public List<Users> usersInterestedIn(Category category){
+       List<Users> userList = this.findAll();
+       
+       for(Users user : userList){
+           if(!user.interestedIn(category))
+               userList.remove(user);
+       }
+       
+       return userList;
+    }
 }

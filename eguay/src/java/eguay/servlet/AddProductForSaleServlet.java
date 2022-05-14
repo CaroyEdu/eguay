@@ -116,15 +116,20 @@ public class AddProductForSaleServlet extends HttpServlet {
         categoryList.add(0, new Category(Long.parseLong(str)));
         auction.setCategoryList(categoryList);
         
-        // Creamos el objeto y lo insertamos en la base de datos
-        auctionFacade.create(auction);
-        
-        List<Auction> usersSubmitedAuctions = user.getAuctionList2();
-        if(usersSubmitedAuctions == null) usersSubmitedAuctions = new ArrayList();
-        usersSubmitedAuctions.add(auction);
-        user.setAuctionList2(usersSubmitedAuctions);
-        
-        usersFacade.edit(user);
+        // Creamos/Editamos el objeto y lo insertamos en la base de datos
+        String auctionid = request.getParameter("auctionid");
+        if(auctionid.equals("")){
+            auctionFacade.create(auction);
+            
+            List<Auction> usersSubmitedAuctions = user.getAuctionList2();
+            if(usersSubmitedAuctions == null) usersSubmitedAuctions = new ArrayList();
+            usersSubmitedAuctions.add(auction);
+            user.setAuctionList2(usersSubmitedAuctions);        
+            usersFacade.edit(user);
+        }else{
+            auction.setAuctionid(Long.parseLong(auctionid));
+            auctionFacade.edit(auction);
+        }
         
         // Una vez creado e insertado el objeto, nos volvemos a la página de inicio
         response.sendRedirect("IndexServlet");
