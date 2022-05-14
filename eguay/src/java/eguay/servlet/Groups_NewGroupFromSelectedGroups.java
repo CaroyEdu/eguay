@@ -6,6 +6,7 @@ package eguay.servlet;
 
 import eguay.dao.GroupsFacade;
 import eguay.entity.Groups;
+import eguay.service.GroupService;
 import eguay.services.GroupServices;
 import eguay.services.ServletUtils;
 import java.io.IOException;
@@ -27,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "NewGroupFromSelectedGroups", urlPatterns = {"/NewGroupFromSelectedGroups"})
 public class Groups_NewGroupFromSelectedGroups extends HttpServlet {
     
-    @EJB GroupsFacade groupsFacade;
+    @EJB GroupService groupService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,8 +43,7 @@ public class Groups_NewGroupFromSelectedGroups extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        GroupServices groupService = new GroupServices();
-        groupService.createNewGroupFromSelectedGroups(request, "selectedGroup", this.groupsFacade);
+        groupService.createNewGroupFromSelectedGroups(request, "selectedGroup");
         response.sendRedirect("ShowGroupList");
     }    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
