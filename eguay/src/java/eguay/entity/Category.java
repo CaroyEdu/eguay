@@ -5,6 +5,7 @@
  */
 package eguay.entity;
 
+import eguay.dto.CategoryDTO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -118,4 +119,14 @@ public class Category implements Serializable {
         return "eguay.entity.Category[ categoryid=" + categoryid + " ]";
     }
     
+    // DTO
+    
+    public CategoryDTO toDTO(){
+        CategoryDTO dto = new CategoryDTO();
+        
+        dto.setId(categoryid);
+        dto.setName(name);
+        
+        return dto;
+    }
 }

@@ -5,6 +5,7 @@
  */
 package eguay.entity;
 
+import eguay.dto.AuctionDTO;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -290,4 +291,17 @@ public class Auction implements Serializable {
         return "eguay.entity.Auction[ auctionid=" + auctionid + " ]";
     }
     
+    public AuctionDTO toDTO(){
+        AuctionDTO dto = new AuctionDTO();
+        
+        dto.setId(auctionid);
+        dto.setActive(active);
+        dto.setCloseDate(closedate);
+        dto.setCloseNumberofBids(closenumberofbids);
+        dto.setClosePrice(closeprice);
+        dto.setMaxBid(maxbid);
+        dto.setStartDate(startdate);
+        
+        return dto;
+    }
 }

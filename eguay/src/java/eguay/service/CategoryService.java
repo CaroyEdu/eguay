@@ -6,7 +6,9 @@
 package eguay.service;
 
 import eguay.dao.CategoryFacade;
+import eguay.dto.CategoryDTO;
 import eguay.entity.Category;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -17,12 +19,24 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class CategoryService {
-@EJB CategoryFacade categoryFacade;
+    @EJB CategoryFacade categoryFacade;
+
+    // Queries
+    
     public List<Category> getAllCategories(){
         
         List<Category> categories = categoryFacade.findAll();
         return categories ; 
     }
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    
+    // Logic
+    public static List<CategoryDTO> toDTO(List<Category> categories){
+        List<CategoryDTO> dtos = new ArrayList<CategoryDTO>(categories.size());
+        
+        for(Category category : categories){
+            dtos.add(category.toDTO());
+        }
+        
+        return dtos;
+    }
 }

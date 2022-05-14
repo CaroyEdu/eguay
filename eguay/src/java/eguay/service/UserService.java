@@ -11,11 +11,13 @@ import eguay.dao.UsersFacade;
 import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.entity.Groups;
+import eguay.entity.Mail;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import eguay.entity.Users;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 /**
  *
@@ -42,6 +44,17 @@ public class UserService {
        }
        
        return userList;
+    }
+    
+    public static List<Mail> getMails(Users user){
+        List<Mail> mails = new LinkedList<>();
+        
+        mails.addAll(user.getMailList());
+        for(Groups group : user.getGroupsList()){
+            mails.addAll(group.getMailList());
+        }
+        
+        return mails;
     }
     
     // Extra functionalities  

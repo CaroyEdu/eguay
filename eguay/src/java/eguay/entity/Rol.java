@@ -5,6 +5,7 @@
  */
 package eguay.entity;
 
+import eguay.dto.RolDTO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -126,6 +127,17 @@ public class Rol implements Serializable {
     @Override
     public String toString() {
         return "eguay.entity.Rol[ rolid=" + rolid + " ]";
+    }
+    
+    // DTO
+    
+    public RolDTO toDTO(){
+        RolDTO dto = new RolDTO();
+        
+        dto.setId(rolid);
+        dto.setName(name);
+        
+        return dto;
     }
     
 }
