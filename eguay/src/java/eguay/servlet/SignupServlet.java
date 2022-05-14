@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
 import eguay.entity.Users;
-import eguay.service.UsersService;
+import eguay.service.UserService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,7 +39,7 @@ public class SignupServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @EJB UsersFacade usersFacade;
-    @EJB UsersService usersService;
+    @EJB UserService usersService;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

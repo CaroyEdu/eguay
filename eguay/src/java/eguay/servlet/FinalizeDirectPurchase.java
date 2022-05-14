@@ -10,7 +10,7 @@ import eguay.dao.UsersFacade;
 import eguay.entity.Auction;
 import eguay.entity.Users;
 import eguay.service.AuctionService;
-import eguay.service.UsersService;
+import eguay.service.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class FinalizeDirectPurchase extends HttpServlet {
     
     @EJB AuctionService auctionService; 
     @EJB UsersFacade usersFacede;
-    @EJB UsersService userService ; 
+    @EJB UserService userService ; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

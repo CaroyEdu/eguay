@@ -21,10 +21,14 @@ import java.util.List;
  * @author parsa
  */
 @Stateless
-public class UsersService {
+public class UserService {
     @EJB UsersFacade usersFacade;
     @EJB CategoryFacade categoryFacade;
     @EJB AuctionFacade auctionFacade;
+    
+    public List<Users> getAllUsers(){
+        return this.usersFacade.findAll();
+    }
     
     public void createUser(Users user , String username ,String name ,String surname , String address ,
     String city , String email , String country , String password , Date birthday , int sex){
