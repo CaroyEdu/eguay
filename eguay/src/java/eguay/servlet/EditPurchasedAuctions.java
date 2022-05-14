@@ -9,6 +9,7 @@ import eguay.dao.AuctionFacade;
 import eguay.dao.UsersFacade;
 import eguay.entity.Auction;
 import eguay.entity.Users;
+import eguay.service.AuctionService;
 import eguay.service.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,6 +29,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "EditPurchasedAuctions", urlPatterns = {"/EditPurchasedAuctions"})
 public class EditPurchasedAuctions extends HttpServlet {
     @EJB UserService userService;
+    @EJB AuctionService auctionService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,7 +44,7 @@ public class EditPurchasedAuctions extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
          HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
-        List<Auction> purchasedAuctionList = user.getAuctionList1();
+        List<Auction> purchasedAuctionList = auctionService.filterAuction("");
         for(Auction auction : purchasedAuctionList ){
             String check = (String)request.getParameter(auction.getAuctionid().toString());
             if(check != null){

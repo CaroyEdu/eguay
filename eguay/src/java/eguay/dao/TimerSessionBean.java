@@ -9,6 +9,7 @@ import eguay.entity.Auction;
 import eguay.entity.Bid;
 import eguay.entity.Users;
 import eguay.service.AuctionService;
+import eguay.service.UserService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +29,7 @@ public class TimerSessionBean {
     @EJB BidFacade bidFacade;
     @EJB AuctionService auctionService;
     @EJB UsersFacade usersFacade;
+    @EJB UserService userService;
 
     @Schedule(hour = "*", minute = "*", second = "*/30", persistent = false)
     
@@ -45,20 +47,8 @@ public class TimerSessionBean {
                     {
                         Bid higherBid = bidList.get(0);
                         Users user = higherBid.getBiderid();
-                        List<Users> clientList = new ArrayList();
-                        clientList.add(0, user);
-                        a.setUsersList1(clientList);
-                        a.setActive(Boolean.FALSE);
-
-                        List<Auction> purchasedAuction = user.getAuctionList1();
-                        if(purchasedAuction == null){
-                            purchasedAuction = new ArrayList() ;
-                        }
-                        purchasedAuction.add(a);
-                        user.setAuctionList1(purchasedAuction);
-
-                        auctionService.editAuction(a);
-                        usersFacade.edit(user);
+                        userService.finilizeBuyingAuction(user, a);
+                        
                         System.out.println("La subasta " + a.getAuctionid() + " con titulo:  " + a.getTitle() + " ha sido ganada por " + user.getName() );
                     }else{
                         a.setActive(Boolean.FALSE);
@@ -68,6 +58,9 @@ public class TimerSessionBean {
                 }
             }
         }
+        
+        
+        
     }
 
     // Add business logic below. (Right-click in editor and choose

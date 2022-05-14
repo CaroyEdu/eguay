@@ -52,20 +52,7 @@ public class FinalizeDirectPurchase extends HttpServlet {
         HttpSession session = request.getSession();
         Users user = (Users) session.getAttribute("user");
         
-        List<Users> clientList = new ArrayList();
-        clientList.add(0, user);
-        auction.setUsersList1(clientList);
-        auction.setActive(Boolean.FALSE);
-        
-        List<Auction> purchasedAuction = user.getAuctionList1() ;
-        if(purchasedAuction == null) purchasedAuction = new ArrayList() ;
-        purchasedAuction.add(auction);
-        user.setAuctionList1(purchasedAuction);
-        
-        
-        
-        auctionService.editAuction(auction);
-        usersFacede.edit(user);
+        userService.finilizeBuyingAuction(user, auction);
         
         response.sendRedirect("successful.html");
         

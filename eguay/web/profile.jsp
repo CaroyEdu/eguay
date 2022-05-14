@@ -20,6 +20,7 @@
         <h1>Perfil</h1>
         <form>
       <input type="button" onclick="window.location.href='AddFavCategoryServlet';" value="Editar Categorias Favorias" />
+      <input type="button" onclick="window.location.href='EditFavAuctionServlet';" value="Editar pujas favoritas" />
       <input type="button" onclick="window.location.href='CheckPurchasedAuctionsServlet';" value="Pujas Compradas" /> 
       <input type="button" onclick="window.location.href='MyProductsServlet';" value="Mis Subastas" /> 
     </form>

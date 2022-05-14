@@ -5,15 +5,8 @@
  */
 package eguay.servlet;
 
-import eguay.dao.CategoryFacade;
-import eguay.dao.UsersFacade;
-import eguay.entity.Auction;
-import eguay.entity.Category;
-import eguay.entity.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,9 +17,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author parsa
  */
-@WebServlet(name = "CheckPurchasedAuctionsServlet", urlPatterns = {"/CheckPurchasedAuctionsServlet"})
-public class CheckPurchasedAuctionsServlet extends HttpServlet {
-    
+@WebServlet(name = "EditFavAuctionServlet", urlPatterns = {"/EditFavAuctionServlet"})
+public class EditFavAuctionServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,9 +33,10 @@ public class CheckPurchasedAuctionsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-       
         
-        request.getRequestDispatcher("purchasedauction.jsp").forward(request, response);
+        
+        
+        response.sendRedirect("favauction.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

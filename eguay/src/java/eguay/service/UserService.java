@@ -162,8 +162,34 @@ public class UserService {
     }
     
     public void removePurchasedAuction(Auction auction , Users user){
+       List<Auction> userPurchased = user.getAuctionList1();
+       userPurchased.remove(auction);
+       user.setAuctionList1(userPurchased);
+       
+        List <Users> auctions = auction.getUsersList1();
+        auctions.remove(user);
+        auction.setUsersList1(auctions);
         
-        auction.getUsersList1().remove(user);
-                auctionFacade.edit(auction);
+       usersFacade.edit(user);
+        auctionFacade.edit(auction);
+    }
+    
+    public void finilizeBuyingAuction(Users user , Auction auction){
+        
+        List<Users> clientList = new ArrayList();
+        clientList.add(0, user);
+        auction.setUsersList1(clientList);
+        auction.setActive(Boolean.FALSE);
+        
+        List<Auction> purchasedAuction = user.getAuctionList1() ;
+        if(purchasedAuction == null) purchasedAuction = new ArrayList() ;
+        purchasedAuction.add(auction);
+        user.setAuctionList1(purchasedAuction);
+        
+        
+        
+        auctionFacade.edit(auction);
+        usersFacade.edit(user);
+        System.out.println("success \n");
     }
 }
