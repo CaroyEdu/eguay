@@ -4,6 +4,7 @@
     Author     : pedro
 --%>
 
+<%@page import="eguay.dto.GroupDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="eguay.entity.Groups"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -24,11 +25,11 @@
                     <th>Seleccionados</th>
                 </tr>
                 <%
-                    for (Groups group : (List<Groups>) request.getAttribute("groupList")) {
+                    for (GroupDTO group : (List<GroupDTO>) request.getAttribute("groupList")) {
                 %>
                 <tr>
-                    <td><a href="ShowSelectedGroup?id=<%=group.getGroupid()%>"><%=group.getName()%></a></td>
-                    <td><input type="checkbox" name="selectedGroup" value="<%=group.getGroupid()%>"/></td>
+                    <td><a href="ShowSelectedGroup?id=<%=group.getId()%>"><%=group.getName()%></a></td>
+                    <td><input type="checkbox" name="selectedGroup" value="<%=group.getId()%>"/></td>
                 </tr>
                 <%
                     }

@@ -8,6 +8,7 @@ package eguay.service;
 import eguay.dao.AuctionFacade;
 import eguay.dao.CategoryFacade;
 import eguay.dao.UsersFacade;
+import eguay.dto.UserDTO;
 import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.entity.Groups;
@@ -31,12 +32,12 @@ public class UserService {
     
     // Query
     
-    public List<Users> getAllUsers(){
-        return this.usersFacade.findAll();
+    public List<UserDTO> getAllUsers(){
+        return toDTO(this.usersFacade.findAll());
     }
     
     public List<Users> getUsersInterestedIn(Category category){
-       List<Users> userList = getAllUsers();
+       List<Users> userList = this.usersFacade.findAll();
        
        for(Users user : userList){
            if(isInterestedIn(user, category))
@@ -65,6 +66,16 @@ public class UserService {
     
     public void addToGroup(Users user, Groups group){
         user.getGroupsList().add(group);
+    }
+    
+    public static List<UserDTO> toDTO(List<Users> users){
+        List<UserDTO> dtos = new ArrayList<>(users.size());
+        
+        for(Users user : users){
+            dtos.add(user.toDTO());
+        }
+        
+        return dtos;
     }
     
     // Logic

@@ -6,10 +6,12 @@ package eguay.service;
 
 import eguay.dao.GroupsFacade;
 import eguay.dao.UsersFacade;
+import eguay.dto.GroupDTO;
 import eguay.entity.Groups;
 import eguay.entity.Users;
 import eguay.services.ServletUtils;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringJoiner;
@@ -32,8 +34,8 @@ public class GroupService {
     
     // Query
     
-    public List<Groups> getAllGroups() {
-        return (List<Groups>) this.groupsFacade.findAll();
+    public List<GroupDTO> getAllGroups() {
+        return toDTO(groupsFacade.findAll());
     }
 
     public Groups getGroup(long groupId) {
@@ -67,13 +69,23 @@ public class GroupService {
         }
     }
     
-    public boolean contains(Groups group, Users user){
+    public boolean contains(GroupDTO group, Users user){
         return group.getUsersList().contains(user);
     }
     
     private void createUserListIfDontExist(Groups group){
         if(group.getUsersList() == null)
                 group.setUsersList(new LinkedList<>());
+    }
+    
+    public static List<GroupDTO> toDTO(List<Groups> groups){
+        List<GroupDTO> dtos = new ArrayList<>(groups.size());
+        
+        for(Groups group : groups){
+            dtos.add(group.toDTO());
+        }
+        
+        return dtos;
     }
 
     // Logic

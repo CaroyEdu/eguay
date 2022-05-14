@@ -4,6 +4,8 @@
     Author     : pedro
 --%>
 
+<%@page import="eguay.dto.UserDTO"%>
+<%@page import="eguay.dto.GroupDTO"%>
 <%@page import="eguay.service.GroupService"%>
 <%@page import="eguay.entity.Users"%>
 <%@page import="java.util.List"%>
@@ -20,11 +22,11 @@
         GroupService groupService = new GroupService();
         
         boolean nuevoGrupo = false;
-        Groups group = null;
-        List<Users> users;
+        GroupDTO group = null;
+        List<UserDTO> users;
 
-        users = (List<Users>) request.getAttribute("users");
-        group = (Groups) request.getAttribute("group");
+        users = (List<UserDTO>) request.getAttribute("users");
+        group = (GroupDTO) request.getAttribute("group");
 
         nuevoGrupo = group == null;
     %>
@@ -33,7 +35,7 @@
             <%
                 if (!nuevoGrupo) {
             %>
-            <input type="text" name="id" value="<%=group.getGroupid()%>" hidden/>
+            <input type="text" name="id" value="<%=group.getId()%>" hidden/>
             Nombre del Grupo: <input type="text" name="name" value="<%=group.getName()%>" required/>
             <button type="submit" formaction="CreateNewGroup">+ Crear Nuevo Grupo</button>
             <%

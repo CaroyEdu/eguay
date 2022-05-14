@@ -5,6 +5,8 @@
  */
 package eguay.entity;
 
+import eguay.dto.GroupDTO;
+import eguay.service.UserService;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -121,5 +123,17 @@ public class Groups implements Serializable {
     @Override
     public String toString() {
         return "eguay.entity.Groups[ groupid=" + groupid + " ]";
+    }
+    
+    // DTO
+
+    public GroupDTO toDTO() {
+        GroupDTO dto = new GroupDTO();
+        
+        dto.setId(groupid);
+        dto.setName(name);
+        dto.setUsersList(UserService.toDTO(usersList));
+        
+        return dto;
     }
 }
