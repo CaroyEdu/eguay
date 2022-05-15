@@ -154,7 +154,7 @@
                 </div>
             <%
                 cantidad++;
-                    if(cantidad == 6)
+                    if(cantidad == 4)
                     {
             %>
             </div>
