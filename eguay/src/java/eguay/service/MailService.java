@@ -83,7 +83,9 @@ public class MailService {
     public void sendMailToAuctionWinner(String asunto, Long auctionId, Integer userId) {
         List<Long> auctionIdAsList = new ArrayList<>(1);
         auctionIdAsList.add(auctionId);
-        
+        List<Integer> userIdAsList = new ArrayList<>(1);
+        userIdAsList.add(userId);
+        sendMailToUsers(null, asunto, auctionIdAsList, userIdAsList);       
     }
 
     private void addMailToAuctions(Mail mail, List<Auction> auctions) {

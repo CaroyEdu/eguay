@@ -2,17 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package eguay.servlet;
+package eguay.servlet.Group;
 
 import eguay.dao.GroupsFacade;
-import eguay.entity.Groups;
+import eguay.dao.UsersFacade;
+import eguay.dto.GroupDTO;
 import eguay.service.GroupService;
+import eguay.service.UserService;
 import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,9 +23,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedro
  */
-@WebServlet(name = "NewGroupFromSelectedGroups", urlPatterns = {"/NewGroupFromSelectedGroups"})
-public class Groups_NewGroupFromSelectedGroups extends HttpServlet {
-    
+@WebServlet(name = "ShowSelectedGroup", urlPatterns = {"/ShowSelectedGroup"})
+public class ShowSelectedGroup extends HttpServlet {
+
+    @EJB UserService userService;
     @EJB GroupService groupService;
 
     /**
@@ -42,9 +42,19 @@ public class Groups_NewGroupFromSelectedGroups extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        groupService.createNewGroupFromSelectedGroups(request, "selectedGroup");
-        response.sendRedirect("ShowGroupList");
-    }    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+        Long groupId = (Long) request.getAttribute("id"); 
+        
+        if(groupId == null){
+            groupId = ServletUtils.getIdLong(request, "id");
+        }
+        GroupDTO group = groupService.getGroupDTO(groupId);
+        
+        request.setAttribute("group", group);
+        request.setAttribute("usersMap", groupService.GetUsersInGroupMap(group));
+        request.getRequestDispatcher("group.jsp").forward(request, response);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -82,4 +92,5 @@ public class Groups_NewGroupFromSelectedGroups extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }
