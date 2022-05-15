@@ -32,6 +32,7 @@ public class UserService {
     @EJB UsersFacade usersFacade;
     @EJB CategoryFacade categoryFacade;
     @EJB AuctionFacade auctionFacade;
+    @EJB MailService mailService;
     
     // Query
     
@@ -176,11 +177,11 @@ public class UserService {
         purchasedAuction.add(auction);
         user.setAuctionList1(purchasedAuction);
         
-        
-        
         auctionFacade.edit(auction);
         usersFacade.edit(user);
         System.out.println("success \n");
+        
+        mailService.sendMailToAuctionWinner(String.format("Has ganado la subasta %s", auction.getTitle()), auction.getAuctionid(), user.getUserid());
     }
     
         public List<Auction> filterPurchasedAuctionByUser(String filter, Users userid){

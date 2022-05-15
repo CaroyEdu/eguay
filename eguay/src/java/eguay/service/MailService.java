@@ -65,9 +65,7 @@ public class MailService {
         List<Auction> auctions = auctionFacade.findAll(auctionIds);
         List<Users> users = usersFacade.findAll(userIds);
         
-        if(sender != null){
-            mail.setSenderid(usersFacade.find(sender.getId()));
-        }
+        mail.setSenderid(usersFacade.find(sender.getId()));
         mail.setSubject(asunto);
         mail.setBody(asunto);
         mail.setSentDate(new Date());
@@ -85,7 +83,7 @@ public class MailService {
         auctionIdAsList.add(auctionId);
         List<Integer> userIdAsList = new ArrayList<>(1);
         userIdAsList.add(userId);
-        sendMailToUsers(null, asunto, auctionIdAsList, userIdAsList);       
+        sendMailToUsers(usersFacade.findMarketing().toDTO(), asunto, auctionIdAsList, userIdAsList);       
     }
 
     private void addMailToAuctions(Mail mail, List<Auction> auctions) {
@@ -113,5 +111,9 @@ public class MailService {
             user.setMailList(userMails);
             usersFacade.edit(user);
         }
+    }
+
+    public void sendMailToUsersInterestedIn(Auction auction) {
+        
     }
 }

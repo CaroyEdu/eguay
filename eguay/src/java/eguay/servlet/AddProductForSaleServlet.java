@@ -10,6 +10,7 @@ import eguay.dao.UsersFacade;
 import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.entity.Users;
+import eguay.service.MailService;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,6 +38,7 @@ public class AddProductForSaleServlet extends HttpServlet {
     
     @EJB AuctionFacade auctionFacade;
     @EJB UsersFacade usersFacade;
+    @EJB MailService mailService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -120,7 +122,7 @@ public class AddProductForSaleServlet extends HttpServlet {
         String auctionid = request.getParameter("auctionid");
         if(auctionid.equals("")){
             auctionFacade.create(auction);
-            
+            mailService.sendMailToUsersInterestedIn(auction);
             List<Auction> usersSubmitedAuctions = user.getAuctionList2();
             if(usersSubmitedAuctions == null) usersSubmitedAuctions = new ArrayList();
             usersSubmitedAuctions.add(auction);
