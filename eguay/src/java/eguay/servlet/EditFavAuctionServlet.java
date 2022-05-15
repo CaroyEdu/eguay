@@ -5,13 +5,19 @@
  */
 package eguay.servlet;
 
+import eguay.entity.Auction;
+import eguay.entity.Users;
+import eguay.service.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -19,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "EditFavAuctionServlet", urlPatterns = {"/EditFavAuctionServlet"})
 public class EditFavAuctionServlet extends HttpServlet {
-
+@EJB UserService userService ; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,10 +39,20 @@ public class EditFavAuctionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        String filter = request.getParameter("filter");
         
         
         
-        response.sendRedirect("favauction.jsp");
+        HttpSession session = request.getSession();
+        
+        Users user = (Users) session.getAttribute("user");
+        
+        List<Auction> purchasedAuctions = userService.filterFavAuctionByUser(filter, user);
+        
+        request.setAttribute("favAuctions" ,purchasedAuctions );
+        
+        
+        request.getRequestDispatcher("favauction.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

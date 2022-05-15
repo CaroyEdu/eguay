@@ -192,4 +192,32 @@ public class UserService {
         usersFacade.edit(user);
         System.out.println("success \n");
     }
+    
+        public List<Auction> filterPurchasedAuctionByUser(String filter, Users userid){
+        List<Auction> auctions ;
+        if(filter == null || filter.isEmpty())
+            {
+                auctions = this.usersFacade.findPurchasedAuctionsByTitleAndUser("", userid);
+            }
+            else
+            {
+                auctions = this.usersFacade.findPurchasedAuctionsByTitleAndUser(filter, userid);
+            }
+        return auctions;
+    }
+        
+        public List<Auction> filterFavAuctionByUser(String filter, Users userid){
+        List<Auction> auctions ;
+        if(filter == null || filter.isEmpty())
+            {
+                auctions = this.usersFacade.findFavAuctionsByTitleAndUser("", userid);
+            }
+            else
+            {
+                auctions = this.usersFacade.findFavAuctionsByTitleAndUser(filter, userid);
+            }
+        return auctions;
+    }
+        
+        
 }

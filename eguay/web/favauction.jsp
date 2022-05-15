@@ -50,13 +50,20 @@
         <div class="title">
             <p>Pujas compradas</p>
         </div>
+        <form method="POST" action="EditFavAuctionServlet">
+            
+            <input type="text" name="filter">
+            <input type="submit" name="buscar">
+        </form>
                     <%
                 int cantidad = 0;
+                List<Auction> favoritas =(List<Auction>) request.getAttribute("favAuctions");
+                
                 if(user!=null){
                 purchasedAuctionList = user.getAuctionList1(); 
-                auctionFavList = user.getAuctionList(); 
+                auctionFavList = favoritas ; 
                 }
-                if(purchasedAuctionList != null){
+                if(auctionFavList != null){
                 for(Auction a : auctionFavList)
                 {
                     if(cantidad == 0)
