@@ -65,4 +65,10 @@ public class UsersFacade extends AbstractFacade<Users> {
         q.setParameter("id", id);
         return (Users) q.getSingleResult();
     }
+
+    public List<Users> filter(String username) {
+        return this.em.createQuery("SELECT u FROM Users u WHERE u.username LIKE :username ORDER BY u.userid")
+                .setParameter("username", "%" + username + "%")
+                .getResultList();
+    }
 }

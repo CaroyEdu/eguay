@@ -10,7 +10,6 @@ import eguay.dao.UsersFacade;
 import eguay.dto.UserDTO;
 import eguay.entity.Rol;
 import eguay.entity.Users;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +27,10 @@ public class AdminService {
     
     public List<UserDTO> getAllUsers(){
         return Users.toDTO(userFacade.getAllOrdered());
+    }
+    
+    public List<UserDTO> filterUsers(String username) {
+        return Users.toDTO(userFacade.filter(username));
     }
     
     public void createUser(String username, String name, String surname,
@@ -74,5 +77,29 @@ public class AdminService {
         u.setSex(user.getSex());
         u.setRolList(roles);
         userFacade.edit(u);
+    }
+
+    public void deleteUser(Integer id) {
+        Users u = userFacade.find(id);
+        userFacade.remove(u);
+    }
+
+    public void createUser(UserDTO user) {
+        List<Rol> roles = user.getRoleIds().stream()
+            .map((rId) -> rolFacade.find(rId))
+            .collect(Collectors.toList());
+        Users u = new Users();
+        u.setUsername(user.getUsername());
+        u.setName(user.getName());
+        u.setSurname(user.getSurname());
+        u.setAddress(user.getAddress());
+        u.setCity(user.getCity());
+        u.setEmail(user.getEmail());
+        u.setCountry(user.getCountry());
+        u.setPassword(user.getPassword());
+        u.setBirthyear(user.getBirthyear());
+        u.setSex(user.getSex());
+        u.setRolList(roles);
+        userFacade.create(u);
     }
 }

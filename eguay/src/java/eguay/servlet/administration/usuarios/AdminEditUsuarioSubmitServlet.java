@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author carlo
+ * @author carlos
  */
 @WebServlet(name = "AdminEditUsuarioSubmitServlet", urlPatterns = {"/Admin/Usuarios/SubmitEdit"})
 public class AdminEditUsuarioSubmitServlet extends AdminServlet {
@@ -55,6 +55,8 @@ public class AdminEditUsuarioSubmitServlet extends AdminServlet {
             for(String id : roles) {
                 roleIds.add(Long.parseLong(id));
             }
+            
+            roleIds.add(0l);
             Date birthdayDate = sdf.parse(birthday);
             
             UserDTO user = new UserDTO();

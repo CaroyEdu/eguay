@@ -27,7 +27,15 @@ public class AdminUsuariosServlet extends AdminServlet {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<UserDTO> users = as.getAllUsers();
+        String username = request.getParameter("username");
+        
+        List<UserDTO> users;
+        if(username != null) {
+            users = as.filterUsers(username);
+        } else {
+            users = as.getAllUsers();
+        }
+        
         request.setAttribute("users", users);
         request.getRequestDispatcher("../admin/users.jsp").forward(request, response); 
     }

@@ -348,6 +348,7 @@ public class Users implements Serializable {
         dto.setEmail(email);
         dto.setName(name);
         dto.setUsername(username);
+        dto.setSurname(surname);
         dto.setSex(sex);
         dto.setBirthyear(birthyear);
         dto.setCountry(country);
@@ -357,7 +358,7 @@ public class Users implements Serializable {
         // TODO: refactor to enum
         dto.setIsAdmin(hasRole("Administrator"));
         dto.setIsMarketing(hasRole("Marketing"));
-        dto.setIsAnalista(hasRole("Analista"));
+        dto.setIsAnalista(hasRole("Analist"));
         return dto;
     }
     

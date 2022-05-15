@@ -10,7 +10,7 @@
 <% request.setAttribute("page-name", "Usuarios"); %>
 <% List<UserDTO> users = (List<UserDTO>) request.getAttribute("users"); %>
 <% String msg = request.getParameter("msg"); %>
-
+<% String username = request.getParameter("username"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,7 +30,13 @@
                 </div>
                 <div class="col py-3">
                     <h1>Usuarios <a href="Usuarios/Nuevo"><i class="bi bi-plus-square" style="font-size: 1.75rem;"></i></a></h1>
-                    <%= msg %>
+                    <%= msg != null ? msg : "" %>
+                    
+                    <form action="" method="GET">
+                        <label for="username">Filtrar por usuario</label>
+                        <input name="username" value="<%= username != null ? username : "" %>"/>
+                        <button type="submit" class="mb-4">Filtrar</button>
+                    </form>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -39,6 +45,7 @@
                                 <th>Nombre</th>
                                 <th>Pais</th>
                                 <th>Email</th>
+                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -51,6 +58,7 @@
                                 <td><%= user.getCountry()%></td>
                                 <td><%= user.getEmail() %></td>
                                 <td><a href="Usuarios/Edit?id=<%= user.getId() %>">Editar</a></td>
+                                <td><a href="Usuarios/Delete?id=<%= user.getId() %>">Borrar</a></td>
                             </tr>
                             <% } %>
                         </tbody>

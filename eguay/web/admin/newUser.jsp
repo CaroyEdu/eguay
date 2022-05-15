@@ -4,11 +4,12 @@
     Author     : carlos
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="eguay.dto.UserDTO"%>
+<%@page import="eguay.enums.Sex"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% request.setAttribute("page-name", "Usuarios"); %>
-<% List<UserDTO> users = (List<UserDTO>) request.getAttribute("users"); %>
 
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,7 @@
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
-        <title>Admin Usuarios</title>
+        <title>Crear Usuarios</title>
     </head>
     <body>
         <div class="container-fluid">
@@ -28,9 +29,97 @@
                 <jsp:include page="components/header.jsp"/>
                 </div>
                 <div class="col py-3">
-                    <h1>Nuevo usuario</h1>
-                    <form action="AdminCreateUsuarioServlet" method="POST">
-                        <button type="submit">Crear usuario</button>
+                    <h1 class="mb-4">Crear usuario</h1>
+                    <form action="SubmitCreate" method="POST">
+                        <h3>Datos usuario</h3>
+                        <div class="row mb-3">
+                          <label for="id" class="col-sm-2 col-form-label">Email</label>
+                          <div class="col-sm-6">  
+                            <input type="text" class="form-control" name="email">
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label for="id" class="col-sm-2 col-form-label">Nombre usuario</label>
+                          <div class="col-sm-6">  
+                            <input type="text" class="form-control" name="username">
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label for="id" class="col-sm-2 col-form-label">Nombre</label>
+                          <div class="col-sm-6">  
+                            <input type="text" class="form-control" name="name">
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label for="id" class="col-sm-2 col-form-label">Apellidos</label>
+                          <div class="col-sm-6">  
+                            <input type="text" class="form-control" name="surname">
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label for="id" class="col-sm-2 col-form-label">Pais</label>
+                          <div class="col-sm-6">  
+                            <input type="text" class="form-control" name="country">
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label for="id" class="col-sm-2 col-form-label">Ciudad</label>
+                          <div class="col-sm-6">  
+                            <input type="text" class="form-control" name="city">
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label for="id" class="col-sm-2 col-form-label">Direccion</label>
+                          <div class="col-sm-6">  
+                            <input type="text" class="form-control" name="address">
+                          </div>
+                        </div>
+                         
+                        <div class="row mb-3">
+                          <label for="id" class="col-sm-2 col-form-label">Contrasena</label>
+                          <div class="col-sm-6">  
+                            <input type="password" class="form-control" name="password">
+                          </div>
+                        </div>
+                          
+                        <div class="row mb-3">
+                          <label for="id" class="col-sm-2 col-form-label">Nacimiento</label>
+                          <div class="col-sm-6">  
+                              <input type="text" class="form-control" name="birthday">
+                          </div>
+                        </div>
+                          
+                        <div class="row mb-3">
+                          <label for="id" class="col-sm-2 col-form-label">Sexo</label>
+                          <div class="col-sm-6">  
+                            <select class="form-select" aria-label="Default select example" name="sex">
+                                <% for(Sex sex : Sex.values()) { %>
+                                <option value="<%= sex.getId() %>"><%= sex.getName() %></option>
+                                <% } %>
+                            </select>
+                          </div>
+                        </div>
+                          
+                        <h3>Roles</h3>
+                        <div class="form-check">
+                          <input name="roleIds" class="form-check-input" type="checkbox" value="2" id="flexCheckDefault">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Marketing
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input name="roleIds" class="form-check-input" type="checkbox" value="3" id="flexCheckDefault">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Analista
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input name="roleIds" class="form-check-input" type="checkbox" value="4" id="flexCheckDefault">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            Admin
+                          </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-4">Guardar</button>
                     </form>
                 </div>
             </div>
