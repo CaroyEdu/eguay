@@ -38,7 +38,7 @@ public class Mails_ShowMailbox extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         Integer userId = ((Users) request.getSession().getAttribute("user")).getUserid();
-        request.setAttribute("mails", mailService.getAllMails(userId));
+        request.setAttribute("mails", mailService.getAllMails());
         
         request.getRequestDispatcher("mailbox.jsp").forward(request, response);
     }

@@ -16,6 +16,8 @@ public class AuctionDTO {
     
     // Conceptual
     private String name;
+    private String category;
+    private Float startPrice;
     private Date startDate;
     private Date closeDate;
     private Integer closeNumberofBids;
@@ -32,6 +34,22 @@ public class AuctionDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    
+    public Float getStartPrice() {
+        return startPrice;
+    }
+
+    public void setStartPrice(Float startprice) {
+        this.startPrice = startprice;
     }
     
     public Long getId() {
@@ -82,7 +100,7 @@ public class AuctionDTO {
         this.maxBid = maxBid;
     }
 
-    public Boolean getActive() {
+    public Boolean isActive() {
         return active;
     }
 
