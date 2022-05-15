@@ -59,14 +59,9 @@ public class GroupService {
 
     // Logic
     
-    public void createNewGroupFromSelectedGroups(HttpServletRequest request, String groupCheckedLabel) {
-        List<Long> groupsIds;
-        List<Groups> selectedGroups;
+    public void createNewGroupFromSelectedGroups(List<Long> groupsIds) {
         Groups newGroup = new Groups();
-        ServletUtils<Groups> servletUtils = new ServletUtils<>();
-        
-        groupsIds = servletUtils.getIdsFromCheckedLong(request, groupCheckedLabel);
-        selectedGroups = servletUtils.getObjectsFromIdsLong(groupsIds, groupsFacade);
+        List<Groups> selectedGroups = getGroupsDAO(groupsIds);
         
         newGroup.setName(concatGroupNames(selectedGroups));
         addAllUsersInGroups(newGroup, selectedGroups);
