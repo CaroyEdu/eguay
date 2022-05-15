@@ -82,7 +82,7 @@
                     }
             %>
             </table>
-            <button type="submit" formaction="UptateGroup">Actualizar Grupo</button>
+            <button type="submit" formaction="UpdateGroup">Actualizar Grupo</button>
             <button type="submit" formaction="NewGroupFromSelectedUsers">Nuevo grupo con los usuarios seleccionados</button>
             <%      
                 }

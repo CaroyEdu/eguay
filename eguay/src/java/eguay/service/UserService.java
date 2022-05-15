@@ -57,17 +57,6 @@ public class UserService {
        return userList;
     }
     
-    public static List<Mail> getMails(Users user){
-        List<Mail> mails = new LinkedList<>();
-        
-        mails.addAll(user.getMailList());
-        for(Groups group : user.getGroupsList()){
-            mails.addAll(group.getMailList());
-        }
-        
-        return mails;
-    }
-    
     // Extra functionalities  
 
     public boolean isInterestedIn(Users user, Category category) {
@@ -191,5 +180,13 @@ public class UserService {
         auctionFacade.edit(auction);
         usersFacade.edit(user);
         System.out.println("success \n");
+    }
+
+    public List<UserDTO> getUsersDTO(List<Integer> userIds) {
+        return toDTO(getUsersByIds(userIds));
+    }
+
+    public List<Users> getUsersByIds(List<Integer> userIds) {
+        return usersFacade.findAll(userIds);
     }
 }

@@ -4,10 +4,12 @@
  */
 package eguay.service;
 
+import eguay.dao.MailFacade;
 import eguay.dto.MailDTO;
 import eguay.entity.Mail;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -16,14 +18,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class MailService {
-
-    public static List<MailDTO> toDTO(List<Mail> mails){
-        List<MailDTO> dtos = new ArrayList<MailDTO>(mails.size());
-        
-        for(Mail mail : mails){
-            dtos.add(mail.toDTO());
-        }
-        
-        return dtos;
+    @EJB MailFacade mailFacade;
+    
+    public List<MailDTO> getAllMails(Integer userId){
+        return Mail.toDTO(mailFacade.findAllMailsToUser(userId));
     }
 }

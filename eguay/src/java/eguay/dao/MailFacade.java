@@ -6,6 +6,8 @@
 package eguay.dao;
 
 import eguay.entity.Mail;
+import eguay.entity.Users;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,5 +29,11 @@ public class MailFacade extends AbstractFacade<Mail> {
 
     public MailFacade() {
         super(Mail.class);
+    }
+    
+    public List<Mail> findAllMailsToUser(Integer userId){
+        return this.em.createQuery("SELECT m FROM Users u, u.groupsList g, g.mailList m WHERE u.userid = :userId")
+                .setParameter("userId", userId)
+                .getResultList();
     }
 }

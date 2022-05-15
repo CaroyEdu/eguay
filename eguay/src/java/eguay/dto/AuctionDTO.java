@@ -15,6 +15,7 @@ public class AuctionDTO {
     private Long id;
     
     // Conceptual
+    private String name;
     private Date startDate;
     private Date closeDate;
     private Integer closeNumberofBids;
@@ -23,8 +24,16 @@ public class AuctionDTO {
     private Boolean active;
     
     // Relationships
-    //private UserDTO seller;
+    private String seller;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -79,5 +88,13 @@ public class AuctionDTO {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+    
+    public String getSeller() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller = seller;
     }
 }
