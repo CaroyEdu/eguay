@@ -298,6 +298,8 @@ public class Auction implements Serializable {
         dto.setId(auctionid);
         
         dto.setName(title);
+        dto.setCategory(categoryList.get(0).getName());
+        dto.setStartPrice(startprice);
         dto.setActive(active);
         dto.setCloseDate(closedate);
         dto.setCloseNumberofBids(closenumberofbids);
