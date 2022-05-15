@@ -4,11 +4,11 @@
  */
 package eguay.servlet.Group;
 
-import eguay.dao.UsersFacade;
 import eguay.service.GroupService;
-import eguay.service.UserService;
+import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +22,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "CreateNewGroup", urlPatterns = {"/CreateNewGroup"})
 public class CreateNewGroup extends HttpServlet {
-    
-    @EJB UserService userService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,15 +32,20 @@ public class CreateNewGroup extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    @EJB GroupService groupService;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+       
+        List<Integer> userIds = ServletUtils.getIdsFromChecked(request, "selectedUser");
+        String formName = request.getParameter("name");
         
-        request.setAttribute("users", userService.getAllUsersDTO());
-        request.getRequestDispatcher("group/group.jsp").forward(request, response);
+        groupService.createNewGroup(formName, userIds);
+        
+        response.sendRedirect("ShowGroupList");
     }
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

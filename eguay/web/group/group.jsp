@@ -57,12 +57,12 @@
                     }
             %>
             </table>
-            <button type="submit" formaction="NewGroupFromSelectedUsers">Crear grupo</button>
+            <button type="submit" formaction="CreateNewGroup">Crear grupo</button>
             <%
                 }else{
             %>
             Nombre del Grupo: <input type="text" name="name" value="<%=group.getName()%>" required/>
-            <button type="submit" formaction="CreateNewGroup">+ Crear Nuevo Grupo</button>
+            <button type="submit" formaction="ShowCreateNewGroupPage">+ Crear Nuevo Grupo</button>
             <input type="text" name="id" value="<%=group.getId()%>" hidden/>
             <table>
                 <tr>
@@ -87,8 +87,6 @@
             <%      
                 }
             %>
-            <button type="submit" formaction="ShowCategoryList">Añadir usuarios por categoría</button>
-            <button type="submit" formaction="ShowCategoryList">Añadir usuarios por categoría</button>
         </form>
     </body>
 </html>

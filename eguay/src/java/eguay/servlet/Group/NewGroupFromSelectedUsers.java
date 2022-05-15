@@ -27,8 +27,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "NewGroupFromSelectedUsers", urlPatterns = {"/NewGroupFromSelectedUsers"})
 public class NewGroupFromSelectedUsers extends HttpServlet {
-    
-    @EJB GroupService groupService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,11 +37,20 @@ public class NewGroupFromSelectedUsers extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    @EJB GroupService groupService;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        groupService.newGroupFromSelectedUsers(request, response, "id", "name", "selectedUser");
+        Integer originalGroupId = ServletUtils.getId(request, "id");
+        List<Integer> userIds = ServletUtils.getIdsFromChecked(request, "selectedUser");
+        String formName = request.getParameter("name");
+        
+        groupService.newGroupFromSelectedUsers(originalGroupId, userIds, formName);
+        
+        response.sendRedirect("ShowGroupList");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

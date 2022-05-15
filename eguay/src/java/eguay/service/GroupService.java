@@ -75,47 +75,28 @@ public class GroupService {
             groupsFacade.create(newGroup);
     }  
     
-    public void newGroupFromSelectedUsers(HttpServletRequest request, HttpServletResponse response, String groupIdLabel, String groupNameLabel, String userCheckedLabel) throws IOException, ServletException {
+    public void createNewGroup(String name, List<Integer> userIds){
         Groups newGroup = new Groups();
-        ServletUtils<Users> servletUtils = new ServletUtils<>();
+        List<Users> users = usersFacade.findAll(userIds);
         
-        Integer originalGroupId = ServletUtils.getId(request, "id");
-        boolean isNewGroup = originalGroupId == null;
-        
-        String originalGroupName = null;
-        if(originalGroupId != null){
-            Groups originalGroup = getGroupDAO(originalGroupId);
-            originalGroupName = originalGroup.getName();
-        }
-        
-        String formName = request.getParameter(groupNameLabel);
-        setNewGroupName(isNewGroup, newGroup, formName, originalGroupName);
-        
-        List<Integer> usersIds = ServletUtils.getIdsFromChecked(request, userCheckedLabel);
-        List<Users> users = servletUtils.getObjectsFromIds(usersIds, usersFacade);
+        newGroup.setName(name);
         newGroup.setUsersList(users);
         groupsFacade.create(newGroup);
         
-        for(Users user : users){
-            userService.addToGroup(user, newGroup);
-            usersFacade.edit(user);
-        }
-        
-        if(newGroup.getGroupid() != null){
-            request.setAttribute("users", usersFacade.findAll());
-            request.setAttribute("group", newGroup);
-            request.getRequestDispatcher("group.jsp").forward(request, response);
-        }else{
-            response.sendRedirect("ShowGroupList");
-        }
+        addGroupToUserList(users, newGroup);
     }
-
-    private void setNewGroupName(boolean nuevoGrupo, Groups newGroup, String formName, String originalGroupName) {
-        if(!nuevoGrupo && formName.equals(originalGroupName)){
-            newGroup.setName(originalGroupName + "2");
-        }else{
-            newGroup.setName(formName);
-        }
+    
+    public void newGroupFromSelectedUsers(Integer originalGroupId, List<Integer> userIds, String formName) {
+        Groups newGroup = new Groups();
+        
+        String originalGroupName = getGroupName(originalGroupId);
+        setGroupName(newGroup, formName, originalGroupName);
+        
+        List<Users> users = usersFacade.findAll(userIds);
+        newGroup.setUsersList(users);
+        groupsFacade.create(newGroup);
+        
+        addGroupToUserList(users, newGroup);
     }
     
     public void removeSelectedGroups(HttpServletRequest request, String groupCheckedLabel) {
@@ -200,5 +181,24 @@ public class GroupService {
     private void createUserListIfDontExist(Groups group){
         if(group.getUsersList() == null)
                 group.setUsersList(new LinkedList<>());
+    }
+    
+    private String getGroupName(Integer groupId){
+        return getGroupDAO(groupId).getName();
+    }
+
+    private void addGroupToUserList(List<Users> users, Groups newGroup) {
+        for(Users user : users){
+            userService.addToGroup(user, newGroup);
+            usersFacade.edit(user);
+        }
+    }
+
+    private void setGroupName(Groups newGroup, String formName, String originalGroupName) {
+        if(formName.equals(originalGroupName)){
+            newGroup.setName(originalGroupName + "2");
+        }else{
+            newGroup.setName(formName);
+        }
     }
 }

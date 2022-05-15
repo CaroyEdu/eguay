@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedro
  */
-@WebServlet(name = "CreateNewGroup", urlPatterns = {"/CreateNewGroup"})
-public class CreateNewGroup extends HttpServlet {
+@WebServlet(name = "ShowCreateNewGroupPage", urlPatterns = {"/ShowCreateNewGroupPage"})
+public class ShowCreateNewGroupPage extends HttpServlet {
     
     @EJB UserService userService;
 
