@@ -40,7 +40,8 @@ public class RemoveGroups extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        groupService.removeSelectedGroups(request, "selectedGroup");
+        List<Long> groupsIds = ServletUtils.getIdsFromCheckedLong(request, "selectedGroup");
+        groupService.removeGroups(groupsIds);
         response.sendRedirect("ShowGroupList");
     }
 

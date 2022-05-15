@@ -99,13 +99,8 @@ public class GroupService {
         addGroupToUserList(users, newGroup);
     }
     
-    public void removeSelectedGroups(HttpServletRequest request, String groupCheckedLabel) {
-        List<Long> groupsIds;
-        List<Groups> selectedGroups;
-        ServletUtils<Groups> servletUtils = new ServletUtils<>();
-        
-        groupsIds = servletUtils.getIdsFromCheckedLong(request, groupCheckedLabel);
-        selectedGroups = servletUtils.getObjectsFromIdsLong(groupsIds, groupsFacade);
+    public void removeGroups(List<Long> groupIds){        
+        List<Groups> selectedGroups = getGroupsDAO(groupIds);
         
         for(Groups group : selectedGroups){
             groupsFacade.remove(group);
@@ -200,5 +195,9 @@ public class GroupService {
         }else{
             newGroup.setName(formName);
         }
+    }
+
+    private List<Groups> getGroupsDAO(List<Long> groupsIds) {
+        return groupsFacade.findAll(groupsIds);
     }
 }
