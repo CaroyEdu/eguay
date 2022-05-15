@@ -33,10 +33,10 @@
                             <li><a href="Admin/Usuarios">Dashboard</a></li>
                         <% } %>
                     <li><a href="AddProductServlet">Añadir Subasta</a></li>
-                    <li><a href="CheckProfileServlet">Mi Perfil</a>
-                    <li><a href="ShowGroupList">Lista de Grupos</a></li>
                     <li><a href="ShowMailbox">Correo</a></li>
+                    <li><a href="ShowGroupList">Lista de Grupos</a></li>
                     <li><a href="ShowSendMailPage">Enviar Correo</a></li>
+                    <li><a href="CheckProfileServlet">Mi Perfil</a>
                     <li><a href="DisconnectServlet" style="border: 1px solid red; padding: 5px">Desconexión</a></li>
                         <%
                         } else {
