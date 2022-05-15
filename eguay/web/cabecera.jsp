@@ -35,6 +35,7 @@
                     <li><a href="DisconnectServlet">Desconexión</a></li>
                     <li><a href="ShowGroupList">Lista de Grupos</a></li>
                     <li><a href="ShowMailbox">Correo</a></li>
+                    <li><a href="ShowSendMailPage">Enviar Correo</a></li>
                     <%
                       } else
                     {   

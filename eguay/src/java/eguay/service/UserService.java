@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 /**
  *
  * @author parsa
@@ -216,5 +217,9 @@ public class UserService {
 
     public List<Users> getUsersByIds(List<Integer> userIds) {
         return usersFacade.findAll(userIds);
+    }
+
+    public UserDTO getSessionUser(HttpSession session) {
+        return ((Users) session.getAttribute("user")).toDTO();
     }
 }
