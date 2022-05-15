@@ -40,7 +40,7 @@ public class ShowMailbox extends HttpServlet {
         Integer userId = ((Users) request.getSession().getAttribute("user")).getUserid();
         request.setAttribute("mails", mailService.getAllMails(userId));
         
-        request.getRequestDispatcher("mailbox.jsp").forward(request, response);
+        request.getRequestDispatcher("mail/mailbox.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

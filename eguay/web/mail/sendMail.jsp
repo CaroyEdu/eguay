@@ -11,7 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <jsp:include page="cabecera.jsp"/>
+    <jsp:include page="../cabecera.jsp"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Enviar Correo</title>
