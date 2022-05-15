@@ -4,8 +4,13 @@
     Author     : carlos
 --%>
 
+<%@page import="eguay.dto.CategoryDTO"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% request.setAttribute("page-name", "Categorias"); %>
+<% List<CategoryDTO> categories = (List<CategoryDTO>) request.getAttribute("categories"); %>
+<% String msg = request.getParameter("msg"); %>
+<% String category = request.getParameter("category"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,7 +29,34 @@
                 <jsp:include page="components/header.jsp"/>
                 </div>
                 <div class="col py-3">
-                    <h1>Categorias</h1>
+                    <h1>Categorias <a href="Categorias/Nuevo"><i class="bi bi-plus-square" style="font-size: 1.75rem;"></i></a></h1>
+                    <%= msg != null ? msg : "" %>
+                    
+                    <form action="" method="GET">
+                        <label for="product">Filtrar por titulo</label>
+                        <input name="category" value="<%= category != null ? category : "" %>"/>
+                        <button type="submit" class="mb-4">Filtrar</button>
+                    </form>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(CategoryDTO c : categories) { %>
+                            <tr>
+                                <td><%= c.getId() %></td>
+                                <td><%= c.getName()%></td>
+                                <td><a href="Categorias/Edit?id=<%= c.getId() %>">Editar</a></td>
+                                <td><a href="Categorias/Delete?id=<%= c.getId() %>">Borrar</a></td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

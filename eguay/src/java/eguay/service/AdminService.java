@@ -10,6 +10,7 @@ import eguay.dao.CategoryFacade;
 import eguay.dao.RolFacade;
 import eguay.dao.UsersFacade;
 import eguay.dto.AuctionDTO;
+import eguay.dto.CategoryDTO;
 import eguay.dto.UserDTO;
 import eguay.entity.Auction;
 import eguay.entity.Category;
@@ -142,5 +143,30 @@ public class AdminService {
 
     public void deleteAuction(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<CategoryDTO> getAllCategories() {
+        return Category.toDTO(categoryFacade.getAllOrdered());
+    }
+
+    public List<CategoryDTO> filterCategories(String category) {
+        return Category.toDTO(categoryFacade.filter(category));
+    }
+
+    public CategoryDTO getCategory(long id) {
+        return categoryFacade.find(id).toDTO();
+    }
+
+    public void createCategory(CategoryDTO category) {
+        Category c = new Category();
+        c.setName(category.getName());
+        categoryFacade.create(c);
+    }
+    
+    public void saveCategory(CategoryDTO category) {
+        Category c = categoryFacade.find(category.getId());
+        c.setCategoryid(category.getId());
+        c.setName(category.getName());
+        categoryFacade.edit(c);
     }
 }

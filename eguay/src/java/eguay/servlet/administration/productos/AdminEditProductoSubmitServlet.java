@@ -7,15 +7,12 @@ package eguay.servlet.administration.productos;
 
 import eguay.dto.AuctionDTO;
 import eguay.servlet.administration.usuarios.*;
-import eguay.dto.UserDTO;
 import eguay.service.AdminService;
 import eguay.servlet.administration.AdminServlet;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
