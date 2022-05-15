@@ -50,7 +50,7 @@ public class TimerSessionBean {
                         Bid higherBid = bidList.get(0);
                         Users user = higherBid.getBiderid();
                         userService.finilizeBuyingAuction(user, a);
-                        mailService.sendMailToAuctionWinner(String.format("Has ganado la subasta %s", a.getTitle()), a.getAuctionid(), user.getUserid());
+                        //mailService.sendMailToAuctionWinner(String.format("Has ganado la subasta %s", a.getTitle()), a.getAuctionid(), user.getUserid());
                         System.out.println("La subasta " + a.getAuctionid() + " con titulo:  " + a.getTitle() + " ha sido ganada por " + user.getName() );
                     }else{
                         a.setActive(Boolean.FALSE);
