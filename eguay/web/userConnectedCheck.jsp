@@ -1,7 +1,7 @@
 <%-- 
     Document   : userConnectedCheck
     Created on : 04-abr-2022, 9:40:05
-    Author     : jean-
+    Author     : Roy Caro Jean Edouard
 --%>
 
 <%@page import="eguay.entity.Users"%>

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Edu 50% Parsa zendehdel nobari 50%
+ * @author Roy Caro Jean Edouard 50% Parsa zendehdel nobari 50%
  */
 @Stateless
 public class TimerSessionBean {

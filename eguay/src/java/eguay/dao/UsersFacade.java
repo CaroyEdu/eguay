@@ -18,7 +18,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Edu 33% Parsa zendehdel nobari 34% Pedro Antonio Benito Rojano 33%
+ * @author Roy Caro Jean Edouard 33% Parsa zendehdel nobari 34% Pedro Antonio Benito Rojano 33%
  */
 @Stateless
 public class UsersFacade extends AbstractFacade<Users> {

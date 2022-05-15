@@ -1,14 +1,7 @@
 <%-- 
-    Document   : index
-    Created on : 23-mar-2022, 16:06:27
-    Author     : jean-
---%>
-
-
-<%-- 
     Document   : login
     Created on : Apr 5, 2022, 3:29:09 PM
-    Author     : Parsa zendehdel nobari
+    Author     : Parsa zendehdel nobari 80% - Roy Caro Jean Edouard 20%
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

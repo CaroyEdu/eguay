@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Edu
+ * @author Roy Caro Jean Edouard
  */
 @WebServlet(name = "DisconnectServlet", urlPatterns = {"/DisconnectServlet"})
 public class DisconnectServlet extends HttpServlet {

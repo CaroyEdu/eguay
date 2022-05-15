@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eguay.servlet.Group;
+package eguay.servlet;
 
 import eguay.dao.AuctionFacade;
 import eguay.entity.Auction;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author jean-
+ * @author Roy Caro Jean Edouard
  */
 @WebServlet(name = "MyProductsServlet", urlPatterns = {"/MyProductsServlet"})
 public class MyProductsServlet extends HttpServlet {
