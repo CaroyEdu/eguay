@@ -1,7 +1,7 @@
 <%-- 
     Document   : cabecera
     Created on : 30-mar-2022, 18:24:19
-    Author     : jean-
+    Author     : Edu - Pedro Antonio Benito Rojano 50% - 50%
 --%>
 
 <%@page import="eguay.entity.Category"%>

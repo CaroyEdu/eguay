@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author parsa
+ * @author Automatico
  */
 @Entity
 @Table(name = "bid")

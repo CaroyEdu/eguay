@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author jean-
+ * @author Pedro Antonio Benito Rojano
  */
 @Stateless
 public class GroupsFacade extends AbstractFacade<Groups> {

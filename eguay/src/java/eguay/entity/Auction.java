@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author parsa
+ * @author Automatico
  */
 @Entity
 @Table(name = "auction")

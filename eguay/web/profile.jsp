@@ -1,7 +1,7 @@
 <%-- 
     Document   : profile
     Created on : 04-abr-2022, 9:30:46
-    Author     : jean-
+    Author     : Parsa zendehdel nobari
 --%>
 
 <%@page import="eguay.entity.Users"%>
