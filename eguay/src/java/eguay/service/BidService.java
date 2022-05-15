@@ -6,9 +6,12 @@
 package eguay.service;
 
 import eguay.dao.BidFacade;
+import eguay.dto.AuctionDTO;
+import eguay.dto.BidDTO;
 import eguay.entity.Auction;
 import eguay.entity.Bid;
 import eguay.entity.Users;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -20,9 +23,9 @@ import javax.ejb.Stateless;
 @Stateless
 public class BidService {
 @EJB BidFacade bidFacade ; 
-    public List<Bid> getHighestBid(Auction auction){
+    public List<BidDTO> getHighestBid(Auction auction){
      List<Bid> highest = bidFacade.highestBid(auction);
-     return highest ; 
+     return BidService.toDTO(highest) ; 
     }
     
     public void createBid(Bid newBid , Double BidAmount , Auction auction , Users user){
@@ -34,4 +37,15 @@ public class BidService {
     }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    
+    // Logic
+    public static List<BidDTO> toDTO(List<Bid> bids){
+        List<BidDTO> dtos = new ArrayList<>(bids.size());
+        
+        for(Bid bid : bids){
+            dtos.add(bid.toDTO());
+        }
+        
+        return dtos;
+    }
 }

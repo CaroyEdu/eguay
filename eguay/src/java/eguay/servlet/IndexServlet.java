@@ -7,6 +7,8 @@ package eguay.servlet;
 
 import eguay.dao.AuctionFacade;
 import eguay.dao.CategoryFacade;
+import eguay.dto.AuctionDTO;
+import eguay.dto.CategoryDTO;
 import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.service.AuctionService;
@@ -27,7 +29,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "IndexServlet", urlPatterns = {"/IndexServlet"})
 public class IndexServlet extends HttpServlet {
     
-    @EJB AuctionFacade auctionFacade;
     @EJB CategoryService categoryService;
     @EJB AuctionService auctionService; 
 
@@ -45,8 +46,8 @@ public class IndexServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         String filter = (String) request.getParameter("searchbar");
-        List<Auction> auctionList = null;
-        List<Category> categoryList =  categoryService.getAllCategories();
+        List<AuctionDTO> auctionList = null;
+        List<CategoryDTO> categoryList =  categoryService.getAllCategories();
         
         auctionList = this.auctionService.filterAuction(filter);
         

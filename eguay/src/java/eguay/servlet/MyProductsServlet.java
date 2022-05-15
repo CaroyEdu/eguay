@@ -5,10 +5,9 @@
  */
 package eguay.servlet;
 
-import eguay.dao.AuctionFacade;
-import eguay.entity.Auction;
-import eguay.entity.Category;
-import eguay.entity.Users;
+import eguay.dto.AuctionDTO;
+import eguay.dto.CategoryDTO;
+import eguay.dto.UserDTO;
 import eguay.service.AuctionService;
 import eguay.service.CategoryService;
 import java.io.IOException;
@@ -29,8 +28,7 @@ import javax.servlet.http.HttpSession;
 public class MyProductsServlet extends HttpServlet {
     
     @EJB CategoryService categoryService;
-    @EJB AuctionService auctionService; 
-    @EJB AuctionFacade auctionFacade;
+    @EJB AuctionService auctionService;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,17 +44,17 @@ public class MyProductsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session = request.getSession();
-        Users user = (Users) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
         String filter = (String) request.getParameter("searchbar");
         
-        List<Category> categoryList =  categoryService.getAllCategories();
-        List<Auction> userAuctions = auctionService.filterAuctionOrederedByUser(user.getUserid());
+        List<CategoryDTO> categoryList =  categoryService.getAllCategories();
+        List<AuctionDTO> userAuctions = auctionService.filterAuctionOrederedByUser(user.getId());
         
         if(filter==null)
         {
             request.setAttribute("userAuctions", userAuctions);
         }else{
-            List<Auction> auctionList = auctionService.filterAuctionByUser(filter, user.getUserid());
+            List<AuctionDTO> auctionList = auctionService.filterAuctionByUser(filter, user.getId());
             if(auctionList.isEmpty())
             {
                 request.setAttribute("userAuctions", userAuctions);

@@ -5,11 +5,9 @@
  */
 package eguay.servlet;
 
-import eguay.dao.CategoryFacade;
-import eguay.entity.Category;
+import eguay.dto.CategoryDTO;
 import eguay.service.CategoryService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -39,7 +37,7 @@ public class AddFavCategoryServlet extends HttpServlet {
             
         response.setContentType("text/html;charset=UTF-8");
         
-        List<Category> categoryAllList = categoryService.getAllCategories();
+        List<CategoryDTO> categoryAllList = categoryService.getAllCategories();
         
         request.setAttribute("categoryAllList", categoryAllList);
         

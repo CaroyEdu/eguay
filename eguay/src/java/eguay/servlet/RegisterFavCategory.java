@@ -5,13 +5,11 @@
  */
 package eguay.servlet;
 
-import eguay.dao.CategoryFacade;
-import eguay.entity.Category;
-import eguay.entity.Users;
+import eguay.dto.CategoryDTO;
+import eguay.dto.UserDTO;
 import eguay.service.CategoryService;
 import eguay.service.UserService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -47,12 +45,12 @@ public class RegisterFavCategory extends HttpServlet {
         
         //str = (String)request.getParameter("category");
         HttpSession session = request.getSession();
-        Users user = (Users) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
             /* TODO output your page here. You may use following sample code. */
-        List<Category> categoryFavList = user.getCategoryList(); 
+        List<CategoryDTO> categoryFavList = user.getCategoryList(); 
         if(categoryFavList == null) categoryFavList = new ArrayList() ; 
-        List<Category> categoryList = categoryService.getAllCategories();
-        for(Category category : categoryList ){
+        List<CategoryDTO> categoryList = categoryService.getAllCategories();
+        for(CategoryDTO category : categoryList ){
             String check = (String)request.getParameter(category.getCategoryid().toString()); 
             usersService.editFavCategories(user, category, check);
         }

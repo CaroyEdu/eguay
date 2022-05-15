@@ -5,10 +5,9 @@
  */
 package eguay.servlet;
 
-import eguay.dao.UsersFacade;
-import eguay.entity.Users;
+import eguay.dto.UserDTO;
+import eguay.service.UserService;
 import java.io.IOException;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +23,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "CheckLoginServlet", urlPatterns = {"/CheckLoginServlet"})
 public class CheckLoginServlet extends HttpServlet {
     
-    @EJB UsersFacade userFacade;
+    @EJB UserService userService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,7 +40,7 @@ public class CheckLoginServlet extends HttpServlet {
         
         String username = (String) request.getParameter("username");
         String password = (String) request.getParameter("password");
-        Users user = userFacade.userLogin(username, password);
+        UserDTO user = userService.loginUser(username, password);
         HttpSession session = request.getSession();
         
         if(user != null)

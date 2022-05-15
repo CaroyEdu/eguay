@@ -6,7 +6,6 @@
 package eguay.dao;
 
 import eguay.entity.Auction;
-import eguay.entity.Category;
 import eguay.entity.Users;
 import eguay.service.UserService;
 import java.util.List;
@@ -79,7 +78,8 @@ public class UsersFacade extends AbstractFacade<Users> {
         q.setParameter("title", '%' + title + '%');
         q.setParameter("userid", userid);
         return q.getResultList();
-
+    }
+    
     public List<Users> findAll(List<Integer> userIds) {
         return this.em.createQuery("SELECT u FROM Users u WHERE u.userid IN :userIds")
                 .setParameter("userIds", userIds)

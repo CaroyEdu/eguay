@@ -5,14 +5,12 @@
  */
 package eguay.servlet;
 
-import eguay.dao.AuctionFacade;
-import eguay.dao.UsersFacade;
-import eguay.entity.Auction;
+import eguay.dto.AuctionDTO;
+import eguay.dto.UserDTO;
 import eguay.entity.Users;
 import eguay.service.AuctionService;
 import eguay.service.UserService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -43,10 +41,10 @@ public class EditPurchasedAuctions extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
          HttpSession session = request.getSession();
-        Users user = (Users) session.getAttribute("user");
-        List<Auction> purchasedAuctionList = auctionService.filterAuction("");
-        for(Auction auction : purchasedAuctionList ){
-            String check = (String)request.getParameter(auction.getAuctionid().toString());
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        List<AuctionDTO> purchasedAuctionList = auctionService.filterAuction("");
+        for(AuctionDTO auction : purchasedAuctionList ){
+            String check = (String)request.getParameter(auction.getId().toString());
             if(check != null){
                 userService.removePurchasedAuction(auction, user);
             }

@@ -5,14 +5,11 @@
  */
 package eguay.servlet;
 
-import eguay.dao.AuctionFacade;
-import eguay.dao.BidFacade;
-import eguay.entity.Auction;
-import eguay.entity.Bid;
+import eguay.dto.AuctionDTO;
+import eguay.dto.BidDTO;
 import eguay.service.AuctionService;
 import eguay.service.BidService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -43,11 +40,11 @@ public class SubmitBidServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Long id = Long.parseLong((String)request.getParameter("id"));
-        Auction auction = auctionService.findById(id);
+        AuctionDTO auction = auctionService.findById(id);
         
-        List<Bid> highestBidList = null ; 
+        List<BidDTO> highestBidList = null ; 
         highestBidList = bidService.getHighestBid(auction);
-        Bid highestBid = null ; 
+        BidDTO highestBid = null ; 
         if(highestBidList != null && !highestBidList.isEmpty()){
             highestBid = highestBidList.get(0);
         }

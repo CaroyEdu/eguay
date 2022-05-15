@@ -5,14 +5,10 @@
  */
 package eguay.servlet;
 
-import eguay.dao.AuctionFacade;
-import eguay.dao.CategoryFacade;
+import eguay.dto.AuctionDTO;
 import eguay.entity.Auction;
-import eguay.entity.Category;
 import eguay.service.AuctionService;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,7 +42,7 @@ public class AddProductServlet extends HttpServlet {
         if(idParameter!=null)
         {
             Long id = Long.parseLong((String) request.getParameter("id"));
-            Auction auction = auctionService.findById(id);
+            AuctionDTO auction = auctionService.findById(id);
             request.setAttribute("auction", auction);
         }
         

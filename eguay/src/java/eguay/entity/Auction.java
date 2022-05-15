@@ -6,6 +6,8 @@
 package eguay.entity;
 
 import eguay.dto.AuctionDTO;
+import eguay.service.CategoryService;
+import eguay.service.UserService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -304,6 +306,10 @@ public class Auction implements Serializable {
         dto.setClosePrice(closeprice);
         dto.setMaxBid(maxbid);
         dto.setStartDate(startdate);
+        dto.setFotourl(fotourl);
+        dto.setCategoryList(CategoryService.toDTO(categoryList));
+        dto.setStartPrice(startprice);
+        dto.setUserList(UserService.toDTO(usersList));
         
         dto.setSeller(String.format("%s %s", sellerid.getName(), sellerid.getSurname()));
         

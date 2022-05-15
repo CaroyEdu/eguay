@@ -8,7 +8,6 @@ package eguay.service;
 import eguay.dao.AuctionFacade;
 import eguay.dto.AuctionDTO;
 import eguay.entity.Auction;
-import eguay.entity.Mail;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -23,14 +22,14 @@ public class AuctionService {
     @EJB AuctionFacade auctionFacade;
     
     // Query
-    public Auction findById(Long id){
+    public AuctionDTO findById(Long id){
         Auction auction = auctionFacade.find(id);
 
-        return auction;
+        return auction.toDTO();
     }
 
     // Auxiliary functions
-    public List<Auction> filterAuction(String filter){
+    public List<AuctionDTO> filterAuction(String filter){
         List<Auction> auctions ;
         if(filter == null || filter.isEmpty())
             {
@@ -40,10 +39,10 @@ public class AuctionService {
             {
                 auctions = this.auctionFacade.findByTitle(filter);
             }
-        return auctions;
+        return AuctionService.toDTO(auctions);
     }
     
-    public List<Auction> filterAuctionByUser(String filter, int userid){
+    public List<AuctionDTO> filterAuctionByUser(String filter, int userid){
         List<Auction> auctions ;
         if(filter == null || filter.isEmpty())
             {
@@ -53,13 +52,13 @@ public class AuctionService {
             {
                 auctions = this.auctionFacade.findByTitleAndUser(filter, userid);
             }
-        return auctions;
+        return AuctionService.toDTO(auctions);
     }
     
-    public List<Auction> filterAuctionOrederedByUser(int userid){
+    public List<AuctionDTO> filterAuctionOrederedByUser(int userid){
         List<Auction> auctions ;
         auctions = this.auctionFacade.findOrderedByUser(userid);
-        return auctions;
+        return AuctionService.toDTO(auctions);
     }
 
     public void editAuction(Auction auction){
@@ -68,7 +67,7 @@ public class AuctionService {
     
     // Logic
     public static List<AuctionDTO> toDTO(List<Auction> auctions){
-        List<AuctionDTO> dtos = new ArrayList<AuctionDTO>(auctions.size());
+        List<AuctionDTO> dtos = new ArrayList<>(auctions.size());
         
         for(Auction auction : auctions){
             dtos.add(auction.toDTO());
@@ -76,7 +75,7 @@ public class AuctionService {
         
         return dtos;
     }
-
+    
     public List<AuctionDTO> getAllAuctions() {
         return Auction.toDTO(auctionFacade.findAll());
     }

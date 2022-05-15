@@ -10,13 +10,11 @@ import eguay.entity.Bid;
 import eguay.entity.Users;
 import eguay.service.AuctionService;
 import eguay.service.UserService;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
-import javax.servlet.http.HttpSession;
 
 /**
  *

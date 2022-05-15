@@ -5,11 +5,10 @@
  */
 package eguay.servlet;
 
-import eguay.dao.CategoryFacade;
+import eguay.dto.CategoryDTO;
 import eguay.entity.Category;
 import eguay.service.CategoryService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -39,7 +38,7 @@ public class CheckProfileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        List<Category> categoryList = categoryService.getAllCategories();
+        List<CategoryDTO> categoryList = categoryService.getAllCategories();
         request.setAttribute("categoryList", categoryList);
         request.getRequestDispatcher("profile.jsp").forward(request, response);
     }

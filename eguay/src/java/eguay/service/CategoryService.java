@@ -6,7 +6,9 @@
 package eguay.service;
 
 import eguay.dao.CategoryFacade;
+import eguay.dto.AuctionDTO;
 import eguay.dto.CategoryDTO;
+import eguay.entity.Auction;
 import eguay.entity.Category;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +25,15 @@ public class CategoryService {
 
     // Queries
     
-    public List<Category> getAllCategories(){
+    public List<CategoryDTO> getAllCategories(){
         
         List<Category> categories = categoryFacade.findAll();
-        return categories ; 
+        return CategoryService.toDTO(categories);
     }
     
     // Logic
     public static List<CategoryDTO> toDTO(List<Category> categories){
-        List<CategoryDTO> dtos = new ArrayList<CategoryDTO>(categories.size());
+        List<CategoryDTO> dtos = new ArrayList<>(categories.size());
         
         for(Category category : categories){
             dtos.add(category.toDTO());

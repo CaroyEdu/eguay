@@ -12,16 +12,12 @@ import eguay.dto.UserDTO;
 import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.entity.Groups;
-import eguay.entity.Mail;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import eguay.entity.Users;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.http.HttpSession;
 /**
  *
@@ -37,6 +33,11 @@ public class UserService {
     
     Users getUser(Integer id) {
         return usersFacade.find(id);
+    }
+    
+    public UserDTO loginUser(String username, String password)
+    {
+        return this.usersFacade.userLogin(username, password).toDTO();
     }
     
     public List<UserDTO> getAllUsersDTO(){
@@ -81,7 +82,7 @@ public class UserService {
     // Logic
     
     public void createUser(Users user , String username ,String name ,String surname , String address ,
-    String city , String email , String country , String password , Date birthday , int sex){
+    String city , String email , String country , String password , Date birthday , int sex, List<Auction> auctionList1){
         
         user.setName(name);
         user.setAddress(address);
@@ -93,6 +94,7 @@ public class UserService {
         user.setUsername(username);
         user.setBirthyear(birthday);
         user.setSex(sex);
+        user.setAuctionList1(auctionList1);
         
         usersFacade.create(user);
     }

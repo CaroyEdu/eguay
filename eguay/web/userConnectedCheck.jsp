@@ -4,11 +4,12 @@
     Author     : jean-
 --%>
 
+<%@page import="eguay.dto.UserDTO"%>
 <%@page import="eguay.entity.Users"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <% 
-        Users user = (Users) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
         if(user == null)
         {
     %>

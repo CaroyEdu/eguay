@@ -5,18 +5,13 @@
  */
 package eguay.servlet;
 
-import eguay.dao.AuctionFacade;
-import eguay.dao.CategoryFacade;
-import eguay.dao.UsersFacade;
+import eguay.dto.AuctionDTO;
+import eguay.dto.UserDTO;
 import eguay.entity.Auction;
-import eguay.entity.Category;
 import eguay.entity.Users;
 import eguay.service.AuctionService;
 import eguay.service.UserService;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,12 +41,12 @@ public class RegisterFavAuction extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        Users user = (Users) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
             /* TODO output your page here. You may use following sample code. */
         
         String idParameter = (String) request.getParameter("id");
         
-        Auction auction = null ;
+        AuctionDTO auction = null ;
         if(idParameter!=null)
         {
             Long id = Long.parseLong((String) request.getParameter("id"));

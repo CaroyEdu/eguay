@@ -5,9 +5,6 @@
 package eguay.dto;
 
 import eguay.entity.Auction;
-import eguay.entity.Category;
-import eguay.entity.Mail;
-import eguay.entity.Rol;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +28,17 @@ public class UserDTO {
     private String country;
     private String city;
     private String address;
+    private List<AuctionDTO> auctions;
+    
+    public void setAuctions(List<AuctionDTO> auctions)
+    {
+        this.auctions = auctions;
+    }
+    
+    public List<AuctionDTO> getAuctions()
+    {
+        return this.auctions;
+    }
 
     public Integer getId() {
         return id;

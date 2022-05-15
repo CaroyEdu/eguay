@@ -4,12 +4,12 @@
     Author     : jean-
 --%>
 
+<%@page import="eguay.dto.UserDTO"%>
+<%@page import="eguay.dto.AuctionDTO"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="eguay.entity.Users"%>
 <%@page import="java.util.List"%>
-<%@page import="eguay.entity.Auction"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -83,12 +83,12 @@
 </style>
 
     <% 
-        List<Auction> auctionList = (List) request.getAttribute("auctionList");
+        List<AuctionDTO> auctionList = (List) request.getAttribute("auctionList");
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
-        Users user = (Users) session.getAttribute("user");
-        List<Auction> auctionFavList = null;
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        List<AuctionDTO> auctionFavList = null;
         if(user!=null){
-            auctionFavList = user.getAuctionList();
+            auctionFavList = user.getAuctions();
         }
     %>
     
@@ -99,7 +99,7 @@
                 <%
                 int cantidad = 0;
                 
-                for(Auction a : auctionList)
+                for(AuctionDTO a : auctionList)
                 {
                     if(a.getActive()){ 
                         if(cantidad == 0)
@@ -109,8 +109,8 @@
                 <%
                         }
                     String closeDate = "";
-                    if(a.getClosedate() != null){ 
-                        closeDate = sdf.format(a.getClosedate());
+                    if(a.getCloseDate() != null){ 
+                        closeDate = sdf.format(a.getCloseDate());
                     }
                 %>
                 <div class="card">
@@ -121,35 +121,35 @@
                     <img src="img/placeholder.png" style="width:100%; height: 50%">
                     <% } %>
                     <% if(user != null) { %> 
-                    <h4><a href="ProductServlet?id=<%= a.getAuctionid() %>"><%= a.getTitle() %></a></h4>
+                    <h4><a href="ProductServlet?id=<%= a.getId()%>"><%= a.getName() %></a></h4>
                     <% }else {  %>
-                    <h4><a href="LoginServlet"><%= a.getTitle() %></a></h4>
+                    <h4><a href="LoginServlet"><%= a.getName() %></a></h4>
                     <% } %>
-                    <p class="description"><%= a.getDescription() %></p>
-                    <p class="price">$<%= a.getStartprice() %></p>
-                    <% if(a.getClosedate()!=null)
+                    <p class="description"><%= a.getName() %></p>
+                    <p class="price">$<%= a.getClosePrice() %></p>
+                    <% if(a.getCloseDate()!=null)
                     { %>
                     <p class="description" id="cd_<%= closeDate %>"></p>
                     <% } %>
-                    <% if(a.getClosenumberofbids()!=null)
+                    <% if(a.getCloseNumberofBids()!=null)
                     { %>
-                    <p class="description">¡Sólo quedan <%= a.getClosenumberofbids() %> pujas disponibles!</p>
+                    <p class="description">¡Sólo quedan <%= a.getCloseNumberofBids() %> pujas disponibles!</p>
                     <% } %>
-                    <% if(a.getCloseprice()!=null)
+                    <% if(a.getClosePrice()!=null)
                     { %>
-                    <p class="description" >¡Puja <%= a.getCloseprice() %>$ y te lo llevas!</p>
+                    <p class="description" >¡Puja <%= a.getClosePrice() %>$ y te lo llevas!</p>
                     <% } %>
                     
                     <% if (user!=null) {
                         
                         %>
-                        <p><button onclick="location.href='ProductServlet?id=<%= a.getAuctionid() %>'">Pujar</button></p>
+                        <p><button onclick="location.href='ProductServlet?id=<%= a.getId() %>'">Pujar</button></p>
                         <%
                         if( auctionFavList.contains(a)){
                     %>    
-                    <button onclick="location.href='RegisterFavAuction?id=<%= a.getAuctionid() %>'" class="like-buttonlike-button">♥ </button>
+                    <button onclick="location.href='RegisterFavAuction?id=<%= a.getId() %>'" class="like-buttonlike-button">♥ </button>
                     <% } else{ %>
-                    <button onclick="location.href='RegisterFavAuction?id=<%= a.getAuctionid() %>'" class="dislike-button">x </button>
+                    <button onclick="location.href='RegisterFavAuction?id=<%= a.getId() %>'" class="dislike-button">x </button>
                     <% }} %>
                 </div>
             <%

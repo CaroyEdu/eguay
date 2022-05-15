@@ -7,6 +7,9 @@ package eguay.servlet;
 
 import eguay.dao.AuctionFacade;
 import eguay.dao.UsersFacade;
+import eguay.dto.AuctionDTO;
+import eguay.dto.CategoryDTO;
+import eguay.dto.UserDTO;
 import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.entity.Users;
@@ -54,28 +57,28 @@ public class AddProductForSaleServlet extends HttpServlet {
         // Primero cogemos la sesión actual para saber quién es el usuario que está añadiendo el producto
         HttpSession session = request.getSession();
         
-        Auction auction = new Auction();
+        AuctionDTO auction = new AuctionDTO();
         String str;
         String check;
         
         // Definimos el usuario, título, descrición, URL de la foto y precio inicial
-        Users user = (Users) session.getAttribute("user");
-        auction.setSellerid(user);
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        auction.setSeller(user.getId().toString());
         str = (String)request.getParameter("title");
-        auction.setTitle(str);
+        auction.setName(str);
         str = (String)request.getParameter("description");
         auction.setDescription(str);
         str = (String)request.getParameter("fotourl");
         auction.setFotourl(str);
         Float startPrice = Float.parseFloat(request.getParameter("startprice"));
-        auction.setStartprice(startPrice);
+        auction.setStartPrice(startPrice);
         check = (String) request.getParameter("checkBoxClosePrice");
         str = (String) request.getParameter("inputClosePrice");
         if(check != null && check.equals("on"))
         {
             if(!str.equals(""))
             {
-                auction.setCloseprice(Float.parseFloat(str));
+                auction.setClosePrice(Float.parseFloat(str));
             }
         }
         
@@ -85,7 +88,7 @@ public class AddProductForSaleServlet extends HttpServlet {
         {
             if(!str.equals(""))
             {
-                auction.setClosenumberofbids(Integer.parseInt(str));
+                auction.setCloseNumberofBids(Integer.parseInt(str));
             }
         }
         
@@ -98,7 +101,7 @@ public class AddProductForSaleServlet extends HttpServlet {
             String dateInString = str + " " + time + ":00";
             try {
                 Date date = sdf.parse(dateInString);
-                auction.setClosedate(date);
+                auction.setCloseDate(date);
             } catch (ParseException ex) {
                 Logger.getLogger(AddProductForSaleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -107,13 +110,13 @@ public class AddProductForSaleServlet extends HttpServlet {
         // Conseguimos la fecha de hoy en formato yyyy/MM/dd
         Calendar now = new GregorianCalendar();
         Date nowDate = now.getTime();
-        auction.setStartdate(nowDate);
+        auction.setStartDate(nowDate);
         auction.setActive(true);
         
         // Añadimos las diferentes categorías como una lista
         str = (String)request.getParameter("category");
-        List<Category> categoryList = new ArrayList();
-        categoryList.add(0, new Category(Long.parseLong(str)));
+        List<CategoryDTO> categoryList = new ArrayList();
+        categoryList.add(new CategoryDTO().setName(str)));
         auction.setCategoryList(categoryList);
         
         // Creamos/Editamos el objeto y lo insertamos en la base de datos

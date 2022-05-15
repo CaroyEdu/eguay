@@ -5,7 +5,10 @@
  */
 package eguay.entity;
 
+import eguay.dto.BidDTO;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -110,6 +113,27 @@ public class Bid implements Serializable {
     @Override
     public String toString() {
         return "eguay.entity.Bid[ bidid=" + bidid + " ]";
+    }
+    
+    public BidDTO toDTO(){
+        BidDTO dto = new BidDTO();
+        
+        dto.setId(bidid);
+        dto.setAuction(auctionid.getAuctionid());
+        dto.setBider(Long.parseLong(biderid.getUserid().toString()));
+        dto.setBid(bid);
+        
+        return dto;
+    }
+    
+    public static List<BidDTO> toDTO(List<Bid> bids){
+        List<BidDTO> dtos = new ArrayList<>(bids.size());
+        
+        for(Bid bid : bids){
+            dtos.add(bid.toDTO());
+        }
+        
+        return dtos;
     }
     
 }

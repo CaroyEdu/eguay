@@ -5,17 +5,13 @@
  */
 package eguay.servlet;
 
-import eguay.dao.AuctionFacade;
-import eguay.dao.BidFacade;
-import eguay.entity.Auction;
+import eguay.dto.AuctionDTO;
+import eguay.dto.UserDTO;
 import eguay.entity.Bid;
 import eguay.entity.Users;
 import eguay.service.AuctionService;
 import eguay.service.BidService;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,9 +42,9 @@ public class FinalizeBidServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Long id = Long.parseLong((String)request.getParameter("id"));
-        Auction auction = auctionService.findById(id);
+        AuctionDTO auction = auctionService.findById(id);
         HttpSession session = request.getSession();
-        Users user = (Users) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
         
         String BidAmount = (String)request.getParameter("Bid");
         Double BidAmountDbl = Double.parseDouble(BidAmount) ; 
