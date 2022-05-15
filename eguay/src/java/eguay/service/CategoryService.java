@@ -6,9 +6,7 @@
 package eguay.service;
 
 import eguay.dao.CategoryFacade;
-import eguay.dto.AuctionDTO;
 import eguay.dto.CategoryDTO;
-import eguay.entity.Auction;
 import eguay.entity.Category;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,3 +1,5 @@
+<%@page import="eguay.dto.AuctionDTO"%>
+<%@page import="eguay.dto.UserDTO"%>
 7<%-- 
     Document   : purchasedauction
     Created on : Apr 17, 2022, 10:53:57 AM
@@ -36,11 +38,11 @@
 
 </style>
     <%    
-           Users user = (Users) session.getAttribute("user"); 
+           UserDTO user = (UserDTO) session.getAttribute("user"); 
     
-           List<Auction> purchasedAuctionList = null ; 
+           List<AuctionDTO> purchasedAuctionList = null ; 
            
-           List<Auction> auctionFavList = null;
+           List<AuctionDTO> auctionFavList = null;
 
            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
            
@@ -59,15 +61,15 @@
                     <%
                 int cantidad = 0;
                 
-                List<Auction> purchaeds =(List<Auction>) request.getAttribute("purchasedAuctions");
+                List<AuctionDTO> purchaeds =(List<AuctionDTO>) request.getAttribute("purchasedAuctions");
                 
                 if(user!=null){
                 purchasedAuctionList = purchaeds ;  
-                auctionFavList = user.getAuctionList(); 
+                auctionFavList = user.getAuctions();
                 }
                 
                 if(purchasedAuctionList != null){
-                for(Auction a : purchasedAuctionList)
+                for(AuctionDTO a : purchasedAuctionList)
                 {
                     if(cantidad == 0)
                     {
@@ -76,8 +78,8 @@
                 <%
                     }
                     String closeDate = "";
-                    if(a.getClosedate() != null){ 
-                        closeDate = sdf.format(a.getClosedate());
+                    if(a.getCloseDate() != null){ 
+                        closeDate = sdf.format(a.getCloseDate());
                     }
                 %>
                 <div class="card">
@@ -87,30 +89,30 @@
                     <% }else { %>
                     <img src="img/placeholder.png" style="width:10%">
                     <% } %>
-                    <h4><a href="ProductServlet?id=<%= a.getAuctionid() %>"><%= a.getTitle() %></a></h4>
+                    <h4><a href="ProductServlet?id=<%= a.getId() %>"><%= a.getName() %></a></h4>
                     <p class="description"><%= a.getDescription() %></p>
-                    <p class="price">$<%= a.getStartprice() %></p>
-                    <% if(a.getClosedate()!=null)
+                    <p class="price">$<%= a.getStartPrice() %></p>
+                    <% if(a.getCloseDate()!=null)
                     { %>
                     <p class="description" id="cd_<%= closeDate %>"></p>
                     <% } %>
-                    <% if(a.getClosenumberofbids()!=null)
+                    <% if(a.getCloseNumberofBids()!=null)
                     { %>
-                    <p class="description">¡Sólo quedan <%= a.getClosenumberofbids() %> pujas disponibles!</p>
+                    <p class="description">¡Sólo quedan <%= a.getCloseNumberofBids() %> pujas disponibles!</p>
                     <% } %>
                     
                     <% if (user!=null) {
                         if(auctionFavList!= null && auctionFavList.contains(a)){
                     %>    
-                    <input class="star" type="checkbox" title="bookmark page" name="<%=a.getAuctionid() +"Fav"%>"><br/><br/>
+                    <input class="star" type="checkbox" title="bookmark page" name="<%=a.getId() +"Fav"%>"><br/><br/>
                     <% } else{ %>
-                    <input class="star" type="checkbox" title="bookmark page" checked="unchecked" name="<%=a.getAuctionid() + "Fav" %>"><br/><br/>
+                    <input class="star" type="checkbox" title="bookmark page" checked="unchecked" name="<%=a.getId() + "Fav" %>"><br/><br/>
                     <% }} %>
                     <br>
                     <br>
-                    <input type="checkbox" id="<%= a.getAuctionid().toString()%>" name="<%= a.getAuctionid().toString()%>" value="<%= "Borrar " + a.getTitle() %>" >
-                    <label for="<%= a.getAuctionid().toString() %>"> <%= "Borrar " + a.getTitle() %> </label><br><br>
-                    <input type="button" onclick="window.location.href='EditPurchasedProduct?auctionid=<%=a.getAuctionid()%>';" value="Editar " /> <br>
+                    <input type="checkbox" id="<%= a.getId().toString()%>" name="<%= a.getId().toString()%>" value="<%= "Borrar " + a.getName() %>" >
+                    <label for="<%= a.getId().toString() %>"> <%= "Borrar " + a.getName() %> </label><br><br>
+                    <input type="button" onclick="window.location.href='EditPurchasedProduct?auctionid=<%=a.getId()%>';" value="Editar " /> <br>
                 </div>
             
             </div>

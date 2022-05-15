@@ -4,9 +4,9 @@
     Author     : parsa
 --%>
 
-<%@page import="eguay.entity.Users"%>
-<%@page import="eguay.entity.Auction"%>
-<%@page import="eguay.entity.Bid"%>
+<%@page import="eguay.dto.UserDTO"%>
+<%@page import="eguay.dto.AuctionDTO"%>
+<%@page import="eguay.dto.BidDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,26 +16,26 @@
     </head>
     <%
         
-        Bid bid = (Bid) request.getAttribute("highestBid");
-        Auction auction = (Auction) request.getAttribute("auction");
-        Users user = (Users) session.getAttribute("user");
+        BidDTO bid = (BidDTO) request.getAttribute("highestBid");
+        AuctionDTO auction = (AuctionDTO) request.getAttribute("auction");
+        UserDTO user = (UserDTO) session.getAttribute("user");
         
     %>
     <body>
-        <form name="submitBid" method="POST" action="FinalizeBidServlet?id=<%=auction.getAuctionid()%>">
+        <form name="submitBid" method="POST" action="FinalizeBidServlet?id=<%=auction.getId()%>">
         <% if (bid == null) { %>
         <h1>No hay puja, Sé primero en pujar este producto </h1><br>
-        <h2> La puja debe ser mayor que el precio inicial : <%= auction.getStartprice()%> </h2>
+        <h2> La puja debe ser mayor que el precio inicial : <%= auction.getStartPrice()%> </h2>
              <br> <br>
              
              <h3> Nueva puja <h3> <br>
-             Puja:<input type="number" name="Bid" value="<%= auction.getStartprice()+ 1 %>" required/><br/>
+             Puja:<input type="number" name="Bid" value="<%= auction.getStartPrice()+ 1 %>" required/><br/>
              <br>
              <p> Para el usuario <%= user.getUsername()%> con el nombre <%= user.getName() + "\t" + user.getSurname() + "\t" %> con la direccion <%= user.getAddress() %> y el correro <%= user.getEmail() %> </p> 
 
              
         <% }else { %> 
-        <h1>Puja mas alta es : <%= bid.getBid() %> del usuario : <%= bid.getBiderid().getUsername()%> </h1><br>
+        <h1>Puja mas alta es : <%= bid.getBid() %> del usuario : <%= bid.getBider() %> </h1><br>
          
              <h2> La puja debe ser mayor que <%= bid.getBid() %> </h2>
              <br> <br>

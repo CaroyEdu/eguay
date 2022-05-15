@@ -5,6 +5,8 @@
  */
 package eguay.servlet;
 
+import eguay.dto.AuctionDTO;
+import eguay.dto.UserDTO;
 import eguay.entity.Auction;
 import eguay.entity.Users;
 import eguay.service.UserService;
@@ -45,9 +47,9 @@ public class EditFavAuctionServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        Users user = (Users) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
         
-        List<Auction> purchasedAuctions = userService.filterFavAuctionByUser(filter, user);
+        List<AuctionDTO> purchasedAuctions = userService.filterFavAuctionByUser(filter, user);
         
         request.setAttribute("favAuctions" ,purchasedAuctions );
         

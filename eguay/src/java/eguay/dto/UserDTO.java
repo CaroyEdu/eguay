@@ -29,6 +29,17 @@ public class UserDTO {
     private String city;
     private String address;
     private List<AuctionDTO> auctions;
+    private List<CategoryDTO> categories;
+    
+    public void setCategories(List<CategoryDTO> categories)
+    {
+        this.categories = categories;
+    }
+    
+    public List<CategoryDTO> getCategories()
+    {
+        return this.categories;
+    }
     
     public void setAuctions(List<AuctionDTO> auctions)
     {

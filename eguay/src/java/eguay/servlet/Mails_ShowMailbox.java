@@ -4,6 +4,7 @@
  */
 package eguay.servlet;
 
+import eguay.dto.UserDTO;
 import eguay.entity.Users;
 import eguay.service.MailService;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class Mails_ShowMailbox extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        Integer userId = ((Users) request.getSession().getAttribute("user")).getUserid();
+        Integer userId = ((UserDTO) request.getSession().getAttribute("user")).getId();
         request.setAttribute("mails", mailService.getAllMails(userId));
         
         request.getRequestDispatcher("mailbox.jsp").forward(request, response);

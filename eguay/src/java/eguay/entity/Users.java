@@ -357,8 +357,8 @@ public class Users implements Serializable {
         dto.setCountry(country);
         dto.setCity(city);
         dto.setAddress(address);
-        //dto.setAuctions(Auction.toDTO(auctionList1));
-        
+        dto.setAuctions(AuctionService.toDTO(auctionList1));
+        dto.setCategories(CategoryService.toDTO(categoryList));
         return dto;
     }
 }

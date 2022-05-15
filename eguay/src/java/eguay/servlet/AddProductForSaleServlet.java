@@ -13,6 +13,8 @@ import eguay.dto.UserDTO;
 import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.entity.Users;
+import eguay.service.AuctionService;
+import eguay.service.UserService;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,8 +40,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "AddProductForSaleServlet", urlPatterns = {"/AddProductForSaleServlet"})
 public class AddProductForSaleServlet extends HttpServlet {
     
-    @EJB AuctionFacade auctionFacade;
-    @EJB UsersFacade usersFacade;
+    @EJB AuctionService auctionService;
+    @EJB UserService userService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -116,22 +118,24 @@ public class AddProductForSaleServlet extends HttpServlet {
         // Añadimos las diferentes categorías como una lista
         str = (String)request.getParameter("category");
         List<CategoryDTO> categoryList = new ArrayList();
-        categoryList.add(new CategoryDTO().setName(str)));
+        CategoryDTO category = new CategoryDTO();
+        category.setId(Long.parseLong(str));
+        categoryList.add(category);
         auction.setCategoryList(categoryList);
         
         // Creamos/Editamos el objeto y lo insertamos en la base de datos
         String auctionid = request.getParameter("auctionid");
         if(auctionid.equals("")){
-            auctionFacade.create(auction);
+            auctionService.createAuction(auction);
             
-            List<Auction> usersSubmitedAuctions = user.getAuctionList2();
+            List<AuctionDTO> usersSubmitedAuctions = user.getAuctions();
             if(usersSubmitedAuctions == null) usersSubmitedAuctions = new ArrayList();
             usersSubmitedAuctions.add(auction);
-            user.setAuctionList2(usersSubmitedAuctions);        
-            usersFacade.edit(user);
+            user.setAuctions(usersSubmitedAuctions);        
+            this.userService.editUser(user);
         }else{
-            auction.setAuctionid(Long.parseLong(auctionid));
-            auctionFacade.edit(auction);
+            auction.setId(Long.parseLong(auctionid));
+            this.auctionService.editAuction(auction);
         }
         
         // Una vez creado e insertado el objeto, nos volvemos a la página de inicio

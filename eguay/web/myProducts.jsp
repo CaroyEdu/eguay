@@ -4,6 +4,8 @@
     Author     : jean-
 --%>
 
+<%@page import="eguay.dto.AuctionDTO"%>
+<%@page import="eguay.dto.UserDTO"%>
 <%@page import="eguay.entity.Auction"%>
 <%@page import="java.util.List"%>
 <%@page import="eguay.entity.Users"%>
@@ -18,8 +20,8 @@
     <jsp:include page="userConnectedCheck.jsp"/>
     <jsp:include page="cabecera.jsp"/>
     <%
-        Users user = (Users) session.getAttribute("user");
-        List<Auction> userAuctions = (List) request.getAttribute("userAuctions");
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        List<AuctionDTO> userAuctions = (List) request.getAttribute("userAuctions");
         String error = (String) request.getAttribute("error");
     %>
     
@@ -51,13 +53,13 @@
                         <th width="20%">Borrar Subasta</th>
                     </tr>
                     <%
-                        for(Auction a : userAuctions){
+                        for(AuctionDTO a : userAuctions){
                             %>
                             <tr>
-                            <td><%= a.getTitle() %></td>
+                            <td><%= a.getName()%></td>
                             <td><%= a.getActive() %></td>
-                            <td><a href="AddProductServlet?id=<%= a.getAuctionid() %>" style="padding: 2px 5px 2px 5px; color: white; background-color: #333; margin-left: 50%">X</a></td>
-                            <td><a href="DeleteAuctionServlet?id=<%= a.getAuctionid() %>&userid=<%= user.getUserid() %>" style="padding: 2px 5px 2px 5px; color: white; background-color: #333; margin-left: 50%">X</a></td>
+                            <td><a href="AddProductServlet?id=<%= a.getId() %>" style="padding: 2px 5px 2px 5px; color: white; background-color: #333; margin-left: 50%">X</a></td>
+                            <td><a href="DeleteAuctionServlet?id=<%= a.getId() %>&userid=<%= user.getId() %>" style="padding: 2px 5px 2px 5px; color: white; background-color: #333; margin-left: 50%">X</a></td>
                             </tr>
                             <%
                         }

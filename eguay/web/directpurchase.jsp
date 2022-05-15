@@ -4,6 +4,8 @@
     Author     : parsa
 --%>
 
+<%@page import="eguay.dto.UserDTO"%>
+<%@page import="eguay.dto.AuctionDTO"%>
 <%@page import="eguay.entity.Users"%>
 <%@page import="eguay.entity.Auction"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,19 +17,19 @@
     </head>
     
     <%
-        Auction auction = (Auction)request.getAttribute("auction");
-        Users user = (Users) session.getAttribute("user");
+        AuctionDTO auction = (AuctionDTO)request.getAttribute("auction");
+        UserDTO user = (UserDTO) session.getAttribute("user");
     %>
     
     <body>
         
-        <h1>El Precio Final del producto es <%= auction.getCloseprice() %></h1>
+        <h1>El Precio Final del producto es <%= auction.getClosePrice() %></h1>
         <br>
         <h1>Para el usuario <%= user.getName() + " " + user.getSurname() %></h1>
         <br>
         <h1>Con el address <%= user.getAddress() %></h1>
         <br>
-        <button onclick="window.location.href='FinalizeDirectPurchase?id=<%= auction.getAuctionid() %>';">
+        <button onclick="window.location.href='FinalizeDirectPurchase?id=<%= auction.getId() %>';">
          Finalizar el pago </button>
     </body>
 </html>

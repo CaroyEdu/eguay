@@ -310,7 +310,7 @@ public class Auction implements Serializable {
         dto.setCategoryList(CategoryService.toDTO(categoryList));
         dto.setStartPrice(startprice);
         dto.setUserList(UserService.toDTO(usersList));
-        
+        dto.setSellerID(sellerid.toDTO());
         dto.setSeller(String.format("%s %s", sellerid.getName(), sellerid.getSurname()));
         
         return dto;

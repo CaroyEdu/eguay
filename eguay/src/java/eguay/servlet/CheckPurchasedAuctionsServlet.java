@@ -5,14 +5,11 @@
  */
 package eguay.servlet;
 
-import eguay.dao.CategoryFacade;
-import eguay.dao.UsersFacade;
-import eguay.entity.Auction;
-import eguay.entity.Category;
+import eguay.dto.AuctionDTO;
+import eguay.dto.UserDTO;
 import eguay.entity.Users;
 import eguay.service.UserService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -45,9 +42,9 @@ public class CheckPurchasedAuctionsServlet extends HttpServlet {
         String filter = request.getParameter("filter");
         
         HttpSession session = request.getSession();
-        Users user = (Users) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
         
-        List<Auction> purchasedAuctions = userService.filterPurchasedAuctionByUser(filter, user);
+        List<AuctionDTO> purchasedAuctions = userService.filterPurchasedAuctionByUser(filter, user);
         
         request.setAttribute("purchasedAuctions" ,purchasedAuctions );
         

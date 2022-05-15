@@ -224,4 +224,16 @@ public class UserService {
     public UserDTO getSessionUser(HttpSession session) {
         return ((Users) session.getAttribute("user")).toDTO();
     }
+    
+    private Users toDAO(UserDTO user)
+    {
+        Users u = new Users();
+        u = this.usersFacade.getUserByID(Long.parseLong(user.getId().toString()));
+        return u;
+    }
+    
+    public void editUser(UserDTO user)
+    {
+        this.usersFacade.edit(toDAO(user));
+    }
 }

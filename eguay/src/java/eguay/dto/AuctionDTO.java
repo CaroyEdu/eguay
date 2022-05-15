@@ -4,6 +4,7 @@
  */
 package eguay.dto;
 
+import eguay.entity.Users;
 import java.util.Date;
 import java.util.List;
 
@@ -28,9 +29,20 @@ public class AuctionDTO {
     private String description;
     private Float startPrice;
     private List<UserDTO> userList;
+    private UserDTO sellerID;
     
     // Relationships
     private String seller;
+    
+    public UserDTO getSellerID()
+    {
+        return sellerID;
+    }
+    
+    public void setSellerID(UserDTO sellerID)
+    {
+        this.sellerID = sellerID;
+    }
     
     public List<UserDTO> getUserList()
     {

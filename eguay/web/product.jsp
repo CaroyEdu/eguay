@@ -4,6 +4,7 @@
     Author     : jean-
 --%>
 
+<%@page import="eguay.dto.AuctionDTO"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="eguay.entity.Auction"%>
@@ -16,36 +17,36 @@
     </head>
     
     <%
-        Auction auction = (Auction) request.getAttribute("auction");
+        AuctionDTO auction = (AuctionDTO) request.getAttribute("auction");
         
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
         String closeDate = "";
-        if(auction.getClosedate() != null){ 
-            closeDate = sdf.format(auction.getClosedate());
+        if(auction.getCloseDate() != null){ 
+            closeDate = sdf.format(auction.getCloseDate());
         }
     %>
     
     <jsp:include page="cabecera.jsp"/>
     
     <body>
-        <h1><%= auction.getTitle() %></h1>
+        <h1><%= auction.getName() %></h1>
         <img src="<%= auction.getFotourl() %>">
         <p>Cierre(s) de puja:</p>
-        <% if(auction.getClosedate()!=null)
+        <% if(auction.getCloseDate()!=null)
         { %>
         <p class="description" id="cd_<%= closeDate %>"></p>
         <% } %>
-        <% if(auction.getClosenumberofbids()!=null)
+        <% if(auction.getCloseNumberofBids()!=null)
         { %>
-        <p class="description">¡Sólo quedan <%= auction.getClosenumberofbids() %> pujas disponibles!</p>
+        <p class="description">¡Sólo quedan <%= auction.getCloseNumberofBids() %> pujas disponibles!</p>
         <% } %>
-        <% if(auction.getCloseprice()!=null)
+        <% if(auction.getClosePrice()!=null)
         { %>
-        <p class="description" >¡Puja <%= auction.getCloseprice() %>$ y te lo llevas!</p>
+        <p class="description" >¡Puja <%= auction.getClosePrice() %>$ y te lo llevas!</p>
         <% } %>
-        <button onclick="window.location.href='DirectPurchaseServlet?id=<%= auction.getAuctionid() %>';">
+        <button onclick="window.location.href='DirectPurchaseServlet?id=<%= auction.getId() %>';">
          Puja Directa</button>
-        <button onclick="window.location.href='SubmitBidServlet?id=<%= auction.getAuctionid() %>';"> Puja </button>
+        <button onclick="window.location.href='SubmitBidServlet?id=<%= auction.getId() %>';"> Puja </button>
         
         
     <script>
