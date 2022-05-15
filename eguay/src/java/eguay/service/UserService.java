@@ -192,4 +192,12 @@ public class UserService {
         usersFacade.edit(user);
         System.out.println("success \n");
     }
+
+    public List<UserDTO> getUsersDTO(List<Integer> userIds) {
+        return toDTO(getUsersByIds(userIds));
+    }
+
+    public List<Users> getUsersByIds(List<Integer> userIds) {
+        return usersFacade.findAll(userIds);
+    }
 }

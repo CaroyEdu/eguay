@@ -61,4 +61,10 @@ public class UsersFacade extends AbstractFacade<Users> {
         q.setParameter("id", id);
         return (Users) q.getSingleResult();
     }
+
+    public List<Users> findAll(List<Integer> userIds) {
+        return this.em.createQuery("SELECT u FROM Users u WHERE u.userid IN :userIds")
+                .setParameter("userIds", userIds)
+                .getResultList();
+    }
 }

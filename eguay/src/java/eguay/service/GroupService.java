@@ -107,6 +107,8 @@ public class GroupService {
 
     // Logic
     
+    
+    
     public void createNewGroupFromSelectedGroups(HttpServletRequest request, String groupCheckedLabel) {
         List<Long> groupsIds;
         List<Groups> selectedGroups;
@@ -189,7 +191,7 @@ public class GroupService {
         return sj.toString();
     }
 
-    public Object getUsersInGroup(GroupDTO groupDTO) {
+    public List<UserDTO> getUsersInGroup(GroupDTO groupDTO) {
         Groups group = getGroup(groupDTO.getId());
         return userService.toDTO(group.getUsersList());
     }
@@ -206,5 +208,15 @@ public class GroupService {
         }
         
         return map;        
+    }
+
+    public void updateGroup(Long groupId, String name, List<Integer> userIds) {
+        Groups group = getGroup(groupId);
+        List<Users> users = userService.getUsersByIds(userIds);
+        
+        group.setName(name);
+        group.setUsersList(users);
+        
+        groupsFacade.edit(group);
     }
 }
