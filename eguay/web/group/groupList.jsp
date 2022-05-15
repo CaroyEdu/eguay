@@ -37,7 +37,7 @@
             </table>
             <button type="submit" formaction="RemoveGroups">Eliminar Seleccionados</button>
             <button type="submit" formaction="NewGroupFromSelectedGroups">Nuevo Grupo con los grupos seleccionados</button>
-            <button type="submit" formaction="CreateNewGroup">Crear nuevo grupo</button>
+            <button type="submit" formaction="ShowCreateNewGroupPage">Crear nuevo grupo</button>
         </form>
     </body>
 </html>

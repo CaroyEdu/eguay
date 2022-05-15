@@ -86,4 +86,9 @@ public class UsersFacade extends AbstractFacade<Users> {
                 .setParameter("userIds", userIds)
                 .getResultList();
     }
+    
+    public Users findMarketing(){
+        return (Users) this.em.createQuery("SELECT u FROM Users u WHERE u.username = 'marketing'")
+                .getSingleResult();
+    }
 }
