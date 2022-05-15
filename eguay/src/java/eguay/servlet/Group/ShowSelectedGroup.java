@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 @WebServlet(name = "ShowSelectedGroup", urlPatterns = {"/ShowSelectedGroup"})
 public class ShowSelectedGroup extends HttpServlet {

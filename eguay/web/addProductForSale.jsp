@@ -1,7 +1,7 @@
 <%-- 
     Document   : addProduct
     Created on : 28-mar-2022, 10:52:53
-    Author     : jean-
+    Author     : Edu
 --%>
 
 <%@page import="eguay.entity.Auction"%>

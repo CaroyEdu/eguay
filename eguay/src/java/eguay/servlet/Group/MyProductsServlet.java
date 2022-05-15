@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eguay.servlet.Mail;
+package eguay.servlet.Group;
 
 import eguay.dao.AuctionFacade;
 import eguay.entity.Auction;

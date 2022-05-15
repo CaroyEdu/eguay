@@ -7,6 +7,7 @@ package eguay.entity;
 
 import eguay.dto.RolDTO;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -138,6 +139,16 @@ public class Rol implements Serializable {
         dto.setName(name);
         
         return dto;
+    }
+    
+    public static List<RolDTO> toDTO(List<Rol> rols){
+        List<RolDTO> dtos = new ArrayList<RolDTO>(rols.size());
+        
+        for(Rol rol : rols){
+            dtos.add(rol.toDTO());
+        }
+        
+        return dtos;
     }
     
 }

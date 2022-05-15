@@ -22,7 +22,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 @Stateless
 public class MailService {

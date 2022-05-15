@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 @Stateless
 public class GroupService {

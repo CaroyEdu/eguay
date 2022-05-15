@@ -1,7 +1,7 @@
 <%-- 
     Document   : groupList
     Created on : Apr 19, 2022, 11:09:27 AM
-    Author     : pedro
+    Author     : Pedro Antonio Benito Rojano
 --%>
 
 <%@page import="eguay.dto.GroupDTO"%>

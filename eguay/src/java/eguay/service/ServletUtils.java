@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 public class ServletUtils<T>{
     public ServletUtils(){}

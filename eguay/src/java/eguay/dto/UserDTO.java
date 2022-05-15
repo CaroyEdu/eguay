@@ -14,7 +14,7 @@ import java.util.Objects;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 public class UserDTO {
     // DB 

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 @WebServlet(name = "RemoveGroups", urlPatterns = {"/RemoveGroups"})
 public class RemoveGroups extends HttpServlet {

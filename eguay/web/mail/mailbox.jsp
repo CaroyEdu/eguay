@@ -1,7 +1,7 @@
 <%-- 
     Document   : mailbox
     Created on : May 15, 2022, 11:57:31 AM
-    Author     : pedro
+    Author     : Pedro Antonio Benito Rojano
 --%>
 
 <%@page import="eguay.dto.AuctionDTO"%>
