@@ -1,4 +1,4 @@
-7<%-- 
+<%-- 
     Document   : favAuction
     Created on : Apr 17, 2022, 10:53:57 AM
     Author     : parsa
@@ -105,7 +105,6 @@
                     <% }} %>
                     <br>
                     <br>
-                    <input type="button" onclick="window.location.href='EditPurchasedProduct?auctionid=<%=a.getAuctionid()%>';" value="Editar " /> <br>
                 </div>
             
             </div>
