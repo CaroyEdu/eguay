@@ -22,7 +22,7 @@ public class MailDTO {
     private Date sentDate;
     
     // Relationships
-    private List<Auction> auctions;
+    private List<AuctionDTO> auctions;
 
     public MailDTO() {
     }
@@ -59,11 +59,11 @@ public class MailDTO {
         this.sentDate = sentDate;
     }
 
-    public List<Auction> getAuctions() {
+    public List<AuctionDTO> getAuctions() {
         return auctions;
     }
 
-    public void setAuctions(List<Auction> auctions) {
+    public void setAuctions(List<AuctionDTO> auctions) {
         this.auctions = auctions;
     }
 }

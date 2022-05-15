@@ -7,6 +7,7 @@ package eguay.entity;
 
 import eguay.dto.MailDTO;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -173,14 +174,29 @@ public class Mail implements Serializable {
         return "eguay.entity.Mail[ mailid=" + mailid + " ]";
     }
     
+    // DTO
+    
     public MailDTO toDTO(){
         MailDTO dto = new MailDTO();
         
         dto.setId(mailid);
+        
         dto.setSubject(subject);
         dto.setBody(body);
         dto.setSentDate(sentDate);
         
+        dto.setAuctions(Auction.toDTO(auctionList));
+        
         return dto;
+    }
+    
+    public static List<MailDTO> toDTO(List<Mail> mails){
+        List<MailDTO> dtos = new ArrayList<MailDTO>(mails.size());
+        
+        for(Mail mail : mails){
+            dtos.add(mail.toDTO());
+        }
+        
+        return dtos;
     }
 }
