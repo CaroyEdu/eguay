@@ -52,7 +52,7 @@ public class UpdateGroup extends HttpServlet {
         groupService.updateGroup(groupId, name, userIds);
         
         request.setAttribute("id", groupId);
-        request.getRequestDispatcher("ShowSelectedGroup").forward(request, response);
+        request.getRequestDispatcher("ShowGroupList").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

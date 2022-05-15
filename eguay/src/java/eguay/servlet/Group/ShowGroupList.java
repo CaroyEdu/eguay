@@ -37,7 +37,7 @@ public class ShowGroupList extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         loadGroups(request);
-        request.getRequestDispatcher("groupList.jsp").forward(request, response);
+        request.getRequestDispatcher("group/groupList.jsp").forward(request, response);
     }
     
     public void loadGroups(HttpServletRequest request){

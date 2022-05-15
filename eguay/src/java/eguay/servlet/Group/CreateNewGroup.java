@@ -39,7 +39,7 @@ public class CreateNewGroup extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         request.setAttribute("users", userService.getAllUsersDTO());
-        request.getRequestDispatcher("group.jsp").forward(request, response);
+        request.getRequestDispatcher("group/group.jsp").forward(request, response);
     }
     
     
