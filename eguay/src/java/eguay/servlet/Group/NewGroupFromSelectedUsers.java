@@ -2,16 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package eguay.servlet;
+package eguay.servlet.Group;
 
 import eguay.dao.GroupsFacade;
 import eguay.dao.UsersFacade;
-import eguay.dto.GroupDTO;
+import eguay.entity.Groups;
+import eguay.entity.Users;
 import eguay.service.GroupService;
-import eguay.service.UserService;
 import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Random;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,13 +23,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
-@WebServlet(name = "ShowSelectedGroup", urlPatterns = {"/ShowSelectedGroup"})
-public class Groups_ShowSelectedGroup extends HttpServlet {
-
-    @EJB UserService userService;
-    @EJB GroupService groupService;
+@WebServlet(name = "NewGroupFromSelectedUsers", urlPatterns = {"/NewGroupFromSelectedUsers"})
+public class NewGroupFromSelectedUsers extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,16 +37,20 @@ public class Groups_ShowSelectedGroup extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    @EJB GroupService groupService;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        long groupId = ServletUtils.getIdLong(request, "id");
-        GroupDTO group = groupService.getGroupDTO(groupId);
+        Integer originalGroupId = ServletUtils.getId(request, "id");
+        List<Integer> userIds = ServletUtils.getIdsFromChecked(request, "selectedUser");
+        String formName = request.getParameter("name");
         
-        request.setAttribute("group", group);
-        request.setAttribute("usersMap", groupService.GetUsersInGroupMap(group));
-        request.getRequestDispatcher("group.jsp").forward(request, response);
+        groupService.newGroupFromSelectedUsers(originalGroupId, userIds, formName);
+        
+        response.sendRedirect("ShowGroupList");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

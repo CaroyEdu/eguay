@@ -5,6 +5,7 @@
  */
 package eguay.dao;
 
+import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.entity.Users;
 import eguay.service.UserService;
@@ -17,7 +18,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author jean-
+ * @author Roy Caro Jean Edouard 33% Parsa zendehdel nobari 34% Pedro Antonio Benito Rojano 33%
  */
 @Stateless
 public class UsersFacade extends AbstractFacade<Users> {
@@ -70,5 +71,34 @@ public class UsersFacade extends AbstractFacade<Users> {
         q = this.em.createQuery("SELECT u FROM Users u WHERE u.userid = :id");
         q.setParameter("id", id);
         return (Users) q.getSingleResult();
+    }
+    
+    public List<Auction> findPurchasedAuctionsByTitleAndUser(String title, Users userid)
+    {
+        Query q;
+        q = this.em.createQuery("SELECT c FROM Auction c WHERE c.usersList1 = :userid AND c.title LIKE :title");
+        q.setParameter("title", '%' + title + '%');
+        q.setParameter("userid", userid);
+        return q.getResultList();
+    }
+    
+    public List<Auction> findFavAuctionsByTitleAndUser(String title, Users userid)
+    {
+        Query q;
+        q = this.em.createQuery("SELECT c FROM Auction c WHERE c.usersList = :userid AND c.title LIKE :title");
+        q.setParameter("title", '%' + title + '%');
+        q.setParameter("userid", userid);
+        return q.getResultList();
+    }
+
+    public List<Users> findAll(List<Integer> userIds) {
+        return this.em.createQuery("SELECT u FROM Users u WHERE u.userid IN :userIds")
+                .setParameter("userIds", userIds)
+                .getResultList();
+    }
+    
+    public Users findMarketing(){
+        return (Users) this.em.createQuery("SELECT u FROM Users u WHERE u.username = 'marketing'")
+                .getSingleResult();
     }
 }

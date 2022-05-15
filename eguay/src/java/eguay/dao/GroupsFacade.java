@@ -6,13 +6,14 @@
 package eguay.dao;
 
 import eguay.entity.Groups;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author jean-
+ * @author Pedro Antonio Benito Rojano
  */
 @Stateless
 public class GroupsFacade extends AbstractFacade<Groups> {
@@ -27,6 +28,12 @@ public class GroupsFacade extends AbstractFacade<Groups> {
 
     public GroupsFacade() {
         super(Groups.class);
+    }
+
+    public List<Groups> findAll(List<Long> groupIds) {
+        return this.em.createQuery("SELECT g FROM Groups g WHERE g.groupid IN :groupIds")
+                .setParameter("groupIds", groupIds)
+                .getResultList();
     }
     
 }

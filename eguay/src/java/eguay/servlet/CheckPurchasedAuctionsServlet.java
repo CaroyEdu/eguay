@@ -10,6 +10,7 @@ import eguay.dao.UsersFacade;
 import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.entity.Users;
+import eguay.service.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -19,14 +20,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author parsa
+ * @author Parsa zendehdel nobari
  */
 @WebServlet(name = "CheckPurchasedAuctionsServlet", urlPatterns = {"/CheckPurchasedAuctionsServlet"})
 public class CheckPurchasedAuctionsServlet extends HttpServlet {
-    
+    @EJB UserService userService ; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,9 +40,16 @@ public class CheckPurchasedAuctionsServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         
-       
+        response.setContentType("text/html;charset=UTF-8");
+        String filter = request.getParameter("filter");
+        
+        HttpSession session = request.getSession();
+        Users user = (Users) session.getAttribute("user");
+        
+        List<Auction> purchasedAuctions = userService.filterPurchasedAuctionByUser(filter, user);
+        
+        request.setAttribute("purchasedAuctions" ,purchasedAuctions );
         
         request.getRequestDispatcher("purchasedauction.jsp").forward(request, response);
     }

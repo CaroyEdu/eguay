@@ -8,6 +8,7 @@ package eguay.service;
 import eguay.dao.AuctionFacade;
 import eguay.dto.AuctionDTO;
 import eguay.entity.Auction;
+import eguay.entity.Mail;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -15,7 +16,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author parsa
+ * @author Parsa zendehdel nobari 80% Pedro Antonio Benito Rojano
  */
 @Stateless
 public class AuctionService {
@@ -74,5 +75,9 @@ public class AuctionService {
         }
         
         return dtos;
+    }
+
+    public List<AuctionDTO> getAllAuctions() {
+        return Auction.toDTO(auctionFacade.findAll());
     }
 }

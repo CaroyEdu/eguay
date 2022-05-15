@@ -6,7 +6,7 @@ package eguay.dto;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 public class RolDTO {
     // DB

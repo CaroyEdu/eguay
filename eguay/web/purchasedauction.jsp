@@ -1,7 +1,7 @@
-7<%-- 
+<%-- 
     Document   : purchasedauction
     Created on : Apr 17, 2022, 10:53:57 AM
-    Author     : parsa
+    Author     : Parsa zendehdel nobari
 --%>
 
 <%@page import="java.util.Locale"%>
@@ -50,13 +50,22 @@
         <div class="title">
             <p>Pujas compradas</p>
         </div>
+        <form method="POST" action="CheckPurchasedAuctionsServlet">
+            
+            <input type="text" name="filter">
+            <input type="submit" name="buscar">
+        </form>
         <form method="POST" action="EditPurchasedAuctions"> 
                     <%
                 int cantidad = 0;
+                
+                List<Auction> purchaeds =(List<Auction>) request.getAttribute("purchasedAuctions");
+                
                 if(user!=null){
-                purchasedAuctionList = user.getAuctionList1(); 
+                purchasedAuctionList = purchaeds ;  
                 auctionFavList = user.getAuctionList(); 
                 }
+                
                 if(purchasedAuctionList != null){
                 for(Auction a : purchasedAuctionList)
                 {
@@ -101,7 +110,6 @@
                     <br>
                     <input type="checkbox" id="<%= a.getAuctionid().toString()%>" name="<%= a.getAuctionid().toString()%>" value="<%= "Borrar " + a.getTitle() %>" >
                     <label for="<%= a.getAuctionid().toString() %>"> <%= "Borrar " + a.getTitle() %> </label><br><br>
-                    <input type="button" onclick="window.location.href='EditPurchasedProduct?auctionid=<%=a.getAuctionid()%>';" value="Editar " /> <br>
                 </div>
             
             </div>

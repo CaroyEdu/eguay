@@ -6,13 +6,15 @@
 package eguay.dao;
 
 import eguay.entity.Mail;
+import eguay.entity.Users;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author jean-
+ * @author Pedro Antonio Benito Rojano
  */
 @Stateless
 public class MailFacade extends AbstractFacade<Mail> {
@@ -27,5 +29,23 @@ public class MailFacade extends AbstractFacade<Mail> {
 
     public MailFacade() {
         super(Mail.class);
+    }
+    
+    public List<Mail> findAllMailsToUser(Integer userId){
+        List<Mail> mails = findAllMailsToUserThroughtGroup(userId);
+        mails.addAll(findAllMailsToDirectlyToUser(userId));
+        return mails;
+    }
+    
+    public List<Mail> findAllMailsToUserThroughtGroup(Integer userId){
+        return this.em.createQuery("SELECT m FROM Mail m JOIN m.groupsList g JOIN g.usersList u WHERE :userId IN (u.userid)")
+                .setParameter("userId", userId)
+                .getResultList();
+    }
+    
+    public List<Mail> findAllMailsToDirectlyToUser(Integer userId){
+        return this.em.createQuery("SELECT m FROM Mail m JOIN m.usersList u WHERE :userId IN (u.userid)")
+                .setParameter("userId", userId)
+                .getResultList();
     }
 }

@@ -15,7 +15,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author jean-
+ * @author Parsa zendehdel nobari
  */
 @Stateless
 public class BidFacade extends AbstractFacade<Bid> {

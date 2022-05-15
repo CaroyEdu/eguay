@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author parsa
+ * @author Automatico + Pedro Antonio Benito Rojano
  */
 @Entity
 @Table(name = "auction")
@@ -310,6 +310,8 @@ public class Auction implements Serializable {
         dto.setStartDate(startdate);
         dto.setDescripcion(this.description);
         dto.setUrlFoto(this.fotourl);
+        
+        dto.setSeller(String.format("%s %s", sellerid.getName(), sellerid.getSurname()));
         
         dto.setSeller(String.format("%s %s", sellerid.getName(), sellerid.getSurname()));
         

@@ -7,14 +7,13 @@ package eguay.service;
 import eguay.dao.RolFacade;
 import eguay.entity.Rol;
 import eguay.dto.RolDTO;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
  *
- * @author pedro
+ * @author carlos
  */
 @Stateless
 public class RolService {

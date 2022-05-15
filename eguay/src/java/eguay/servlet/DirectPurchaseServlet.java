@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author parsa
+ * @author Parsa zendehdel nobari
  */
 public class DirectPurchaseServlet extends HttpServlet {
 

@@ -14,7 +14,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author jean-
+ * @author Roy Caro Jean Edouard 40% - Parsa zendehdel nobari 60%
  */
 @Stateless
 public class AuctionFacade extends AbstractFacade<Auction> {
@@ -71,5 +71,11 @@ public class AuctionFacade extends AbstractFacade<Auction> {
         Query q;
         q = this.em.createQuery("SELECT c FROM Auction c WHERE c.active = TRUE");
         return q.getResultList();
+    }
+
+    public List<Auction> findAll(List<Long> auctionIds) {
+        return this.em.createQuery("SELECT a FROM Auction a WHERE a.auctionid IN :auctionIds")
+                .setParameter("auctionIds", auctionIds)
+                .getResultList();
     }
 }

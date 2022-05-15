@@ -2,11 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package eguay.servlet;
+package eguay.servlet.Group;
 
-import eguay.dao.GroupsFacade;
+import eguay.dao.UsersFacade;
 import eguay.service.GroupService;
+import eguay.service.UserService;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,12 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
-@WebServlet(name = "showGroupList", urlPatterns = {"/ShowGroupList"})
-public class Groups_ShowGroupList extends HttpServlet {
+@WebServlet(name = "ShowCreateNewGroupPage", urlPatterns = {"/ShowCreateNewGroupPage"})
+public class ShowCreateNewGroupPage extends HttpServlet {
     
-    @EJB GroupService groupService;
+    @EJB UserService userService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,13 +38,11 @@ public class Groups_ShowGroupList extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        loadGroups(request);
-        request.getRequestDispatcher("groupList.jsp").forward(request, response);
+        request.setAttribute("users", userService.getAllUsersDTO());
+        request.getRequestDispatcher("group/group.jsp").forward(request, response);
     }
     
-    public void loadGroups(HttpServletRequest request){
-        request.setAttribute("groupList", groupService.getAllGroupsDTO());
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

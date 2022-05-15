@@ -1,38 +1,34 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package eguay.servlet;
+package eguay.servlet.Group;
 
-import eguay.dao.AuctionFacade;
-import eguay.dao.BidFacade;
-import eguay.entity.Auction;
-import eguay.entity.Bid;
-import eguay.entity.Users;
-import eguay.service.AuctionService;
-import eguay.service.BidService;
+import eguay.dao.GroupsFacade;
+import eguay.dao.UsersFacade;
+import eguay.dto.GroupDTO;
+import eguay.service.GroupService;
+import eguay.service.UserService;
+import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Parsa zendehdel nobari
+ * @author Pedro Antonio Benito Rojano
  */
-@WebServlet(name = "FinalizeBidServlet", urlPatterns = {"/FinalizeBidServlet"})
-public class FinalizeBidServlet extends HttpServlet {
-    
-    @EJB AuctionService auctionService; 
-    @EJB BidService bidService;
+@WebServlet(name = "ShowSelectedGroup", urlPatterns = {"/ShowSelectedGroup"})
+public class ShowSelectedGroup extends HttpServlet {
+
+    @EJB UserService userService;
+    @EJB GroupService groupService;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,20 +41,17 @@ public class FinalizeBidServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Long id = Long.parseLong((String)request.getParameter("id"));
-        Auction auction = auctionService.findById(id);
-        HttpSession session = request.getSession();
-        Users user = (Users) session.getAttribute("user");
         
-        String BidAmount = (String)request.getParameter("Bid");
-        Double BidAmountDbl = Double.parseDouble(BidAmount) ; 
+        Long groupId = (Long) request.getAttribute("id"); 
         
-        Bid newBid = new Bid();
+        if(groupId == null){
+            groupId = ServletUtils.getIdLong(request, "id");
+        }
+        GroupDTO group = groupService.getGroup(groupId);
         
-        bidService.createBid(newBid, BidAmountDbl, auction, user);
-        
-        
-        response.sendRedirect("IndexServlet");
+        request.setAttribute("group", group);
+        request.setAttribute("usersMap", groupService.GetUsersInGroupMap(group));
+        request.getRequestDispatcher("group/group.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

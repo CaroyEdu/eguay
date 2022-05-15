@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 public class AuctionDTO {
     // DB
@@ -134,7 +134,7 @@ public class AuctionDTO {
     public void setSeller(String seller) {
         this.seller = seller;
     }
-
+    
     public void setDescripcion(String description) {
         this.descripcion = description;
     }

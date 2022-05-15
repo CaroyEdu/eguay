@@ -12,23 +12,23 @@ import eguay.dto.UserDTO;
 import eguay.entity.Auction;
 import eguay.entity.Category;
 import eguay.entity.Groups;
-import eguay.entity.Mail;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import eguay.entity.Users;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 /**
  *
- * @author parsa
+ * @author Parsa 70% Pedro Antonio Benito Rojano 30%
  */
 @Stateless
 public class UserService {
     @EJB UsersFacade usersFacade;
     @EJB CategoryFacade categoryFacade;
     @EJB AuctionFacade auctionFacade;
+    @EJB MailService mailService;
     
     // Query
     
@@ -62,17 +62,6 @@ public class UserService {
        }
        
        return userList;
-    }
-    
-    public static List<Mail> getMails(Users user){
-        List<Mail> mails = new LinkedList<>();
-        
-        mails.addAll(user.getMailList());
-        for(Groups group : user.getGroupsList()){
-            mails.addAll(group.getMailList());
-        }
-        
-        return mails;
     }
     
     // Extra functionalities  
@@ -193,10 +182,50 @@ public class UserService {
         purchasedAuction.add(auction);
         user.setAuctionList1(purchasedAuction);
         
-        
-        
         auctionFacade.edit(auction);
         usersFacade.edit(user);
         System.out.println("success \n");
+        
+        mailService.sendMailToAuctionWinner(String.format("Has ganado la subasta %s", auction.getTitle()), auction.getAuctionid(), user.getUserid());
+    }
+    
+        public List<Auction> filterPurchasedAuctionByUser(String filter, Users userid){
+        List<Auction> auctions ;
+        if(filter == null || filter.isEmpty())
+            {
+                auctions = this.usersFacade.findPurchasedAuctionsByTitleAndUser("", userid);
+            }
+            else
+            {
+                auctions = this.usersFacade.findPurchasedAuctionsByTitleAndUser(filter, userid);
+            }
+        return auctions;
+    }
+        
+        public List<Auction> filterFavAuctionByUser(String filter, Users userid){
+        List<Auction> auctions ;
+        if(filter == null || filter.isEmpty())
+            {
+                auctions = this.usersFacade.findFavAuctionsByTitleAndUser("", userid);
+            }
+            else
+            {
+                auctions = this.usersFacade.findFavAuctionsByTitleAndUser(filter, userid);
+            }
+        return auctions;
+    }
+        
+        
+
+    public List<UserDTO> getUsersDTO(List<Integer> userIds) {
+        return toDTO(getUsersByIds(userIds));
+    }
+
+    public List<Users> getUsersByIds(List<Integer> userIds) {
+        return usersFacade.findAll(userIds);
+    }
+
+    public UserDTO getSessionUser(HttpSession session) {
+        return ((Users) session.getAttribute("user")).toDTO();
     }
 }

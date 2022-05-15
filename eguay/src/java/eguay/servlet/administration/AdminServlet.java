@@ -34,7 +34,7 @@ public abstract class AdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if(!checkAdmin(request, response)) {
-           // return;
+           return;
         }
         processRequest(request, response);
     }
@@ -43,7 +43,7 @@ public abstract class AdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if(!checkAdmin(request, response)) {
-        //    return;
+            return;
         }
         processRequest(request, response);
     }
@@ -56,7 +56,7 @@ public abstract class AdminServlet extends HttpServlet {
         boolean is = user != null && user.isAdmin();
         
         if(!is) {
-            // response.sendRedirect(request.getContextPath() + "/IndexServlet");
+            response.sendRedirect(request.getContextPath() + "/IndexServlet");
         }
         
         return is; 

@@ -1,7 +1,7 @@
 <%-- 
     Document   : myProducts
     Created on : 23-abr-2022, 15:59:48
-    Author     : jean-
+    Author     : Roy Caro Jean Edouard
 --%>
 
 <%@page import="eguay.entity.Auction"%>
