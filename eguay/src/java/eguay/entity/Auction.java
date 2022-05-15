@@ -7,6 +7,7 @@ package eguay.entity;
 
 import eguay.dto.AuctionDTO;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -295,6 +296,8 @@ public class Auction implements Serializable {
         AuctionDTO dto = new AuctionDTO();
         
         dto.setId(auctionid);
+        
+        dto.setName(title);
         dto.setActive(active);
         dto.setCloseDate(closedate);
         dto.setCloseNumberofBids(closenumberofbids);
@@ -302,6 +305,18 @@ public class Auction implements Serializable {
         dto.setMaxBid(maxbid);
         dto.setStartDate(startdate);
         
+        dto.setSeller(String.format("%s %s", sellerid.getName(), sellerid.getSurname()));
+        
         return dto;
+    }
+    
+    public static List<AuctionDTO> toDTO(List<Auction> auctions){
+        List<AuctionDTO> dtos = new ArrayList<>(auctions.size());
+        
+        for(Auction auction : auctions){
+            dtos.add(auction.toDTO());
+        }
+        
+        return dtos;
     }
 }

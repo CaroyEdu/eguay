@@ -34,6 +34,7 @@
                     <li><a href="CheckProfileServlet">Mi Perfil</a>
                     <li><a href="DisconnectServlet">Desconexión</a></li>
                     <li><a href="ShowGroupList">Lista de Grupos</a></li>
+                    <li><a href="ShowMailbox">Correo</a></li>
                     <%
                       } else
                     {   
