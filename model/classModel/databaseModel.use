@@ -1,0 +1,124 @@
+model eguay
+
+enum Sex {male, female, other}
+enum RolType {Buyer, Seller, Comercial, Admin}
+
+class User
+attributes
+    username : String
+    password : String
+    name : String 
+    surname : String 
+    sex : Sex
+    birthYear : Integer
+    country : String 
+    city : String
+    address : String
+end 
+
+class Rol 
+attributes
+name : String
+type : RolType
+end
+
+class Category
+attributes
+    name : String
+end 
+
+class Auction
+attributes
+    title : String 
+    description : String 
+    fotoURL : String 
+    startDate : Integer
+    startPrice : Integer
+    maxBid : Integer
+        derived =
+            if self.bids -> isEmpty()
+            then self.startPrice
+            else self.bids.bid -> max()
+            endif
+    closePrice : Integer
+    closeDate : Integer
+    closeNumberOfBids : Integer
+end 
+
+class Bid 
+attributes
+    bid : Integer
+    date : Integer
+end
+
+class Mail
+attributes
+    subject : Integer
+    body : Integer
+end
+
+class Group
+end 
+
+-- Assiciations
+
+aggregation Roles
+between
+Rol [*]
+    User [*]
+end 
+
+composition SellerAuction
+between
+    User [1] role seller
+    Auction [*] role auctions
+end 
+
+aggregation AuctionCategory
+between
+    Category [*] role categories
+    Auction [*] role products
+end 
+
+association BuyerBids 
+between
+    User [1] role bider
+    Bid [*] role bids 
+end 
+
+association AuctionBids
+between
+    Auction [1] 
+    Bid [*] role bids
+end
+
+association FavoriteAuctions
+between
+    Auction [*] role favourites
+    User [*] role favouriteBuyers
+end 
+
+association Sender
+between 
+    User [1] role sender
+    Mail [*] role sent
+end 
+
+association SugestedAuctions
+between
+    Mail [*] role mails
+    Auction [*] role products
+end
+
+association Mails
+between 
+    Group [1]
+    Mail [*] role mails
+end
+
+aggregation GroupMembers
+between
+    Group [*] role groups 
+    User [*] role members
+end
+
