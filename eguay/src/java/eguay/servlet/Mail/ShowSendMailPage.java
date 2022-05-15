@@ -41,7 +41,7 @@ public class ShowSendMailPage extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         request.setAttribute("auctions", auctionService.getAllAuctions());
-        request.setAttribute("groups", groupService.getAllGroupsDTO());
+        request.setAttribute("groups", groupService.getAllGroups());
         
         request.getRequestDispatcher("mail/sendMail.jsp").forward(request, response);
     }

@@ -47,7 +47,7 @@ public class ShowSelectedGroup extends HttpServlet {
         if(groupId == null){
             groupId = ServletUtils.getIdLong(request, "id");
         }
-        GroupDTO group = groupService.getGroupDTO(groupId);
+        GroupDTO group = groupService.getGroup(groupId);
         
         request.setAttribute("group", group);
         request.setAttribute("usersMap", groupService.GetUsersInGroupMap(group));
