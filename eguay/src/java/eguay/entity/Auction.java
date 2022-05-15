@@ -7,6 +7,7 @@ package eguay.entity;
 
 import eguay.dto.AuctionDTO;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -54,6 +55,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Auction implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "startdate")
@@ -295,13 +297,32 @@ public class Auction implements Serializable {
         AuctionDTO dto = new AuctionDTO();
         
         dto.setId(auctionid);
+        
+        dto.setName(title);
+        dto.setCategory(categoryList.get(0).getName());
+        dto.setCategoryId(categoryList.get(0).getCategoryid());
+        dto.setStartPrice(startprice);
         dto.setActive(active);
         dto.setCloseDate(closedate);
         dto.setCloseNumberofBids(closenumberofbids);
         dto.setClosePrice(closeprice);
         dto.setMaxBid(maxbid);
         dto.setStartDate(startdate);
+        dto.setDescripcion(this.description);
+        dto.setUrlFoto(this.fotourl);
+        
+        dto.setSeller(String.format("%s %s", sellerid.getName(), sellerid.getSurname()));
         
         return dto;
+    }
+    
+    public static List<AuctionDTO> toDTO(List<Auction> auctions){
+        List<AuctionDTO> dtos = new ArrayList<>(auctions.size());
+        
+        for(Auction auction : auctions){
+            dtos.add(auction.toDTO());
+        }
+        
+        return dtos;
     }
 }

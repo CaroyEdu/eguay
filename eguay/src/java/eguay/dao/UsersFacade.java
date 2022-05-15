@@ -41,6 +41,12 @@ public class UsersFacade extends AbstractFacade<Users> {
         return this.em.createQuery("SELECT u FROM Users u ORDER BY u.userid").getResultList();
     }
     
+        public List<Users> filter(String username) {
+        return this.em.createQuery("SELECT u FROM Users u WHERE u.username LIKE :username ORDER BY u.userid")
+                .setParameter("username", "%" + username + "%")
+                .getResultList();
+    }
+    
     public Users userLogin(String username, String password)
     {
         Query q;
@@ -64,11 +70,5 @@ public class UsersFacade extends AbstractFacade<Users> {
         q = this.em.createQuery("SELECT u FROM Users u WHERE u.userid = :id");
         q.setParameter("id", id);
         return (Users) q.getSingleResult();
-    }
-
-    public List<Users> filter(String username) {
-        return this.em.createQuery("SELECT u FROM Users u WHERE u.username LIKE :username ORDER BY u.userid")
-                .setParameter("username", "%" + username + "%")
-                .getResultList();
     }
 }

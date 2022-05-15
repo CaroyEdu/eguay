@@ -15,16 +15,62 @@ public class AuctionDTO {
     private Long id;
     
     // Conceptual
+    private String name;
+    private String category;
+    private Float startPrice;
     private Date startDate;
     private Date closeDate;
     private Integer closeNumberofBids;
     private Float closePrice;
     private Float maxBid;
     private Boolean active;
+    private String descripcion;
+    private String urlFoto;
+    private Long categoryId;
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+    
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
+    }
     
     // Relationships
-    //private UserDTO seller;
+    private String seller;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    
+    public Float getStartPrice() {
+        return startPrice;
+    }
+
+    public void setStartPrice(Float startprice) {
+        this.startPrice = startprice;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -73,11 +119,27 @@ public class AuctionDTO {
         this.maxBid = maxBid;
     }
 
-    public Boolean getActive() {
+    public Boolean isActive() {
         return active;
     }
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+    
+    public String getSeller() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller = seller;
+    }
+
+    public void setDescripcion(String description) {
+        this.descripcion = description;
+    }
+    
+    public String getDescripcion() {
+        return this.descripcion;
     }
 }

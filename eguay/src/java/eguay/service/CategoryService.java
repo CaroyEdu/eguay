@@ -24,9 +24,14 @@ public class CategoryService {
     // Queries
     
     public List<Category> getAllCategories(){
-        
+
         List<Category> categories = categoryFacade.findAll();
         return categories ; 
+    }
+    
+    public List<CategoryDTO> getAllCategoriesDTO(){
+        List<Category> categories = categoryFacade.findAll();
+        return Category.toDTO(categories) ; 
     }
     
     // Logic

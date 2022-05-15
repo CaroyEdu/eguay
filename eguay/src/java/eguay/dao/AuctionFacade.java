@@ -31,6 +31,16 @@ public class AuctionFacade extends AbstractFacade<Auction> {
         super(Auction.class);
     }
     
+    public List<Auction> getAllOrdered() {
+        return this.em.createQuery("SELECT a FROM Auction a ORDER BY a.auctionid").getResultList();
+    }
+    
+    public List<Auction> filter(String title) {
+        return this.em.createQuery("SELECT a FROM Auction a WHERE a.title LIKE :title ORDER BY a.auctionid")
+                .setParameter("title", "%" + title + "%")
+                .getResultList();
+    }
+    
     public List<Auction> findByTitle(String title)
     {
         Query q;

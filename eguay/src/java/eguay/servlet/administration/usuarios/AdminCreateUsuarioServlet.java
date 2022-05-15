@@ -56,6 +56,8 @@ public class AdminCreateUsuarioServlet extends AdminServlet {
             }
             Date birthdayDate = sdf.parse(birthday);
             
+            roleIds.add(0l);
+            
             UserDTO user = new UserDTO();
             user.setUsername(username);
             user.setName(name);

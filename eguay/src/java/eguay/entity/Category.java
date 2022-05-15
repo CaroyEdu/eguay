@@ -7,6 +7,7 @@ package eguay.entity;
 
 import eguay.dto.CategoryDTO;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -128,5 +129,15 @@ public class Category implements Serializable {
         dto.setName(name);
         
         return dto;
+    }
+    
+    public static List<CategoryDTO> toDTO(List<Category> categories){
+        List<CategoryDTO> dtos = new ArrayList<>(categories.size());
+        
+        for(Category category : categories){
+            dtos.add(category.toDTO());
+        }
+        
+        return dtos;
     }
 }

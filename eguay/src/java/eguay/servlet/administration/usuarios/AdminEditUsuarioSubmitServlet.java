@@ -56,7 +56,6 @@ public class AdminEditUsuarioSubmitServlet extends AdminServlet {
                 roleIds.add(Long.parseLong(id));
             }
             
-            roleIds.add(0l);
             Date birthdayDate = sdf.parse(birthday);
             
             UserDTO user = new UserDTO();
