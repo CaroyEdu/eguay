@@ -52,6 +52,27 @@ public class MailService {
         mail.setAuctionList(auctions);
         mail.setGroupsList(groups);
         
+        //addMailToAuctions(mail, auctions);
+        //addMailToGroups(mail, groups);
+        
         mailFacade.create(mail);
+    }
+
+    private void addMailToAuctions(Mail mail, List<Auction> auctions) {
+        for(Auction auction : auctions){
+            List<Mail> auctionMails = auction.getMailList();
+            auctionMails.add(mail);
+            auction.setMailList(auctionMails);
+            auctionFacade.edit(auction);
+        }
+    }
+
+    private void addMailToGroups(Mail mail, List<Groups> groups) {
+        for(Groups group : groups){
+            List<Mail> groupMails = group.getMailList();
+            groupMails.add(mail);
+            group.setMailList(groupMails);
+            groupsFacade.edit(group);
+        }
     }
 }
