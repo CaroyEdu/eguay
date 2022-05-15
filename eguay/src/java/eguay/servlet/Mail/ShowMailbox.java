@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author pedro
  */
 @WebServlet(name = "Mails_ShowMailbox", urlPatterns = {"/ShowMailbox"})
-public class Mails_ShowMailbox extends HttpServlet {
+public class ShowMailbox extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

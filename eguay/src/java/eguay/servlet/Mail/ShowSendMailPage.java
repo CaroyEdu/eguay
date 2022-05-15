@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author pedro
  */
 @WebServlet(name = "Mails_ShowSendMailPage", urlPatterns = {"/ShowSendMailPage"})
-public class Mails_ShowSendMailPage extends HttpServlet {
+public class ShowSendMailPage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
