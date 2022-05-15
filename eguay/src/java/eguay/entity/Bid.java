@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Automatico
+ * @author Automatico + Pedro Antonio Benito Rojano
  */
 @Entity
 @Table(name = "bid")

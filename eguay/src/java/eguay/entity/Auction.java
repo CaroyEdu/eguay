@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Automatico
+ * @author Automatico + Pedro Antonio Benito Rojano
  */
 @Entity
 @Table(name = "auction")
