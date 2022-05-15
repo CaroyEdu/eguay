@@ -15,7 +15,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author parsa
+ * @author Parsa zendehdel nobari
  */
 @Stateless
 public class BidService {

@@ -15,7 +15,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author parsa
+ * @author Pedro Antonio Benito Rojano
  */
 @Stateless
 public class CategoryService {

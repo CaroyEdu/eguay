@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author parsa
+ * @author Parsa zendehdel nobari
  */
 @WebServlet(name = "FinalizeBidServlet", urlPatterns = {"/FinalizeBidServlet"})
 public class FinalizeBidServlet extends HttpServlet {

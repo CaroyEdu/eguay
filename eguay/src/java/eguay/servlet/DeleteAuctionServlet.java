@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author jean-
+ * @author Roy Caro Jean Edouard
  */
 @WebServlet(name = "DeleteAuctionServlet", urlPatterns = {"/DeleteAuctionServlet"})
 public class DeleteAuctionServlet extends HttpServlet {

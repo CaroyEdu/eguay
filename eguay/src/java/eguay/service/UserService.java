@@ -25,7 +25,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 /**
  *
- * @author parsa
+ * @author Parsa 70% Pedro Antonio Benito Rojano 30%
  */
 @Stateless
 public class UserService {

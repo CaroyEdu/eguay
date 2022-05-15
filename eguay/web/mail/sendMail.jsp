@@ -1,7 +1,7 @@
 <%-- 
     Document   : sendMail
     Created on : May 15, 2022, 2:21:18 PM
-    Author     : pedro
+    Author     : Pedro Antonio Benito Rojano
 --%>
 
 <%@page import="eguay.dto.GroupDTO"%>

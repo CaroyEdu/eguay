@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 @WebServlet(name = "Mails_ShowSendMailPage", urlPatterns = {"/ShowSendMailPage"})
 public class ShowSendMailPage extends HttpServlet {

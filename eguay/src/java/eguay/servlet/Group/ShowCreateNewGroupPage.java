@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 @WebServlet(name = "ShowCreateNewGroupPage", urlPatterns = {"/ShowCreateNewGroupPage"})
 public class ShowCreateNewGroupPage extends HttpServlet {

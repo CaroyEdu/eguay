@@ -14,7 +14,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author jean-
+ * @author Roy Caro Jean Edouard 40% - Parsa zendehdel nobari 60%
  */
 @Stateless
 public class AuctionFacade extends AbstractFacade<Auction> {

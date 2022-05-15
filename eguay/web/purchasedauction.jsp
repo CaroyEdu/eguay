@@ -1,7 +1,7 @@
-7<%-- 
+<%-- 
     Document   : purchasedauction
     Created on : Apr 17, 2022, 10:53:57 AM
-    Author     : parsa
+    Author     : Parsa zendehdel nobari
 --%>
 
 <%@page import="java.util.Locale"%>
@@ -110,7 +110,6 @@
                     <br>
                     <input type="checkbox" id="<%= a.getAuctionid().toString()%>" name="<%= a.getAuctionid().toString()%>" value="<%= "Borrar " + a.getTitle() %>" >
                     <label for="<%= a.getAuctionid().toString() %>"> <%= "Borrar " + a.getTitle() %> </label><br><br>
-                    <input type="button" onclick="window.location.href='EditPurchasedProduct?auctionid=<%=a.getAuctionid()%>';" value="Editar " /> <br>
                 </div>
             
             </div>

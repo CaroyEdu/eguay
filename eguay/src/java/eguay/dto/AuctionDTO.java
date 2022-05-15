@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 public class AuctionDTO {
     // DB

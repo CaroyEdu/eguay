@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 public class GroupDTO {
     // DB

@@ -9,7 +9,6 @@ import eguay.dto.UserDTO;
 import eguay.service.AuctionService;
 import eguay.service.CategoryService;
 import eguay.service.MailService;
-import eguay.service.RolService;
 import eguay.service.UserService;
 import java.io.Serializable;
 import java.util.Date;
@@ -35,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author parsa
+ * @author Automatico + Pedro Antonio Benito Rojano
  */
 @Entity
 @Table(name = "users")

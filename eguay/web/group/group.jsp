@@ -1,7 +1,7 @@
 <%-- 
     Document   : group
     Created on : Apr 19, 2022, 5:30:33 PM
-    Author     : pedro
+    Author     : Pedro Antonio Benito Rojano
 --%>
 
 <%@page import="java.util.Map"%>

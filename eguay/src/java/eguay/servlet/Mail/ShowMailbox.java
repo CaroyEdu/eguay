@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 @WebServlet(name = "Mails_ShowMailbox", urlPatterns = {"/ShowMailbox"})
 public class ShowMailbox extends HttpServlet {

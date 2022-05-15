@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 @WebServlet(name = "showGroupList", urlPatterns = {"/ShowGroupList"})
 public class ShowGroupList extends HttpServlet {

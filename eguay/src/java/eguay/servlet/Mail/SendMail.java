@@ -1,17 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package eguay.servlet.Mail;
 
-import eguay.dao.AuctionFacade;
-import eguay.entity.Auction;
-import eguay.entity.Category;
-import eguay.entity.Users;
-import eguay.service.AuctionService;
-import eguay.service.CategoryService;
+import eguay.dto.MailDTO;
+import eguay.dto.UserDTO;
+import eguay.service.MailService;
+import eguay.service.UserService;
+import eguay.services.ServletUtils;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -19,19 +18,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author jean-
+ * @author pedro
  */
-@WebServlet(name = "MyProductsServlet", urlPatterns = {"/MyProductsServlet"})
-public class MyProductsServlet extends HttpServlet {
-    
-    @EJB CategoryService categoryService;
-    @EJB AuctionService auctionService; 
-    @EJB AuctionFacade auctionFacade;
-    
+@WebServlet(name = "SendMail", urlPatterns = {"/SendMail"})
+public class SendMail extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,34 +35,22 @@ public class MyProductsServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    @EJB UserService userService;
+    @EJB MailService mailService;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession();
-        Users user = (Users) session.getAttribute("user");
-        String filter = (String) request.getParameter("searchbar");
+        String asunto = request.getParameter("asunto");
+        List<Long> auctionIds = ServletUtils.getIdsFromCheckedLong(request, "selectedAuction");
+        List<Long> groupIds = ServletUtils.getIdsFromCheckedLong(request, "selectedGroup");
+        UserDTO sender = userService.getSessionUser(request.getSession());
         
-        List<Category> categoryList =  categoryService.getAllCategories();
-        List<Auction> userAuctions = auctionService.filterAuctionOrederedByUser(user.getUserid());
+        mailService.sendMailToGroup(sender, asunto, auctionIds, groupIds);
         
-        if(filter==null)
-        {
-            request.setAttribute("userAuctions", userAuctions);
-        }else{
-            List<Auction> auctionList = auctionService.filterAuctionByUser(filter, user.getUserid());
-            if(auctionList.isEmpty())
-            {
-                request.setAttribute("userAuctions", userAuctions);
-                request.setAttribute("error", "No se ha encontrado ninguna subasta con este filtro. Se ha devuelto el listado completo de sus subastas.");
-            }else{
-                request.setAttribute("userAuctions", auctionList);
-            }
-        }
-        request.setAttribute("categoryList", categoryList);
-        
-        request.getRequestDispatcher("myProducts.jsp").forward(request, response);
-        
+        request.getRequestDispatcher("ShowSendMailPage").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

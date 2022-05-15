@@ -1,7 +1,7 @@
 <%-- 
     Document   : submitBid
     Created on : Apr 19, 2022, 3:29:33 PM
-    Author     : parsa
+    Author     : Parsa zendehdel nobari
 --%>
 
 <%@page import="eguay.entity.Users"%>

@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : 28-mar-2022, 10:54:36
-    Author     : jean-
+    Author     : Roy Caro Jean Edouard 70% Parsa zendehdel nobari 30%
 --%>
 
 <%@page import="java.util.Locale"%>

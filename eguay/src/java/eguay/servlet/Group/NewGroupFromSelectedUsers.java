@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 @WebServlet(name = "NewGroupFromSelectedUsers", urlPatterns = {"/NewGroupFromSelectedUsers"})
 public class NewGroupFromSelectedUsers extends HttpServlet {
