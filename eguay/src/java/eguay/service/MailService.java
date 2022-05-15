@@ -4,10 +4,17 @@
  */
 package eguay.service;
 
+import eguay.dao.AuctionFacade;
+import eguay.dao.GroupsFacade;
 import eguay.dao.MailFacade;
+import eguay.dao.UsersFacade;
 import eguay.dto.MailDTO;
+import eguay.dto.UserDTO;
+import eguay.entity.Auction;
+import eguay.entity.Groups;
 import eguay.entity.Mail;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -19,6 +26,9 @@ import javax.ejb.Stateless;
 @Stateless
 public class MailService {
     @EJB MailFacade mailFacade;
+    @EJB AuctionFacade auctionFacade;
+    @EJB GroupsFacade groupsFacade;
+    @EJB UsersFacade usersFacade;
     
     public List<MailDTO> getAllMails(Integer userId){
         return Mail.toDTO(mailFacade.findAllMailsToUser(userId));
@@ -26,5 +36,22 @@ public class MailService {
 
     public List<MailDTO> getAllMails() {
         return Mail.toDTO(mailFacade.findAll());
+    }
+
+    public void send(UserDTO sender, String asunto, List<Long> auctionIds, List<Long> groupIds) {
+        Mail mail = new Mail();
+        
+        List<Auction> auctions = auctionFacade.findAll(auctionIds);
+        List<Groups> groups = groupsFacade.findAll(groupIds);
+        
+        
+        mail.setSenderid(usersFacade.find(sender.getId()));
+        mail.setSubject(asunto);
+        mail.setBody(asunto);
+        mail.setSentDate(new Date());
+        mail.setAuctionList(auctions);
+        mail.setGroupsList(groups);
+        
+        mailFacade.create(mail);
     }
 }

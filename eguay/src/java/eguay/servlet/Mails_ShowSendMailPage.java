@@ -4,14 +4,11 @@
  */
 package eguay.servlet;
 
-import eguay.dto.MailDTO;
-import eguay.dto.UserDTO;
+import eguay.service.AuctionService;
+import eguay.service.GroupService;
 import eguay.service.MailService;
-import eguay.service.UserService;
-import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedro
  */
-@WebServlet(name = "SendMail", urlPatterns = {"/SendMail"})
-public class Mails_SendMail extends HttpServlet {
+@WebServlet(name = "Mails_ShowSendMailPage", urlPatterns = {"/ShowSendMailPage"})
+public class Mails_ShowSendMailPage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,21 +33,17 @@ public class Mails_SendMail extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    @EJB UserService userService;
-    @EJB MailService mailService;
+    @EJB GroupService groupService;
+    @EJB AuctionService auctionService; 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String asunto = request.getParameter("asunto");
-        List<Long> auctionIds = ServletUtils.getIdsFromCheckedLong(request, "selectedAuction");
-        List<Long> groupIds = ServletUtils.getIdsFromCheckedLong(request, "selectedGroup");
-        UserDTO sender = userService.getSessionUser(request.getSession());
+        request.setAttribute("auctions", auctionService.getAllAuctions());
+        request.setAttribute("groups", groupService.getAllGroupsDTO());
         
-        mailService.send(sender, asunto, auctionIds, groupIds);
-        
-        request.getRequestDispatcher("ShowSendMailPage").forward(request, response);
+        request.getRequestDispatcher("sendMail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

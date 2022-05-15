@@ -60,8 +60,8 @@
             </table>
             
             <h2>Envío</h2>
-            <input type="text" name="asunto"/>
-            <input type="submit"/>
+            <input type="text" name="asunto" required/>
+            <input type="submit" value="Enviar"/>
         </form>
     </body>
 </html>
