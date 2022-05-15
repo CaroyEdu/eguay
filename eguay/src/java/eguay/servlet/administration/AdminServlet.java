@@ -5,26 +5,60 @@
  */
 package eguay.servlet.administration;
 
+import eguay.dto.UserDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author carlo
+ * @author carlos
  */
 public abstract class AdminServlet extends HttpServlet {
-    @Override
-    protected abstract void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException;
-
-    @Override
-    protected abstract void doPost(HttpServletRequest request, HttpServletResponse response)
+    
+        /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected abstract void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException;
     
-    protected boolean isAdmin() { return true; }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if(!checkAdmin(request, response)) {
+           // return;
+        }
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if(!checkAdmin(request, response)) {
+        //    return;
+        }
+        processRequest(request, response);
+    }
+    
+    protected boolean checkAdmin(HttpServletRequest request, HttpServletResponse response) 
+                throws ServletException, IOException { 
+        // TODO: Change attribute name
+        UserDTO user = (UserDTO) request.getSession().getAttribute("userDTO");
+        
+        boolean is = user != null && user.isAdmin();
+        
+        if(!is) {
+            // response.sendRedirect(request.getContextPath() + "/IndexServlet");
+        }
+        
+        return is; 
+    }
 }

@@ -37,6 +37,10 @@ public class UsersFacade extends AbstractFacade<Users> {
         super(Users.class);
     }
     
+    public List<Users> getAllOrdered() {
+        return this.em.createQuery("SELECT u FROM Users u ORDER BY u.userid").getResultList();
+    }
+    
     public Users userLogin(String username, String password)
     {
         Query q;

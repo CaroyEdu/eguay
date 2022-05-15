@@ -5,6 +5,7 @@
  */
 package eguay.servlet.administration.productos;
 
+import eguay.servlet.administration.AdminServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author carlo
  */
 @WebServlet(name = "AdminDeleteProductoServlet", urlPatterns = {"/Admin/Productos/Delete"})
-public class AdminDeleteProductoServlet extends HttpServlet {
+public class AdminDeleteProductoServlet extends AdminServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

@@ -4,10 +4,12 @@
  */
 package eguay.service;
 
+import eguay.dao.RolFacade;
 import eguay.entity.Rol;
 import eguay.dto.RolDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -16,14 +18,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class RolService {
-
-    public static List<RolDTO> toDTO(List<Rol> rols){
-        List<RolDTO> dtos = new ArrayList<RolDTO>(rols.size());
-        
-        for(Rol rol : rols){
-            dtos.add(rol.toDTO());
-        }
-        
-        return dtos;
+    @EJB RolFacade rolFacade;
+    
+    public List<RolDTO> findAll() {
+        return Rol.toDTO(rolFacade.findAll());
     }
 }

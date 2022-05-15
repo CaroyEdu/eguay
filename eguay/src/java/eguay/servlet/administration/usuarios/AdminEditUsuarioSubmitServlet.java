@@ -5,10 +5,10 @@
  */
 package eguay.servlet.administration.usuarios;
 
+import eguay.dto.UserDTO;
 import eguay.service.AdminService;
 import eguay.servlet.administration.AdminServlet;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,8 +26,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author carlo
  */
-@WebServlet(name = "AdminCreateUsuarioServlet", urlPatterns = {"/Admin/Usuarios/Create"})
-public class AdminCreateUsuarioServlet extends AdminServlet {
+@WebServlet(name = "AdminEditUsuarioSubmitServlet", urlPatterns = {"/Admin/Usuarios/SubmitEdit"})
+public class AdminEditUsuarioSubmitServlet extends AdminServlet {
     @EJB AdminService as;
     
     @Override
@@ -46,16 +45,34 @@ public class AdminCreateUsuarioServlet extends AdminServlet {
             String password = request.getParameter("password");
             String birthday = request.getParameter("birthday");
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            int userId = Integer.parseInt(request.getParameter("userId"));
             int sex = Integer.parseInt(request.getParameter("sex"));
             String[] roles = request.getParameterValues("roleIds");
-
-            List<Integer> roleIds = new ArrayList<>();
+            if(roles == null) {
+                roles = new String[] {};
+            }
+            List<Long> roleIds = new ArrayList<>();
             for(String id : roles) {
-                roleIds.add(Integer.parseInt(id));
+                roleIds.add(Long.parseLong(id));
             }
             Date birthdayDate = sdf.parse(birthday);
-            as.createUser(username, name, surname, address, city, email, country, password, birthdayDate, sex, roleIds);
-            response.sendRedirect("../?msg=usuario+creado+correctamente");
+            
+            UserDTO user = new UserDTO();
+            user.setUsername(username);
+            user.setName(name);
+            user.setSurname(surname);
+            user.setAddress(address);
+            user.setCity(city);
+            user.setEmail(email);
+            user.setCountry(country);
+            user.setPassword(password);
+            user.setBirthyear(birthdayDate);
+            user.setId(userId);
+            user.setSex(sex);
+            user.setRoleIds(roleIds);
+            
+            as.saveUser(user);
+            response.sendRedirect(request.getContextPath() + "/Admin/Usuarios?msg=usuario+" + user.getUsername() + "+editado+correctamente");
         } catch (ParseException ex) {
             Logger.getLogger(AdminCreateUsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

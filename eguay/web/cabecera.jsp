@@ -4,13 +4,13 @@
     Author     : jean-
 --%>
 
+<%@page import="eguay.dto.UserDTO"%>
 <%@page import="eguay.entity.Category"%>
 <%@page import="java.util.List"%>
-<%@page import="eguay.entity.Users"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-        Users user = (Users) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("userDTO");
         List<Category> categoryList = (List) request.getSession().getAttribute("categoryList");
     %>
     <html>
@@ -30,6 +30,9 @@
                         if(user != null)
                         {
                     %>
+                        <% if(user.isAdmin()) { %>
+                            <li><a href="Admin/Usuarios">Dashboard</a></li>
+                        <% } %>
                     <li><a href="AddProductServlet">Añadir Subasta</a></li>
                     <li><a href="CheckProfileServlet">Mi Perfil</a>
                     <li><a href="DisconnectServlet">Desconexión</a></li>

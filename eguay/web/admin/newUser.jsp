@@ -4,8 +4,12 @@
     Author     : carlos
 --%>
 
+<%@page import="eguay.dto.UserDTO"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% request.setAttribute("page-name", "Productos"); %>
+<% request.setAttribute("page-name", "Usuarios"); %>
+<% List<UserDTO> users = (List<UserDTO>) request.getAttribute("users"); %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +19,7 @@
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
-        <title>Admin Productos</title>
+        <title>Admin Usuarios</title>
     </head>
     <body>
         <div class="container-fluid">
@@ -24,7 +28,10 @@
                 <jsp:include page="components/header.jsp"/>
                 </div>
                 <div class="col py-3">
-                    <h1>Produtos</h1>
+                    <h1>Nuevo usuario</h1>
+                    <form action="AdminCreateUsuarioServlet" method="POST">
+                        <button type="submit">Crear usuario</button>
+                    </form>
                 </div>
             </div>
         </div>

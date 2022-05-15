@@ -18,10 +18,8 @@ import javax.ejb.Stateless;
 import eguay.entity.Users;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 /**
  *
  * @author parsa
@@ -44,6 +42,15 @@ public class UserService {
     
     public List<Users> getAllUsers(){
         return this.usersFacade.findAll();
+    }
+    
+    public UserDTO login(String username, String password) {
+        Users user = this.usersFacade.userLogin(username, password);
+        if(user == null) {
+            return null;
+        }
+        
+        return user.toDTO();
     }
     
     public List<Users> getUsersInterestedIn(Category category){

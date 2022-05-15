@@ -6,12 +6,8 @@
 package eguay.entity;
 
 import eguay.dto.UserDTO;
-import eguay.service.AuctionService;
-import eguay.service.CategoryService;
-import eguay.service.MailService;
-import eguay.service.RolService;
-import eguay.service.UserService;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -358,6 +354,24 @@ public class Users implements Serializable {
         dto.setCity(city);
         dto.setAddress(address);
         
+        // TODO: refactor to enum
+        dto.setIsAdmin(hasRole("Administrator"));
+        dto.setIsMarketing(hasRole("Marketing"));
+        dto.setIsAnalista(hasRole("Analista"));
         return dto;
+    }
+    
+    public static List<UserDTO> toDTO(List<Users> users){
+        List<UserDTO> dtos = new ArrayList<>(users.size());
+        
+        for(Users user : users){
+            dtos.add(user.toDTO());
+        }
+        
+        return dtos;
+    }
+    
+    private boolean hasRole(String role) {
+        return getRolList().stream().anyMatch(r -> r.getName().equals(role));
     }
 }

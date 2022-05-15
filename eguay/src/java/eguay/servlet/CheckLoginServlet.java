@@ -6,6 +6,7 @@
 package eguay.servlet;
 
 import eguay.dao.UsersFacade;
+import eguay.dto.UserDTO;
 import eguay.entity.Users;
 import java.io.IOException;
 import java.util.List;
@@ -42,11 +43,14 @@ public class CheckLoginServlet extends HttpServlet {
         String username = (String) request.getParameter("username");
         String password = (String) request.getParameter("password");
         Users user = userFacade.userLogin(username, password);
+        // UserDTO user = userService.login(username, password);
+
         HttpSession session = request.getSession();
         
         if(user != null)
         {
             session.setAttribute("user", user);
+            session.setAttribute("userDTO", user.toDTO());
             response.sendRedirect("IndexServlet");
         }
         else

@@ -31,7 +31,7 @@ public class TimerSessionBean {
     @EJB UsersFacade usersFacade;
     @EJB UserService userService;
 
-    @Schedule(hour = "*", minute = "*", second = "*/30", persistent = false)
+   // @Schedule(hour = "*", minute = "*", second = "*/30", persistent = false)
     
     public void myTimer() {
         Date now = new Date();
