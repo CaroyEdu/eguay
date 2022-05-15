@@ -32,7 +32,19 @@ public class MailFacade extends AbstractFacade<Mail> {
     }
     
     public List<Mail> findAllMailsToUser(Integer userId){
-        return this.em.createQuery("SELECT m FROM Users u, u.groupsList g, g.mailList m WHERE u.userid = :userId")
+        List<Mail> mails = findAllMailsToUserThroughtGroup(userId);
+        mails.addAll(findAllMailsToDirectlyToUser(userId));
+        return mails;
+    }
+    
+    public List<Mail> findAllMailsToUserThroughtGroup(Integer userId){
+        return this.em.createQuery("SELECT m FROM Mail m JOIN m.groupsList g JOIN g.usersList u WHERE :userId IN (u.userid)")
+                .setParameter("userId", userId)
+                .getResultList();
+    }
+    
+    public List<Mail> findAllMailsToDirectlyToUser(Integer userId){
+        return this.em.createQuery("SELECT m FROM Mail m JOIN m.usersList u WHERE :userId IN (u.userid)")
                 .setParameter("userId", userId)
                 .getResultList();
     }

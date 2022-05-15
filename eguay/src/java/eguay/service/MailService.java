@@ -52,10 +52,10 @@ public class MailService {
         mail.setAuctionList(auctions);
         mail.setGroupsList(groups);
         
-        //addMailToAuctions(mail, auctions);
-        //addMailToGroups(mail, groups);
-        
         mailFacade.create(mail);
+        
+        addMailToAuctions(mail, auctions);
+        addMailToGroups(mail, groups);
     }
 
     private void addMailToAuctions(Mail mail, List<Auction> auctions) {
