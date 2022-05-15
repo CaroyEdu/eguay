@@ -23,4 +23,8 @@ public class MailService {
     public List<MailDTO> getAllMails(Integer userId){
         return Mail.toDTO(mailFacade.findAllMailsToUser(userId));
     }
+
+    public List<MailDTO> getAllMails() {
+        return Mail.toDTO(mailFacade.findAll());
+    }
 }
