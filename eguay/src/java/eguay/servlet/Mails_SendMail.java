@@ -48,7 +48,7 @@ public class Mails_SendMail extends HttpServlet {
         List<Long> groupIds = ServletUtils.getIdsFromCheckedLong(request, "selectedGroup");
         UserDTO sender = userService.getSessionUser(request.getSession());
         
-        mailService.send(sender, asunto, auctionIds, groupIds);
+        mailService.sendMailToGroup(sender, asunto, auctionIds, groupIds);
         
         request.getRequestDispatcher("ShowSendMailPage").forward(request, response);
     }

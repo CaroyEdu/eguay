@@ -1,35 +1,37 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package eguay.servlet;
+package eguay.servlet.Mail;
 
-import eguay.dao.GroupsFacade;
-import eguay.dao.UsersFacade;
-import eguay.entity.Groups;
+import eguay.dao.AuctionFacade;
+import eguay.entity.Auction;
+import eguay.entity.Category;
 import eguay.entity.Users;
-import eguay.service.GroupService;
-import eguay.services.ServletUtils;
+import eguay.service.AuctionService;
+import eguay.service.CategoryService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-import java.util.Random;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author pedro
+ * @author jean-
  */
-@WebServlet(name = "NewGroupFromSelectedUsers", urlPatterns = {"/NewGroupFromSelectedUsers"})
-public class Groups_NewGroupFromSelectedUsers extends HttpServlet {
+@WebServlet(name = "MyProductsServlet", urlPatterns = {"/MyProductsServlet"})
+public class MyProductsServlet extends HttpServlet {
     
-    @EJB GroupService groupService;
-
+    @EJB CategoryService categoryService;
+    @EJB AuctionService auctionService; 
+    @EJB AuctionFacade auctionFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,7 +45,30 @@ public class Groups_NewGroupFromSelectedUsers extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        groupService.newGroupFromSelectedUsers(request, response, "id", "name", "selectedUser");
+        HttpSession session = request.getSession();
+        Users user = (Users) session.getAttribute("user");
+        String filter = (String) request.getParameter("searchbar");
+        
+        List<Category> categoryList =  categoryService.getAllCategories();
+        List<Auction> userAuctions = auctionService.filterAuctionOrederedByUser(user.getUserid());
+        
+        if(filter==null)
+        {
+            request.setAttribute("userAuctions", userAuctions);
+        }else{
+            List<Auction> auctionList = auctionService.filterAuctionByUser(filter, user.getUserid());
+            if(auctionList.isEmpty())
+            {
+                request.setAttribute("userAuctions", userAuctions);
+                request.setAttribute("error", "No se ha encontrado ninguna subasta con este filtro. Se ha devuelto el listado completo de sus subastas.");
+            }else{
+                request.setAttribute("userAuctions", auctionList);
+            }
+        }
+        request.setAttribute("categoryList", categoryList);
+        
+        request.getRequestDispatcher("myProducts.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

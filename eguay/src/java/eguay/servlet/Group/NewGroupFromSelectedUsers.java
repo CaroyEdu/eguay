@@ -2,16 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package eguay.servlet;
+package eguay.servlet.Group;
 
-import eguay.dto.GroupDTO;
-import eguay.dto.UserDTO;
+import eguay.dao.GroupsFacade;
+import eguay.dao.UsersFacade;
+import eguay.entity.Groups;
+import eguay.entity.Users;
 import eguay.service.GroupService;
-import eguay.service.UserService;
 import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Random;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,8 +25,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedro
  */
-@WebServlet(name = "Groups_UpdateGroup", urlPatterns = {"/UpdateGroup"})
-public class Groups_UpdateGroup extends HttpServlet {
+@WebServlet(name = "NewGroupFromSelectedUsers", urlPatterns = {"/NewGroupFromSelectedUsers"})
+public class NewGroupFromSelectedUsers extends HttpServlet {
+    
+    @EJB GroupService groupService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,24 +39,11 @@ public class Groups_UpdateGroup extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    @EJB 
-    GroupService groupService;
-    @EJB 
-    UserService userService;
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        Long groupId = ServletUtils.getIdLong(request, "id");
-        String name = request.getParameter("name");
-        List<Integer> userIds = ServletUtils.getIdsFromChecked(request, "selectedUser");
-        
-        groupService.updateGroup(groupId, name, userIds);
-        
-        request.setAttribute("id", groupId);
-        request.getRequestDispatcher("ShowSelectedGroup").forward(request, response);
+        groupService.newGroupFromSelectedUsers(request, response, "id", "name", "selectedUser");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
