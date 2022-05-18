@@ -65,6 +65,11 @@ public class AuctionService {
         return AuctionService.toDTO(auctions);
     }
     
+    public List<AuctionDTO> filterAuctionByActive()
+    {
+        return toDTO(this.auctionFacade.findByActive());
+    }
+    
     // Logic
     public static List<AuctionDTO> toDTO(List<Auction> auctions){
         List<AuctionDTO> dtos = new ArrayList<>(auctions.size());

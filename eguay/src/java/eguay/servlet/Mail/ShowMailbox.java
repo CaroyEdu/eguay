@@ -4,11 +4,12 @@
  */
 package eguay.servlet.Mail;
 
+import eguay.dto.CategoryDTO;
 import eguay.dto.UserDTO;
-import eguay.entity.Users;
+import eguay.service.CategoryService;
 import eguay.service.MailService;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Mails_ShowMailbox", urlPatterns = {"/ShowMailbox"})
 public class ShowMailbox extends HttpServlet {
+    
+    @EJB CategoryService categoryService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,6 +40,9 @@ public class ShowMailbox extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        List<CategoryDTO> categoryList = categoryService.getAllCategories();
+        request.setAttribute("categoryList", categoryList);
         
         Integer userId = ((UserDTO) request.getSession().getAttribute("user")).getId();
         request.setAttribute("mails", mailService.getAllMails(userId));

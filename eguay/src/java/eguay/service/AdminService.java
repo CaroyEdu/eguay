@@ -132,9 +132,9 @@ public class AdminService {
         cl.add(c);
         a.setCategoryList(cl);
         a.setStartprice(auction.getStartPrice());
-        a.setFotourl(auction.getUrlFoto());
+        a.setFotourl(auction.getFotourl());
         a.setTitle(auction.getName());
-        a.setDescription(auction.getDescripcion());
+        a.setDescription(auction.getDescription());
         a.setCloseprice(auction.getClosePrice());
         a.setClosenumberofbids(auction.getCloseNumberofBids());
         a.setClosedate(auction.getCloseDate());

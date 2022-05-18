@@ -5,8 +5,11 @@
 package eguay.servlet.Group;
 
 import eguay.dao.GroupsFacade;
+import eguay.dto.CategoryDTO;
+import eguay.service.CategoryService;
 import eguay.service.GroupService;
 import java.io.IOException;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ShowGroupList extends HttpServlet {
     
     @EJB GroupService groupService;
+    @EJB CategoryService categoryService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,6 +39,9 @@ public class ShowGroupList extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        List<CategoryDTO> categoryList = categoryService.getAllCategories();
+        request.setAttribute("categoryList", categoryList);
         
         loadGroups(request);
         request.getRequestDispatcher("group/groupList.jsp").forward(request, response);

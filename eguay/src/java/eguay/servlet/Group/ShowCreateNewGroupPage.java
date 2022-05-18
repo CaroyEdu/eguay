@@ -5,10 +5,13 @@
 package eguay.servlet.Group;
 
 import eguay.dao.UsersFacade;
+import eguay.dto.CategoryDTO;
+import eguay.service.CategoryService;
 import eguay.service.GroupService;
 import eguay.service.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ShowCreateNewGroupPage extends HttpServlet {
     
     @EJB UserService userService;
+    @EJB CategoryService categoryService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,6 +41,9 @@ public class ShowCreateNewGroupPage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        List<CategoryDTO> categoryList = categoryService.getAllCategories();
+        request.setAttribute("categoryList", categoryList);
         
         request.setAttribute("users", userService.getAllUsersDTO());
         request.getRequestDispatcher("group/group.jsp").forward(request, response);

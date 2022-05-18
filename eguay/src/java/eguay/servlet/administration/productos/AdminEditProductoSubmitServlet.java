@@ -49,8 +49,8 @@ public class AdminEditProductoSubmitServlet extends AdminServlet {
             auction.setId(productId);
             auction.setCategoryId(categoryId);
             auction.setName(name);
-            auction.setDescripcion(description);
-            auction.setUrlFoto(fotoUrl);
+            auction.setDescription(description);
+            auction.setFotourl(fotoUrl);
             auction.setStartPrice(startPrice);
             auction.setStartDate(new Date());
             boolean closePriceEnabled = Boolean.parseBoolean(request.getParameter("closePriceEnabled"));

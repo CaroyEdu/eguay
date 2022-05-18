@@ -5,6 +5,7 @@
  */
 package eguay.dao;
 
+import eguay.dto.AuctionDTO;
 import eguay.entity.Auction;
 import eguay.entity.Bid;
 import eguay.entity.Users;
@@ -24,23 +25,21 @@ import javax.ejb.Stateless;
 @Stateless
 public class TimerSessionBean {
     
-    @EJB AuctionFacade auctionFacade;
-    @EJB BidFacade bidFacade;
     @EJB AuctionService auctionService;
-    @EJB UsersFacade usersFacade;
     @EJB UserService userService;
-    @EJB MailService mailService; 
+    @EJB MailService mailService;
+    @EJB BidFacade bidFacade;
 
    //@Schedule(hour = "*", minute = "*", second = "*/30", persistent = false)
     
     public void myTimer() {
         Date now = new Date();
         //System.out.println("Ejecutando comprobación de subastas");
-        List<Auction> activeAuctions = this.auctionFacade.findByActive();
-        for(Auction a : activeAuctions)
+        List<AuctionDTO> activeAuctions = auctionService.filterAuctionByActive();
+        for(AuctionDTO a : activeAuctions)
         {
-            if(a.getClosedate() != null){
-                if(now.compareTo(a.getClosedate()) >= 0)
+            if(a.getCloseDate() != null){
+                if(now.compareTo(a.getCloseDate()) >= 0)
                 {
                     List<Bid> bidList = this.bidFacade.highestBid(a);
                     if(bidList.size()>0)
@@ -49,11 +48,11 @@ public class TimerSessionBean {
                         Users user = higherBid.getBiderid();
                         userService.finilizeBuyingAuction(user, a);
                         //mailService.sendMailToAuctionWinner(String.format("Has ganado la subasta %s", a.getTitle()), a.getAuctionid(), user.getUserid());
-                        System.out.println("La subasta " + a.getAuctionid() + " con titulo:  " + a.getTitle() + " ha sido ganada por " + user.getName() );
+                        System.out.println("La subasta " + a.getId() + " con titulo:  " + a.getName() + " ha sido ganada por " + user.getName() );
                     }else{
                         a.setActive(Boolean.FALSE);
                         auctionService.editAuction(a);
-                        System.out.println("La subasta " + a.getAuctionid() + " con titulo:  " + a.getTitle() + " ha sido cerrada sin ganador");
+                        System.out.println("La subasta " + a.getId() + " con titulo:  " + a.getName() + " ha sido cerrada sin ganador");
                     }
                 }
             }

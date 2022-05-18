@@ -31,9 +31,19 @@ public class AuctionDTO {
     private String description;
     private List<UserDTO> userList;
     private Long sellerID;
+    private Long categoryId;
     
     // Relationships
     private String seller;
+    
+    public void setCategoryId(Long categoryID){
+        this.categoryId = categoryID;
+    }
+    
+    public Long getCategoryId()
+    {
+        return this.categoryId;
+    }
     
     public Long getSellerID()
     {

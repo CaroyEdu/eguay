@@ -4,11 +4,12 @@
  */
 package eguay.servlet.Mail;
 
+import eguay.dto.CategoryDTO;
 import eguay.service.AuctionService;
+import eguay.service.CategoryService;
 import eguay.service.GroupService;
-import eguay.service.MailService;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,10 +36,14 @@ public class ShowSendMailPage extends HttpServlet {
     
     @EJB GroupService groupService;
     @EJB AuctionService auctionService; 
+    @EJB CategoryService categoryService;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        List<CategoryDTO> categoryList = categoryService.getAllCategories();
+        request.setAttribute("categoryList", categoryList);
         
         request.setAttribute("auctions", auctionService.getAllAuctions());
         request.setAttribute("groups", groupService.getAllGroups());
