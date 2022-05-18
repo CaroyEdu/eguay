@@ -10,6 +10,7 @@ import eguay.dao.UsersFacade;
 import eguay.dto.AuctionDTO;
 import eguay.entity.Auction;
 import eguay.entity.Category;
+import eguay.entity.Users;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -63,10 +64,6 @@ public class AuctionService {
         auctions = this.auctionFacade.findOrderedByUser(userid);
         return AuctionService.toDTO(auctions);
     }
-
-    public void editAuction(Auction auction){
-        auctionFacade.edit(auction);
-    }
     
     // Logic
     public static List<AuctionDTO> toDTO(List<Auction> auctions){
@@ -86,16 +83,32 @@ public class AuctionService {
     private Auction toDAO(AuctionDTO auction)
     {
         Auction a = new Auction();
-        a.setActive(auction.getActive());
+        a.setFotourl(auction.getFotourl());
+        a.setStartprice(auction.getStartPrice());
+        a.setActive(auction.isActive());
         a.setAuctionid(auction.getId());
         a.setTitle(auction.getName());
         a.setDescription(auction.getDescription());
         a.setClosedate(auction.getCloseDate());
         a.setCloseprice(auction.getClosePrice());
-        a.setSellerid(this.userFacade.getUserByID(Long.parseLong(auction.getSellerID().getId().toString())));
-        List<Category> category = new ArrayList<>();
-        category.add(new Category(Long.parseLong(auction.getCategoryList().get(0).toString())));
-        a.setCategoryList(category);
+        a.setClosenumberofbids(auction.getCloseNumberofBids());
+        Users user = this.userFacade.getUserByID(auction.getSellerID());
+        a.setSellerid(user);
+        a.setStartdate(auction.getStartDate());
+        
+        // Añadimos la categoría
+        List<Category> categoryList = new ArrayList<>();
+        Category category = new Category();
+        category.setCategoryid(auction.getCategoryList().get(0).getId());
+        List<Users> userList = new ArrayList<>();
+        userList.add(user);
+        category.setUsersList(userList);
+        List<Auction> auctionList = new ArrayList<>();
+        auctionList.add(a);
+        category.setAuctionList(auctionList);
+        categoryList.add(category);
+        a.setCategoryList(categoryList);
+        a.setUsersList(userList);
         
         return a;
     }
@@ -108,5 +121,10 @@ public class AuctionService {
     public void editAuction(AuctionDTO auction)
     {
         auctionFacade.edit(toDAO(auction));
+    }
+    
+    public void removeAuction(AuctionDTO auction)
+    {
+        auctionFacade.remove(toDAO(auction));
     }
 }

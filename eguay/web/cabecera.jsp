@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <%
         UserDTO user = (UserDTO) session.getAttribute("user");
-        List<CategoryDTO> categoryList = (List) request.getSession().getAttribute("categoryList");
+        List<CategoryDTO> categoryList = (List) request.getAttribute("categoryList");
     %>
     <html>
     <head>

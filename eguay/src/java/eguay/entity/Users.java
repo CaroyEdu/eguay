@@ -6,6 +6,8 @@
 package eguay.entity;
 
 import eguay.dto.UserDTO;
+import eguay.service.AuctionService;
+import eguay.service.CategoryService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;

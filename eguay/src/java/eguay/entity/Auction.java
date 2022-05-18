@@ -302,7 +302,6 @@ public class Auction implements Serializable {
         
         dto.setName(title);
         dto.setCategory(categoryList.get(0).getName());
-        dto.setCategoryId(categoryList.get(0).getCategoryid());
         dto.setStartPrice(startprice);
         dto.setActive(active);
         dto.setCloseDate(closedate);
@@ -314,9 +313,8 @@ public class Auction implements Serializable {
         dto.setCategoryList(CategoryService.toDTO(categoryList));
         dto.setStartPrice(startprice);
         dto.setUserList(UserService.toDTO(usersList));
-        dto.setSellerID(sellerid.toDTO());
-        dto.setDescripcion(this.description);
-        dto.setUrlFoto(this.fotourl);
+        dto.setSellerID(Long.parseLong(sellerid.getUserid().toString()));
+        dto.setDescription(description);
         
         dto.setSeller(String.format("%s %s", sellerid.getName(), sellerid.getSurname()));
         

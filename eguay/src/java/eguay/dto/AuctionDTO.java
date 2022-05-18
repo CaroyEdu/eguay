@@ -29,38 +29,18 @@ public class AuctionDTO {
     private String fotourl;
     private List<CategoryDTO> categoryList;
     private String description;
-    private Float startPrice;
     private List<UserDTO> userList;
-    private UserDTO sellerID;
-    private String descripcion;
-    private String urlFoto;
-    private Long categoryId;
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-    
-    public String getUrlFoto() {
-        return urlFoto;
-    }
-
-    public void setUrlFoto(String urlFoto) {
-        this.urlFoto = urlFoto;
-    }
+    private Long sellerID;
     
     // Relationships
     private String seller;
     
-    public UserDTO getSellerID()
+    public Long getSellerID()
     {
         return sellerID;
     }
     
-    public void setSellerID(UserDTO sellerID)
+    public void setSellerID(Long sellerID)
     {
         this.sellerID = sellerID;
     }
@@ -129,14 +109,6 @@ public class AuctionDTO {
         this.category = category;
     }
     
-    public Float getStartPrice() {
-        return startPrice;
-    }
-
-    public void setStartPrice(Float startprice) {
-        this.startPrice = startprice;
-    }
-    
     public Long getId() {
         return id;
     }
@@ -201,11 +173,5 @@ public class AuctionDTO {
         this.seller = seller;
     }
     
-    public void setDescripcion(String description) {
-        this.descripcion = description;
-    }
-    
-    public String getDescripcion() {
-        return this.descripcion;
-    }
+
 }

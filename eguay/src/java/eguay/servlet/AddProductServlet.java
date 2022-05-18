@@ -6,9 +6,11 @@
 package eguay.servlet;
 
 import eguay.dto.AuctionDTO;
-import eguay.entity.Auction;
+import eguay.dto.CategoryDTO;
 import eguay.service.AuctionService;
+import eguay.service.CategoryService;
 import java.io.IOException;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AddProductServlet", urlPatterns = {"/AddProductServlet"})
 public class AddProductServlet extends HttpServlet {
     
-    @EJB AuctionService auctionService ; 
+    @EJB AuctionService auctionService;
+    @EJB CategoryService categoryService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +39,10 @@ public class AddProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");        
+        response.setContentType("text/html;charset=UTF-8");
+        
+        List<CategoryDTO> categoryList =  categoryService.getAllCategories();
+        request.setAttribute("categoryList", categoryList);
         
         String idParameter = (String) request.getParameter("id");
         if(idParameter!=null)

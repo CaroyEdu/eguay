@@ -101,7 +101,7 @@
                 
                 for(AuctionDTO a : auctionList)
                 {
-                    if(a.getActive()){ 
+                    if(a.isActive()){ 
                         if(cantidad == 0)
                         {
                 %>

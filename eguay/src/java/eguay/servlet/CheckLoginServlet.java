@@ -5,9 +5,7 @@
  */
 package eguay.servlet;
 
-import eguay.dto.UserDTO;
 import eguay.service.UserService;
-import eguay.dao.UsersFacade;
 import eguay.dto.UserDTO;
 import eguay.entity.Users;
 import java.io.IOException;
@@ -49,12 +47,11 @@ public class CheckLoginServlet extends HttpServlet {
         if(user != null)
         {
             session.setAttribute("user", user);
-            session.setAttribute("userDTO", user.toDTO());
             response.sendRedirect("IndexServlet");
         }
         else
         {
-            String errorStr = "Combinación de usuario y contraseña erronea.";
+            String errorStr = "Combinación de usuario y contraseña erronea";
             request.setAttribute("error", errorStr);
             request.getRequestDispatcher("LoginServlet").forward(request, response);
         }

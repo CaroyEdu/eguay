@@ -5,10 +5,10 @@
  */
 package eguay.servlet;
 
-import eguay.dao.AuctionFacade;
-import eguay.dao.UsersFacade;
-import eguay.entity.Auction;
-import eguay.entity.Users;
+import eguay.dto.AuctionDTO;
+import eguay.dto.UserDTO;
+import eguay.service.AuctionService;
+import eguay.service.UserService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +27,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "DeleteAuctionServlet", urlPatterns = {"/DeleteAuctionServlet"})
 public class DeleteAuctionServlet extends HttpServlet {
 
-    @EJB AuctionFacade auctionFacade;
-    @EJB UsersFacade usersFacade;
+    @EJB AuctionService auctionService;
+    @EJB UserService userService;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,16 +45,16 @@ public class DeleteAuctionServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         Long id = Long.parseLong((String)request.getParameter("id"));
-        Auction auction = auctionFacade.find(id);
-        Users user = (Users) session.getAttribute("user");
+        AuctionDTO auction = auctionService.findById(id);
+        UserDTO user = (UserDTO) session.getAttribute("user");
         if(auction != null)
         {
-            auctionFacade.remove(auction);
+            auctionService.removeAuction(auction);
             
-            List<Auction> usersSubmitedAuctions = user.getAuctionList2();
+            List<AuctionDTO> usersSubmitedAuctions = user.getAuctions();
             usersSubmitedAuctions.remove(auction);
-            user.setAuctionList2(usersSubmitedAuctions);
-            usersFacade.edit(user);
+            user.setAuctions(usersSubmitedAuctions);
+            userService.editUser(user);
         }
         
         session.setAttribute("user", user);

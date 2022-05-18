@@ -5,12 +5,8 @@
  */
 package eguay.servlet;
 
-import eguay.dao.AuctionFacade;
-import eguay.dao.CategoryFacade;
 import eguay.dto.AuctionDTO;
 import eguay.dto.CategoryDTO;
-import eguay.entity.Auction;
-import eguay.entity.Category;
 import eguay.service.AuctionService;
 import eguay.service.CategoryService;
 import java.io.IOException;
@@ -46,16 +42,13 @@ public class IndexServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         String filter = (String) request.getParameter("searchbar");
-        List<AuctionDTO> auctionList = null;
+        List<AuctionDTO> auctionList = auctionService.getAllAuctions();
         List<CategoryDTO> categoryList =  categoryService.getAllCategories();
         
         auctionList = this.auctionService.filterAuction(filter);
         
         request.setAttribute("categoryList", categoryList);
         request.setAttribute("auctionList", auctionList);
-        
-        request.getSession().setAttribute("categoryList", categoryList);
-        //request.getSession().setAttribute("auctionList", auctionList);
         
         request.getRequestDispatcher("index.jsp").forward(request, response);
         

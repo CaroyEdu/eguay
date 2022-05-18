@@ -31,7 +31,7 @@ public class TimerSessionBean {
     @EJB UserService userService;
     @EJB MailService mailService; 
 
-   @Schedule(hour = "*", minute = "*", second = "*/30", persistent = false)
+   //@Schedule(hour = "*", minute = "*", second = "*/30", persistent = false)
     
     public void myTimer() {
         Date now = new Date();

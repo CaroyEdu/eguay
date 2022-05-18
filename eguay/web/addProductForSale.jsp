@@ -21,7 +21,7 @@
     </head>
     
     <%
-        List<CategoryDTO> categoryList = (List) request.getSession().getAttribute("categoryList");
+        List<CategoryDTO> categoryList = (List) request.getAttribute("categoryList");
         Calendar now = new GregorianCalendar();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         AuctionDTO auction = (AuctionDTO)request.getAttribute("auction");
@@ -57,7 +57,7 @@
         <div class="flex-container">
             <form name="addForm" method="POST" action="AddProductForSaleServlet">
                 Título:<input type="text" name="title" value="<%= auction==null? "": auction.getName() %>" required/><br/>
-                Descripción:<input type="text" name="description" value="<%= auction==null? "": auction.getDescription()%>"/><br/>
+                Descripción:<input type="text" name="description" value="<%= auction==null? "": auction.getDescription() %>"/><br/>
                 URL Foto:<input type="text" name="fotourl" value="<%= auction==null? "": auction.getFotourl() %>"/><br/>
                 Precio Inicial:<input type="text" name="startprice" value="<%= auction==null? "": auction.getStartPrice() %>" required/><br/>
                 <br/>Categoría:

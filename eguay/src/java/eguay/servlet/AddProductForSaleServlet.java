@@ -5,14 +5,9 @@
  */
 package eguay.servlet;
 
-import eguay.dao.AuctionFacade;
-import eguay.dao.UsersFacade;
 import eguay.dto.AuctionDTO;
 import eguay.dto.CategoryDTO;
 import eguay.dto.UserDTO;
-import eguay.entity.Auction;
-import eguay.entity.Category;
-import eguay.entity.Users;
 import eguay.service.AuctionService;
 import eguay.service.UserService;
 import eguay.service.MailService;
@@ -43,8 +38,6 @@ public class AddProductForSaleServlet extends HttpServlet {
     
     @EJB AuctionService auctionService;
     @EJB UserService userService;
-    @EJB AuctionFacade auctionFacade;
-    @EJB UsersFacade usersFacade;
     @EJB MailService mailService;
 
     /**
@@ -69,7 +62,7 @@ public class AddProductForSaleServlet extends HttpServlet {
         
         // Definimos el usuario, título, descrición, URL de la foto y precio inicial
         UserDTO user = (UserDTO) session.getAttribute("user");
-        auction.setSeller(user.getId().toString());
+        auction.setSellerID(Long.parseLong(user.getId().toString()));
         str = (String)request.getParameter("title");
         auction.setName(str);
         str = (String)request.getParameter("description");

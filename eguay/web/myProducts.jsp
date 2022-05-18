@@ -57,7 +57,7 @@
                             %>
                             <tr>
                             <td><%= a.getName()%></td>
-                            <td><%= a.getActive() %></td>
+                            <td><%= a.isActive() %></td>
                             <td><a href="AddProductServlet?id=<%= a.getId() %>" style="padding: 2px 5px 2px 5px; color: white; background-color: #333; margin-left: 50%">X</a></td>
                             <td><a href="DeleteAuctionServlet?id=<%= a.getId() %>&userid=<%= user.getId() %>" style="padding: 2px 5px 2px 5px; color: white; background-color: #333; margin-left: 50%">X</a></td>
                             </tr>
