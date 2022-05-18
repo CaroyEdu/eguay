@@ -7,10 +7,13 @@ package eguay.entity;
 
 import eguay.dto.CategoryDTO;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -25,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author parsa
+ * @author Automatico + Pedro Antonio Benito Rojano
  */
 @Entity
 @Table(name = "category")
@@ -41,6 +44,7 @@ public class Category implements Serializable {
     @Column(name = "name")
     private String name;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "categoryid")
@@ -128,5 +132,15 @@ public class Category implements Serializable {
         dto.setName(name);
         
         return dto;
+    }
+    
+    public static List<CategoryDTO> toDTO(List<Category> categories){
+        List<CategoryDTO> dtos = new ArrayList<>(categories.size());
+        
+        for(Category category : categories){
+            dtos.add(category.toDTO());
+        }
+        
+        return dtos;
     }
 }

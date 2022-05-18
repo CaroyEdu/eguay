@@ -2,13 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package eguay.servlet;
+package eguay.servlet.Mail;
 
+import eguay.dto.MailDTO;
 import eguay.dto.UserDTO;
-import eguay.entity.Users;
 import eguay.service.MailService;
+import eguay.service.UserService;
+import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedro
  */
-@WebServlet(name = "Mails_ShowMailbox", urlPatterns = {"/ShowMailbox"})
-public class Mails_ShowMailbox extends HttpServlet {
+@WebServlet(name = "SendMail", urlPatterns = {"/SendMail"})
+public class SendMail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,15 +36,21 @@ public class Mails_ShowMailbox extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    @EJB MailService mailService; 
+    @EJB UserService userService;
+    @EJB MailService mailService;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        Integer userId = ((UserDTO) request.getSession().getAttribute("user")).getId();
-        request.setAttribute("mails", mailService.getAllMails(userId));
+        String asunto = request.getParameter("asunto");
+        List<Long> auctionIds = ServletUtils.getIdsFromCheckedLong(request, "selectedAuction");
+        List<Long> groupIds = ServletUtils.getIdsFromCheckedLong(request, "selectedGroup");
+        UserDTO sender = userService.getSessionUser(request.getSession());
         
-        request.getRequestDispatcher("mailbox.jsp").forward(request, response);
+        mailService.sendMailToGroup(sender, asunto, auctionIds, groupIds);
+        
+        request.getRequestDispatcher("ShowSendMailPage").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

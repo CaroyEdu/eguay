@@ -1,7 +1,7 @@
 <%-- 
     Document   : product
     Created on : 12-abr-2022, 21:24:03
-    Author     : jean-
+    Author     : Parsa zendehdel nobari
 --%>
 
 <%@page import="eguay.dto.AuctionDTO"%>

@@ -1,7 +1,7 @@
 <%-- 
     Document   : sendMail
     Created on : May 15, 2022, 2:21:18 PM
-    Author     : pedro
+    Author     : Pedro Antonio Benito Rojano
 --%>
 
 <%@page import="eguay.dto.GroupDTO"%>
@@ -11,6 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <jsp:include page="../cabecera.jsp"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Enviar Correo</title>

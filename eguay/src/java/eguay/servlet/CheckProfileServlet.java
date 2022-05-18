@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author parsa
+ * @author Parsa zendehdel nobari
  */
 @WebServlet(name = "CheckProfileServlet", urlPatterns = {"/CheckProfileServlet"})
 public class CheckProfileServlet extends HttpServlet {

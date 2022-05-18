@@ -6,7 +6,7 @@ package eguay.dto;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 public class RolDTO {
     // DB
@@ -33,5 +33,4 @@ public class RolDTO {
     public void setName(String name) {
         this.name = name;
     }
-    
 }

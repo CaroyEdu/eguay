@@ -4,9 +4,13 @@
  */
 package eguay.dto;
 
+import eguay.entity.Category;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 public class CategoryDTO {
     // DB

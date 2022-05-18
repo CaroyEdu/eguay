@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author parsa
+ * @author Parsa zendehdel nobari
  */
 @WebServlet(name = "SubmitBidServlet", urlPatterns = {"/SubmitBidServlet"})
 public class SubmitBidServlet extends HttpServlet {

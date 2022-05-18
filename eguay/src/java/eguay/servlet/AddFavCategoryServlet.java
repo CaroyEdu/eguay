@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author parsa
+ * @author Parsa zendehdel nobari
  */
 @WebServlet(name = "AddFavCategoryServlet", urlPatterns = {"/AddFavCategoryServlet"})
 public class AddFavCategoryServlet extends HttpServlet {

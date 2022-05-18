@@ -7,6 +7,9 @@ package eguay.servlet;
 
 import eguay.dto.UserDTO;
 import eguay.service.UserService;
+import eguay.dao.UsersFacade;
+import eguay.dto.UserDTO;
+import eguay.entity.Users;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -18,7 +21,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author jean-
+ * @author Roy Caro Jean Edouard
  */
 @WebServlet(name = "CheckLoginServlet", urlPatterns = {"/CheckLoginServlet"})
 public class CheckLoginServlet extends HttpServlet {
@@ -46,6 +49,7 @@ public class CheckLoginServlet extends HttpServlet {
         if(user != null)
         {
             session.setAttribute("user", user);
+            session.setAttribute("userDTO", user.toDTO());
             response.sendRedirect("IndexServlet");
         }
         else

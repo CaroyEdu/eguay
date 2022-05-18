@@ -1,7 +1,7 @@
 <%-- 
     Document   : cabecera
     Created on : 30-mar-2022, 18:24:19
-    Author     : jean-
+    Author     : Roy Caro Jean Edouard - Pedro Antonio Benito Rojano 50% - 50%
 --%>
 
 <%@page import="eguay.dto.UserDTO"%>
@@ -19,7 +19,7 @@
         <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     </head>
 
-<body>
+    <body>
         <div class="container">
             <div class="logo">
                 <a href="IndexServlet"><img src="img/logo.png" width="125px"></a>
@@ -27,24 +27,25 @@
             <nav class="nav">
                 <ul>
                     <%
-                        if(user != null)
-                        {
+                        if (user != null) {
                     %>
+                        <% if(user.isAdmin()) { %>
+                            <li><a href="Admin/Usuarios">Dashboard</a></li>
+                        <% } %>
                     <li><a href="AddProductServlet">Añadir Subasta</a></li>
-                    <li><a href="CheckProfileServlet">Mi Perfil</a>
-                    <li><a href="DisconnectServlet">Desconexión</a></li>
-                    <li><a href="ShowGroupList">Lista de Grupos</a></li>
                     <li><a href="ShowMailbox">Correo</a></li>
+                    <li><a href="ShowGroupList">Lista de Grupos</a></li>
                     <li><a href="ShowSendMailPage">Enviar Correo</a></li>
-                    <%
-                      } else
-                    {   
-                    %>
+                    <li><a href="CheckProfileServlet">Mi Perfil</a>
+                    <li><a href="DisconnectServlet" style="border: 1px solid red; padding: 5px">Desconexión</a></li>
+                        <%
+                        } else {
+                        %>
                     <li><a href="LoginServlet">Login</a></li>
                     <li><a href="AddUserServlet">Registrar</a></li>
-                    <%
-                      }
-                    %>
+                        <%
+                            }
+                        %>
                 </ul>
             </nav>
         </div>
@@ -68,4 +69,4 @@
         </div>
         <hr>
     </body>
-    </html>
+</html>

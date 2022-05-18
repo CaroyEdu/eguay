@@ -1,7 +1,7 @@
 <%-- 
     Document   : directpurchase.jsp
     Created on : Apr 14, 2022, 12:25:50 PM
-    Author     : parsa
+    Author     : Parsa zendehdel nobari
 --%>
 
 <%@page import="eguay.dto.UserDTO"%>

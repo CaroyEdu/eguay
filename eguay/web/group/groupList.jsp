@@ -1,7 +1,7 @@
 <%-- 
     Document   : groupList
     Created on : Apr 19, 2022, 11:09:27 AM
-    Author     : pedro
+    Author     : Pedro Antonio Benito Rojano
 --%>
 
 <%@page import="eguay.dto.GroupDTO"%>
@@ -10,7 +10,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <jsp:include page="cabecera.jsp"/>
+    <jsp:include page="../cabecera.jsp"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Lista de Grupos</title>
@@ -37,7 +37,7 @@
             </table>
             <button type="submit" formaction="RemoveGroups">Eliminar Seleccionados</button>
             <button type="submit" formaction="NewGroupFromSelectedGroups">Nuevo Grupo con los grupos seleccionados</button>
-            <button type="submit" formaction="CreateNewGroup">Crear nuevo grupo</button>
+            <button type="submit" formaction="ShowCreateNewGroupPage">Crear nuevo grupo</button>
         </form>
     </body>
 </html>

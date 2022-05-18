@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author parsa
+ * @author Automatico + Pedro Antonio Benito Rojano
  */
 @Entity
 @Table(name = "auction")
@@ -57,6 +57,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Auction implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "startdate")
@@ -300,6 +301,9 @@ public class Auction implements Serializable {
         dto.setId(auctionid);
         
         dto.setName(title);
+        dto.setCategory(categoryList.get(0).getName());
+        dto.setCategoryId(categoryList.get(0).getCategoryid());
+        dto.setStartPrice(startprice);
         dto.setActive(active);
         dto.setCloseDate(closedate);
         dto.setCloseNumberofBids(closenumberofbids);
@@ -311,6 +315,9 @@ public class Auction implements Serializable {
         dto.setStartPrice(startprice);
         dto.setUserList(UserService.toDTO(usersList));
         dto.setSellerID(sellerid.toDTO());
+        dto.setDescripcion(this.description);
+        dto.setUrlFoto(this.fotourl);
+        
         dto.setSeller(String.format("%s %s", sellerid.getName(), sellerid.getSurname()));
         
         return dto;

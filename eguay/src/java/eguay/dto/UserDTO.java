@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 public class UserDTO {
     // DB 
@@ -50,7 +50,44 @@ public class UserDTO {
     {
         return this.auctions;
     }
+    private boolean isAdmin;
+    private boolean isMarketing;
+    private boolean isAnalista;
+    private List<Long> roleIds;
 
+    public List<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
+    }
+    
+    public boolean isAnalista() {
+        return isAnalista;
+    }
+
+    public void setIsAnalista(boolean isAnalista) {
+        this.isAnalista = isAnalista;
+    }
+    
+    public boolean isMarketing() {
+        return isMarketing;
+    }
+
+    public void setIsMarketing(boolean isMarketing) {
+        this.isMarketing = isMarketing;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+    
+    
     public Integer getId() {
         return id;
     }

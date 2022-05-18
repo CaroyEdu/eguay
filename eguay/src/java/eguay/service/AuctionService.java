@@ -17,7 +17,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author parsa
+ * @author Parsa zendehdel nobari 80% Pedro Antonio Benito Rojano
  */
 @Stateless
 public class AuctionService {

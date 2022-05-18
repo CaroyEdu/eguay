@@ -1,12 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package eguay.servlet;
+package eguay.servlet.administration.productos;
 
-import eguay.service.AuctionService;
-import eguay.service.GroupService;
-import eguay.service.MailService;
+import eguay.service.AdminService;
+import eguay.servlet.administration.AdminServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -18,32 +18,18 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pedro
+ * @author carlo
  */
-@WebServlet(name = "Mails_ShowSendMailPage", urlPatterns = {"/ShowSendMailPage"})
-public class Mails_ShowSendMailPage extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+@WebServlet(name = "AdminDeleteProductoServlet", urlPatterns = {"/Admin/Productos/Delete"})
+public class AdminDeleteProductoServlet extends AdminServlet {
+    @EJB AdminService as;
     
-    @EJB GroupService groupService;
-    @EJB AuctionService auctionService; 
-    
+    @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-        request.setAttribute("auctions", auctionService.getAllAuctions());
-        request.setAttribute("groups", groupService.getAllGroupsDTO());
-        
-        request.getRequestDispatcher("sendMail.jsp").forward(request, response);
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        as.deleteAuction(id);
+        response.sendRedirect(request.getContextPath() + "/Admin/Productos?msg=producto+" + id + "+borrado+correctamente");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

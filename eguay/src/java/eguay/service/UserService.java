@@ -21,13 +21,14 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 /**
  *
- * @author parsa
+ * @author Parsa 70% Pedro Antonio Benito Rojano 30%
  */
 @Stateless
 public class UserService {
     @EJB UsersFacade usersFacade;
     @EJB CategoryFacade categoryFacade;
     @EJB AuctionFacade auctionFacade;
+    @EJB MailService mailService;
     
     // Query
     
@@ -46,6 +47,15 @@ public class UserService {
     
     public List<Users> getAllUsers(){
         return this.usersFacade.findAll();
+    }
+    
+    public UserDTO login(String username, String password) {
+        Users user = this.usersFacade.userLogin(username, password);
+        if(user == null) {
+            return null;
+        }
+        
+        return user.toDTO();
     }
     
     public List<Users> getUsersInterestedIn(Category category){
@@ -178,11 +188,11 @@ public class UserService {
         purchasedAuction.add(auction);
         user.setAuctionList1(purchasedAuction);
         
-        
-        
         auctionFacade.edit(auction);
         usersFacade.edit(user);
         System.out.println("success \n");
+        
+        mailService.sendMailToAuctionWinner(String.format("Has ganado la subasta %s", auction.getTitle()), auction.getAuctionid(), user.getUserid());
     }
     
         public List<Auction> filterPurchasedAuctionByUser(String filter, Users userid){

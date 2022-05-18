@@ -15,6 +15,7 @@ import eguay.entity.Category;
 import eguay.entity.Users;
 import eguay.service.AuctionService;
 import eguay.service.UserService;
+import eguay.service.MailService;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,13 +36,16 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author jean-
+ * @author Roy Caro Jean Edouard
  */
 @WebServlet(name = "AddProductForSaleServlet", urlPatterns = {"/AddProductForSaleServlet"})
 public class AddProductForSaleServlet extends HttpServlet {
     
     @EJB AuctionService auctionService;
     @EJB UserService userService;
+    @EJB AuctionFacade auctionFacade;
+    @EJB UsersFacade usersFacade;
+    @EJB MailService mailService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

@@ -15,7 +15,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author parsa
+ * @author Pedro Antonio Benito Rojano
  */
 @Stateless
 public class CategoryService {
@@ -24,9 +24,13 @@ public class CategoryService {
     // Queries
     
     public List<CategoryDTO> getAllCategories(){
-        
         List<Category> categories = categoryFacade.findAll();
         return CategoryService.toDTO(categories);
+    }
+    
+    public List<CategoryDTO> getAllCategoriesDTO(){
+        List<Category> categories = categoryFacade.findAll();
+        return Category.toDTO(categories) ; 
     }
     
     // Logic

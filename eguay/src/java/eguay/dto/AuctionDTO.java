@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author pedro
+ * @author Pedro Antonio Benito Rojano
  */
 public class AuctionDTO {
     // DB
@@ -18,6 +18,8 @@ public class AuctionDTO {
     
     // Conceptual
     private String name;
+    private String category;
+    private Float startPrice;
     private Date startDate;
     private Date closeDate;
     private Integer closeNumberofBids;
@@ -30,6 +32,25 @@ public class AuctionDTO {
     private Float startPrice;
     private List<UserDTO> userList;
     private UserDTO sellerID;
+    private String descripcion;
+    private String urlFoto;
+    private Long categoryId;
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+    
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
+    }
     
     // Relationships
     private String seller;
@@ -100,6 +121,22 @@ public class AuctionDTO {
         this.name = name;
     }
     
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    
+    public Float getStartPrice() {
+        return startPrice;
+    }
+
+    public void setStartPrice(Float startprice) {
+        this.startPrice = startprice;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -148,7 +185,7 @@ public class AuctionDTO {
         this.maxBid = maxBid;
     }
 
-    public Boolean getActive() {
+    public Boolean isActive() {
         return active;
     }
 
@@ -162,5 +199,13 @@ public class AuctionDTO {
 
     public void setSeller(String seller) {
         this.seller = seller;
+    }
+    
+    public void setDescripcion(String description) {
+        this.descripcion = description;
+    }
+    
+    public String getDescripcion() {
+        return this.descripcion;
     }
 }

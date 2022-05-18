@@ -17,7 +17,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author jean-
+ * @author Roy Caro Jean Edouard 33% Parsa zendehdel nobari 34% Pedro Antonio Benito Rojano 33%
  */
 @Stateless
 public class UsersFacade extends AbstractFacade<Users> {
@@ -35,6 +35,16 @@ public class UsersFacade extends AbstractFacade<Users> {
 
     public UsersFacade() {
         super(Users.class);
+    }
+    
+    public List<Users> getAllOrdered() {
+        return this.em.createQuery("SELECT u FROM Users u ORDER BY u.userid").getResultList();
+    }
+    
+        public List<Users> filter(String username) {
+        return this.em.createQuery("SELECT u FROM Users u WHERE u.username LIKE :username ORDER BY u.userid")
+                .setParameter("username", "%" + username + "%")
+                .getResultList();
     }
     
     public Users userLogin(String username, String password)
@@ -84,5 +94,10 @@ public class UsersFacade extends AbstractFacade<Users> {
         return this.em.createQuery("SELECT u FROM Users u WHERE u.userid IN :userIds")
                 .setParameter("userIds", userIds)
                 .getResultList();
+    }
+    
+    public Users findMarketing(){
+        return (Users) this.em.createQuery("SELECT u FROM Users u WHERE u.username = 'marketing'")
+                .getSingleResult();
     }
 }

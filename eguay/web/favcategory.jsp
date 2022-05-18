@@ -1,7 +1,7 @@
 <%-- 
     Document   : favcategory
     Created on : Apr 8, 2022, 10:38:15 AM
-    Author     : parsa
+    Author     : Parsa zendehdel nobari
 --%>
 
 <%@page import="eguay.dto.CategoryDTO"%>

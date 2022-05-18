@@ -9,6 +9,7 @@ import eguay.entity.Auction;
 import eguay.entity.Bid;
 import eguay.entity.Users;
 import eguay.service.AuctionService;
+import eguay.service.MailService;
 import eguay.service.UserService;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author jean-
+ * @author Roy Caro Jean Edouard 50% Parsa zendehdel nobari 50%
  */
 @Stateless
 public class TimerSessionBean {
@@ -28,8 +29,9 @@ public class TimerSessionBean {
     @EJB AuctionService auctionService;
     @EJB UsersFacade usersFacade;
     @EJB UserService userService;
+    @EJB MailService mailService; 
 
-    @Schedule(hour = "*", minute = "*", second = "*/30", persistent = false)
+   @Schedule(hour = "*", minute = "*", second = "*/30", persistent = false)
     
     public void myTimer() {
         Date now = new Date();
@@ -46,7 +48,7 @@ public class TimerSessionBean {
                         Bid higherBid = bidList.get(0);
                         Users user = higherBid.getBiderid();
                         userService.finilizeBuyingAuction(user, a);
-                        
+                        //mailService.sendMailToAuctionWinner(String.format("Has ganado la subasta %s", a.getTitle()), a.getAuctionid(), user.getUserid());
                         System.out.println("La subasta " + a.getAuctionid() + " con titulo:  " + a.getTitle() + " ha sido ganada por " + user.getName() );
                     }else{
                         a.setActive(Boolean.FALSE);
