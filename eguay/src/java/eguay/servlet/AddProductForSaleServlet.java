@@ -125,13 +125,13 @@ public class AddProductForSaleServlet extends HttpServlet {
         String auctionid = request.getParameter("auctionid");
         if(auctionid.equals("")){
             auctionService.createAuction(auction);
-            
-    /*        List<AuctionDTO> usersSubmitedAuctions = user.getAuctions();
+           
+            List<AuctionDTO> usersSubmitedAuctions = user.getAuctions();
             if(usersSubmitedAuctions == null) usersSubmitedAuctions = new ArrayList();
             usersSubmitedAuctions.add(auction);
-            user.setAuctions(usersSubmitedAuctions);     */
+            user.setAuctions(usersSubmitedAuctions);
             
-            userService.AddAuctionToOwner(user,auction);
+            //userService.AddAuctionToOwner(user,auction);
         }else{
             auction.setId(Long.parseLong(auctionid));
             this.auctionService.editAuction(auction);

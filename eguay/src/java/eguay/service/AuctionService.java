@@ -105,15 +105,16 @@ public class AuctionService {
         List<Category> categoryList = new ArrayList<>();
         Category category = new Category();
         category.setCategoryid(auction.getCategoryList().get(0).getId());
-        List<Users> userList = new ArrayList<>();
+       /* List<Users> userList = new ArrayList<>();
         userList.add(user);
-        category.setUsersList(userList);
+        category.setUsersList(userList);*/
         List<Auction> auctionList = new ArrayList<>();
         auctionList.add(a);
         category.setAuctionList(auctionList);
         categoryList.add(category);
+        
         a.setCategoryList(categoryList);
-        a.setUsersList(userList);
+       // a.setUsersList(userList);
         
         return a;
     }
