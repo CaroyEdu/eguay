@@ -6,6 +6,7 @@
 package eguay.servlet;
 
 import eguay.dao.UsersFacade;
+import eguay.dto.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -44,7 +45,7 @@ public class SignupServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Users user = new Users();
+        
         String username = (String)request.getParameter("username");
         String name = (String)request.getParameter("name");
         String surname = (String)request.getParameter("surname");
@@ -68,7 +69,7 @@ public class SignupServlet extends HttpServlet {
         else if (sex=="Mujer")sexId=2;
         else sexId = 3;
         
-        usersService.createUser(user, username, name, surname, address, city, email, country, password, birthdayDate, sexId);
+        usersService.createUser( username, name, surname, address, city, email, country, password, birthdayDate, sexId);
         // Una vez creado e insertado el objeto, nos volvemos a la página de inicio
         response.sendRedirect("IndexServlet");
         

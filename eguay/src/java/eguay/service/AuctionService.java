@@ -85,7 +85,7 @@ public class AuctionService {
         return Auction.toDTO(auctionFacade.findAll());
     }
     
-    private Auction toDAO(AuctionDTO auction)
+    public  Auction toDAO(AuctionDTO auction)
     {
         Auction a = new Auction();
         a.setFotourl(auction.getFotourl());

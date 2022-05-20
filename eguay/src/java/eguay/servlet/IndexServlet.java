@@ -7,8 +7,10 @@ package eguay.servlet;
 
 import eguay.dto.AuctionDTO;
 import eguay.dto.CategoryDTO;
+import eguay.dto.UserDTO;
 import eguay.service.AuctionService;
 import eguay.service.CategoryService;
+import eguay.service.UserService;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -17,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -27,6 +30,7 @@ public class IndexServlet extends HttpServlet {
     
     @EJB CategoryService categoryService;
     @EJB AuctionService auctionService; 
+    @EJB UserService userService ; 
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,14 +45,19 @@ public class IndexServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+       HttpSession session = request.getSession();
+            UserDTO user = (UserDTO) session.getAttribute("user");
+        
         String filter = (String) request.getParameter("searchbar");
         List<AuctionDTO> auctionList = auctionService.getAllAuctions();
         List<CategoryDTO> categoryList =  categoryService.getAllCategories();
         
         auctionList = this.auctionService.filterAuction(filter);
-        
+        List<AuctionDTO> auctionFavList = null ;
+        if(user!=null)    auctionFavList = this.userService.filterFavAuctionByUser("", user);
         request.setAttribute("categoryList", categoryList);
         request.setAttribute("auctionList", auctionList);
+        request.setAttribute("favAuctions", auctionFavList);
         
         request.getRequestDispatcher("index.jsp").forward(request, response);
         

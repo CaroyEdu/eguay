@@ -47,11 +47,9 @@ public class FinalizeBidServlet extends HttpServlet {
         UserDTO user = (UserDTO) session.getAttribute("user");
         
         String BidAmount = (String)request.getParameter("Bid");
-        Double BidAmountDbl = Double.parseDouble(BidAmount) ; 
+        Double BidAmountDbl = Double.parseDouble(BidAmount) ;
         
-        Bid newBid = new Bid();
-        
-        bidService.createBid(newBid, BidAmountDbl, auction, user);
+        bidService.createBid( BidAmountDbl, auction, user);
         
         
         response.sendRedirect("IndexServlet");

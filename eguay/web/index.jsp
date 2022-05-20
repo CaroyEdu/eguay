@@ -87,8 +87,9 @@
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
         UserDTO user = (UserDTO) session.getAttribute("user");
         List<AuctionDTO> auctionFavList = null;
+        
         if(user!=null){
-            auctionFavList = user.getAuctions();
+            auctionFavList = (List<AuctionDTO>) request.getAttribute("favAuctions");
         }
     %>
     

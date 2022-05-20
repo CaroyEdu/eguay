@@ -5,6 +5,7 @@
  */
 package eguay.dao;
 
+import eguay.dto.AuctionDTO;
 import eguay.entity.Auction;
 import eguay.entity.Bid;
 import java.util.List;
@@ -32,11 +33,11 @@ public class BidFacade extends AbstractFacade<Bid> {
         super(Bid.class);
     }
     
-     public List<Bid> highestBid(Auction auction)
+     public List<Bid> highestBid(AuctionDTO auction)
     {
         Query q;
-        q = this.em.createQuery("SELECT bi FROM Bid bi where bi.bid = ( SELECT MAX(bii.bid) from Bid bii WHERE bii.auctionid = :id)");
-        q.setParameter("id",auction );
+        q = this.em.createQuery("SELECT bi FROM Bid bi where bi.bid = ( SELECT MAX(bii.bid) from Bid bii WHERE bii.auctionid.auctionid = :id)");
+        q.setParameter("id",auction.getId() );
         List<Bid> results = (List<Bid>) q.getResultList();
         return results; 
     }

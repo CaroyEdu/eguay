@@ -47,11 +47,11 @@ public class RegisterFavCategory extends HttpServlet {
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
             /* TODO output your page here. You may use following sample code. */
-        List<CategoryDTO> categoryFavList = user.getCategoryList(); 
+        List<CategoryDTO> categoryFavList = user.getCategories(); 
         if(categoryFavList == null) categoryFavList = new ArrayList() ; 
         List<CategoryDTO> categoryList = categoryService.getAllCategories();
         for(CategoryDTO category : categoryList ){
-            String check = (String)request.getParameter(category.getCategoryid().toString()); 
+            String check = (String)request.getParameter(category.getId().toString()); 
             usersService.editFavCategories(user, category, check);
         }
         response.sendRedirect("IndexServlet");

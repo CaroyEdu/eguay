@@ -8,10 +8,14 @@ package eguay.service;
 import eguay.dao.AuctionFacade;
 import eguay.dao.CategoryFacade;
 import eguay.dao.UsersFacade;
+import eguay.dto.AuctionDTO;
 import eguay.dto.UserDTO;
 import eguay.entity.Auction;
+import eguay.entity.Bid;
 import eguay.entity.Category;
 import eguay.entity.Groups;
+import eguay.entity.Mail;
+import eguay.entity.Rol;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import eguay.entity.Users;
@@ -29,6 +33,7 @@ public class UserService {
     @EJB CategoryFacade categoryFacade;
     @EJB AuctionFacade auctionFacade;
     @EJB MailService mailService;
+    @EJB AuctionService auctionService;
     
     // Query
     
@@ -91,9 +96,10 @@ public class UserService {
     
     // Logic
     
-    public void createUser(Users user , String username ,String name ,String surname , String address ,
-    String city , String email , String country , String password , Date birthday , int sex, List<Auction> auctionList1){
+    public void createUser( String username ,String name ,String surname , String address ,
+    String city , String email , String country , String password , Date birthday , int sex){
         
+        Users user = new Users();
         user.setName(name);
         user.setAddress(address);
         user.setSurname(surname);
@@ -104,7 +110,14 @@ public class UserService {
         user.setUsername(username);
         user.setBirthyear(birthday);
         user.setSex(sex);
-        user.setAuctionList1(auctionList1);
+        user.setAuctionList(null);
+        user.setAuctionList1(null);
+        user.setAuctionList2(null);
+        user.setBidList(null);
+        user.setCategoryList(null);
+        user.setMailList(null);
+        user.setMailList1(null);
+        user.setRolList(null);
         
         usersFacade.create(user);
     }
@@ -131,33 +144,42 @@ public class UserService {
         
     }
     
-    public void editFavAuctions(Users user , Auction auction){
+    public void editFavAuctions(UserDTO user , AuctionDTO auction){
         
-        List<Auction> auctionFavList = user.getAuctionList(); 
-        if(auctionFavList == null) auctionFavList = new ArrayList() ; 
-        List<Auction> auctionList = auctionFacade.findAll();
+        List<AuctionDTO> auctionFavList = user.getAuctions(); 
+        if(auctionFavList == null) auctionFavList = new ArrayList() ;
         
         if(auction != null )
             {
                 if(!auctionFavList.contains(auction)){  
-                    auctionFavList.add(auction);
-                    user.setAuctionList(auctionFavList);
-                    usersFacade.edit(user);
                     
-                    List<Users> auctionUserFav = auction.getUsersList();
-                    auctionUserFav.add(user);
-                    auction.setUsersList(auctionUserFav);
-                    auctionFacade.edit(auction);
+                    Auction auctionDao = auctionService.toDAO(auction);
+                    
+                    List<Users> auctionUserFav = auctionDao.getUsersList();
+                    auctionUserFav.add(toDAO(user));
+                    auctionDao.setUsersList(auctionUserFav);
+                    auctionFacade.edit(auctionDao);
+                    
+                    
+                    auctionFavList.add(auction);
+                    this.registerUserFavAuction(user, auctionFavList);
+                    
+                    
+                    
                     
                 }else {
-                    auctionFavList.remove(auction);
-                    user.setAuctionList(auctionFavList);
-                    usersFacade.edit(user);
                     
-                     List<Users> auctionUserFav = auction.getUsersList();
-                     auctionUserFav.remove(user) ; 
-                     auction.setUsersList(auctionUserFav);
-                    auctionFacade.edit(auction);
+                    Auction auctionDao = auctionService.toDAO(auction);
+                    
+                    List<Users> auctionUserFav = auctionDao.getUsersList();
+                    auctionUserFav.remove(user) ; 
+                    auctionDao.setUsersList(auctionUserFav);
+                    auctionService.editAuction(auction);
+                    
+                    auctionFavList.remove(auction); 
+                    this.registerUserFavAuction(user, auctionFavList);
+                    
+                    
                     
                 }
             }
@@ -176,7 +198,7 @@ public class UserService {
         auctionFacade.edit(auction);
     }
     
-    public void finilizeBuyingAuction(Users user , Auction auction){
+    public void finilizeBuyingAuction(Users user , AuctionDTO auction){
         
         List<Users> clientList = new ArrayList();
         clientList.add(0, user);
@@ -208,17 +230,17 @@ public class UserService {
         return auctions;
     }
         
-        public List<Auction> filterFavAuctionByUser(String filter, Users userid){
+        public List<AuctionDTO> filterFavAuctionByUser(String filter, UserDTO userid){
         List<Auction> auctions ;
         if(filter == null || filter.isEmpty())
             {
-                auctions = this.usersFacade.findFavAuctionsByTitleAndUser("", userid);
+                auctions = this.usersFacade.findFavAuctionsByTitleAndUser("", toDAO(userid));
             }
             else
             {
-                auctions = this.usersFacade.findFavAuctionsByTitleAndUser(filter, userid);
+                auctions = this.usersFacade.findFavAuctionsByTitleAndUser(filter, toDAO(userid));
             }
-        return auctions;
+        return AuctionService.toDTO(auctions);
     }
         
         
@@ -237,9 +259,21 @@ public class UserService {
     
     private Users toDAO(UserDTO user)
     {
+        
         Users u = new Users();
         u = this.usersFacade.getUserByID(Long.parseLong(user.getId().toString()));
         return u;
+        
+    }
+    
+    private void registerUserFavAuction(UserDTO user , List<AuctionDTO> auctions){
+        Users userDao = usersFacade.find(user.getId()) ;
+        List<Auction> favAuctions = new ArrayList() ; 
+        for(AuctionDTO a : auctions){
+            favAuctions.add(auctionService.toDAO(a));
+        }
+        userDao.setAuctionList(favAuctions);
+        this.usersFacade.edit(userDao);
     }
     
     public void editUser(UserDTO user)
