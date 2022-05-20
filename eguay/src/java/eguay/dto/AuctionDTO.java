@@ -7,6 +7,7 @@ package eguay.dto;
 import eguay.entity.Users;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -183,5 +184,18 @@ public class AuctionDTO {
         this.seller = seller;
     }
     
-
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AuctionDTO other = (AuctionDTO) obj;
+        return Objects.equals(this.getId() , other.getId());
+    }
 }

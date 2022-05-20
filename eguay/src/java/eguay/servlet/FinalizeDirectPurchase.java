@@ -7,6 +7,7 @@ package eguay.servlet;
 
 import eguay.dao.UsersFacade;
 import eguay.dto.AuctionDTO;
+import eguay.dto.UserDTO;
 import eguay.entity.Users;
 import eguay.service.AuctionService;
 import eguay.service.UserService;
@@ -46,7 +47,7 @@ public class FinalizeDirectPurchase extends HttpServlet {
         Long id = Long.parseLong((String)request.getParameter("id"));
         AuctionDTO auction = auctionService.findById(id);
         HttpSession session = request.getSession();
-        Users user = (Users) session.getAttribute("user");
+        UserDTO user = (UserDTO) session.getAttribute("user");
         
         userService.finilizeBuyingAuction(user, auction);
         

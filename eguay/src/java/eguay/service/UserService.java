@@ -9,6 +9,7 @@ import eguay.dao.AuctionFacade;
 import eguay.dao.CategoryFacade;
 import eguay.dao.UsersFacade;
 import eguay.dto.AuctionDTO;
+import eguay.dto.CategoryDTO;
 import eguay.dto.UserDTO;
 import eguay.entity.Auction;
 import eguay.entity.Bid;
@@ -34,11 +35,17 @@ public class UserService {
     @EJB AuctionFacade auctionFacade;
     @EJB MailService mailService;
     @EJB AuctionService auctionService;
+    @EJB CategoryService categoryService;
     
     // Query
     
     Users getUser(Integer id) {
         return usersFacade.find(id);
+    }
+    
+    public List<CategoryDTO> getFavCategories(UserDTO userDTO){
+        Users user = this.toDAO(userDTO);
+        return Category.toDTO(usersFacade.userFavCategory(user));
     }
     
     public UserDTO loginUser(String username, String password)
@@ -122,8 +129,10 @@ public class UserService {
         usersFacade.create(user);
     }
     
-    public void editFavCategories(Users user , Category category ,String check ){
+    public void editFavCategories(UserDTO userDTO , CategoryDTO categoryDTO ,String check ){
         
+        Users user = this.toDAO(userDTO);
+        Category category = categoryService.toDAO(categoryDTO);
         List<Category> categoryFavList = user.getCategoryList(); 
         if(categoryFavList == null) categoryFavList = new ArrayList() ; 
         
@@ -133,15 +142,20 @@ public class UserService {
                     categoryFavList.add(category);
                     category.getUsersList().add(user);
                     categoryFacade.edit(category);
+                    
+                    user.setCategoryList(categoryFavList) ; 
+                    usersFacade.edit(user);
                 }
              }else{
                 if(categoryFavList.contains(category)){
                     categoryFavList.remove(category);
                     category.getUsersList().remove(user);
                     categoryFacade.edit(category);
+                    
+                    user.setCategoryList(categoryFavList) ; 
+                    usersFacade.edit(user);
                 }
             }
-        
     }
     
     public void editFavAuctions(UserDTO user , AuctionDTO auction){
@@ -185,7 +199,10 @@ public class UserService {
             }
     }
     
-    public void removePurchasedAuction(Auction auction , Users user){
+    public void removePurchasedAuction(AuctionDTO auctionDTO , UserDTO userDTO){
+       
+        Users user = this.toDAO(userDTO);
+        Auction auction = auctionService.toDAO(auctionDTO);
        List<Auction> userPurchased = user.getAuctionList1();
        userPurchased.remove(auction);
        user.setAuctionList1(userPurchased);
@@ -194,31 +211,35 @@ public class UserService {
         auctions.remove(user);
         auction.setUsersList1(auctions);
         
-       usersFacade.edit(user);
+        usersFacade.edit(user);
         auctionFacade.edit(auction);
     }
     
-    public void finilizeBuyingAuction(Users user , AuctionDTO auction){
+    public void finilizeBuyingAuction(UserDTO userDTO , AuctionDTO auction){
         
         List<Users> clientList = new ArrayList();
+        Users user = this.toDAO(userDTO);
         clientList.add(0, user);
-        auction.setUsersList1(clientList);
-        auction.setActive(Boolean.FALSE);
+        Auction auctionDao = auctionService.toDAO(auction);
+        auctionDao.setUsersList1(clientList);
+        auctionDao.setActive(Boolean.FALSE);
+        
+        auctionFacade.edit(auctionDao);
         
         List<Auction> purchasedAuction = user.getAuctionList1() ;
         if(purchasedAuction == null) purchasedAuction = new ArrayList() ;
-        purchasedAuction.add(auction);
+        purchasedAuction.add(auctionDao);
         user.setAuctionList1(purchasedAuction);
         
-        auctionFacade.edit(auction);
         usersFacade.edit(user);
-        System.out.println("success \n");
         
-        mailService.sendMailToAuctionWinner(String.format("Has ganado la subasta %s", auction.getTitle()), auction.getAuctionid(), user.getUserid());
+    //    mailService.sendMailToAuctionWinner(String.format("Has ganado la subasta %s", auction.getTitle()), auction.getAuctionid(), user.getUserid());
     }
     
-        public List<Auction> filterPurchasedAuctionByUser(String filter, Users userid){
+        public List<AuctionDTO> filterPurchasedAuctionByUser(String filter, UserDTO user){
         List<Auction> auctions ;
+        Users userid = this.toDAO(user);
+        
         if(filter == null || filter.isEmpty())
             {
                 auctions = this.usersFacade.findPurchasedAuctionsByTitleAndUser("", userid);
@@ -227,7 +248,7 @@ public class UserService {
             {
                 auctions = this.usersFacade.findPurchasedAuctionsByTitleAndUser(filter, userid);
             }
-        return auctions;
+        return Auction.toDTO(auctions);
     }
         
         public List<AuctionDTO> filterFavAuctionByUser(String filter, UserDTO userid){
@@ -257,7 +278,7 @@ public class UserService {
         return ((Users) session.getAttribute("user")).toDTO();
     }
     
-    private Users toDAO(UserDTO user)
+    public Users toDAO(UserDTO user)
     {
         
         Users u = new Users();

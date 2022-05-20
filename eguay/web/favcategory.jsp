@@ -22,7 +22,8 @@
  <%
       List<CategoryDTO> categories = (List) request.getAttribute("categoryAllList");
         UserDTO user = (UserDTO) session.getAttribute("user");
-        List<CategoryDTO> favCategories = user.getCategories();
+        List<CategoryDTO> favCategories = null ;
+        favCategories = (List<CategoryDTO>) request.getAttribute("userFav");
       for(CategoryDTO category : categories){
           if((favCategories != null) && (favCategories.contains(category))) {
       %>

@@ -6,6 +6,7 @@ package eguay.dto;
 
 import eguay.entity.Users;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -32,5 +33,20 @@ public class GroupDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final GroupDTO other = (GroupDTO) obj;
+        return Objects.equals(this.id, other.getId());
     }
 }

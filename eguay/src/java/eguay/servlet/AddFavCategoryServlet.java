@@ -6,7 +6,9 @@
 package eguay.servlet;
 
 import eguay.dto.CategoryDTO;
+import eguay.dto.UserDTO;
 import eguay.service.CategoryService;
+import eguay.service.UserService;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -15,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,6 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AddFavCategoryServlet", urlPatterns = {"/AddFavCategoryServlet"})
 public class AddFavCategoryServlet extends HttpServlet {
     @EJB CategoryService categoryService;
+        @EJB UserService userService;
+        
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,8 +44,12 @@ public class AddFavCategoryServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         List<CategoryDTO> categoryAllList = categoryService.getAllCategories();
+         HttpSession session = request.getSession();
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        List <CategoryDTO> userFavCate = userService.getFavCategories(user);
         
         request.setAttribute("categoryAllList", categoryAllList);
+        request.setAttribute("userFav", userFavCate);
         
         request.getRequestDispatcher("favcategory.jsp").forward(request, response);
     }

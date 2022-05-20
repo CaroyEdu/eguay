@@ -6,6 +6,7 @@
 package eguay.dao;
 
 import eguay.entity.Auction;
+import eguay.entity.Category;
 import eguay.entity.Users;
 import eguay.service.UserService;
 import java.util.List;
@@ -99,5 +100,13 @@ public class UsersFacade extends AbstractFacade<Users> {
     public Users findMarketing(){
         return (Users) this.em.createQuery("SELECT u FROM Users u WHERE u.username = 'marketing'")
                 .getSingleResult();
+    }
+    
+    public List<Category> userFavCategory(Users user){
+     Query q;
+        q = this.em.createQuery("SELECT c FROM Category c WHERE c.usersList = :userid ");
+        
+        q.setParameter("userid", user);
+        return q.getResultList();
     }
 }

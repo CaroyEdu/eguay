@@ -7,7 +7,9 @@ package eguay.service;
 
 import eguay.dao.CategoryFacade;
 import eguay.dto.CategoryDTO;
+import eguay.dto.UserDTO;
 import eguay.entity.Category;
+import eguay.entity.Users;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -42,5 +44,14 @@ public class CategoryService {
         }
         
         return dtos;
+    }
+    
+    public Category toDAO(CategoryDTO user)
+    {
+        
+        Category c = new Category();
+        c = this.categoryFacade.find(user.getId());
+        return c;
+        
     }
 }
