@@ -301,4 +301,17 @@ public class UserService {
     {
         this.usersFacade.edit(toDAO(user));
     }
+
+    public void AddAuctionToOwner(UserDTO userDto, AuctionDTO auctionDto) {
+        
+        Users user = this.toDAO(userDto);
+        Auction auction = auctionService.toDAO(auctionDto);
+        
+             List<Auction> usersSubmitedAuctions = user.getAuctionList2();
+             if(usersSubmitedAuctions == null) usersSubmitedAuctions = new ArrayList();
+             usersSubmitedAuctions.add(auction);
+             user.setAuctionList2(usersSubmitedAuctions);
+        
+            usersFacade.edit(user);
+    }
 }

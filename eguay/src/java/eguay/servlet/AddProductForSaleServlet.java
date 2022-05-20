@@ -8,6 +8,7 @@ package eguay.servlet;
 import eguay.dto.AuctionDTO;
 import eguay.dto.CategoryDTO;
 import eguay.dto.UserDTO;
+import eguay.entity.Auction;
 import eguay.service.AuctionService;
 import eguay.service.UserService;
 import eguay.service.MailService;
@@ -125,11 +126,12 @@ public class AddProductForSaleServlet extends HttpServlet {
         if(auctionid.equals("")){
             auctionService.createAuction(auction);
             
-            List<AuctionDTO> usersSubmitedAuctions = user.getAuctions();
+    /*        List<AuctionDTO> usersSubmitedAuctions = user.getAuctions();
             if(usersSubmitedAuctions == null) usersSubmitedAuctions = new ArrayList();
             usersSubmitedAuctions.add(auction);
-            user.setAuctions(usersSubmitedAuctions);        
-            this.userService.editUser(user);
+            user.setAuctions(usersSubmitedAuctions);     */
+            
+            userService.AddAuctionToOwner(user,auction);
         }else{
             auction.setId(Long.parseLong(auctionid));
             this.auctionService.editAuction(auction);

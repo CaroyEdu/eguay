@@ -107,7 +107,7 @@
                     <% }} %>
                     <br>
                     <br>
-                    <input type="button" onclick="window.location.href='EditPurchasedProduct?auctionid=<%=a.getId()%>';" value="Editar " /> <br>
+                    
                 </div>
             
             </div>

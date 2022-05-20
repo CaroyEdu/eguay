@@ -112,7 +112,7 @@
                     <br>
                     <input type="checkbox" id="<%= a.getId().toString()%>" name="<%= a.getId().toString()%>" value="<%= "Borrar " + a.getName() %>" >
                     <label for="<%= a.getId().toString() %>"> <%= "Borrar " + a.getName() %> </label><br><br>
-                    <input type="button" onclick="window.location.href='EditPurchasedProduct?auctionid=<%=a.getId()%>';" value="Editar " /> <br>
+                    
                 </div>
             
             </div>
