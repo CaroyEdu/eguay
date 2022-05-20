@@ -157,8 +157,8 @@ public class UserService {
     
     public void editFavAuctions(UserDTO user , AuctionDTO auction){
         
-        List<AuctionDTO> auctionFavList = user.getAuctions(); 
-        if(auctionFavList == null) auctionFavList = new ArrayList() ;
+         List<AuctionDTO> auctionFavList = this.filterFavAuctionByUser("", user);
+        
         
         if(auction != null )
             {
@@ -167,7 +167,9 @@ public class UserService {
                     Auction auctionDao = auctionService.toDAO(auction);
                     
                     List<Users> auctionUserFav = auctionDao.getUsersList();
-                    auctionUserFav.add(toDAO(user));
+                    if(auctionUserFav == null) auctionUserFav = new ArrayList() ;
+                    Users userTest = toDAO(user);
+                    auctionUserFav.add(userTest);
                     auctionDao.setUsersList(auctionUserFav);
                     auctionFacade.edit(auctionDao);
                     
@@ -180,15 +182,16 @@ public class UserService {
                     
                 }else {
                     
-                    Auction auctionDao = auctionService.toDAO(auction);
+                    Auction auctionDao = auctionFacade.find(auction.getId());
                     
                     List<Users> auctionUserFav = auctionDao.getUsersList();
-                    auctionUserFav.remove(user) ; 
+                    Users userTest = toDAO(user);
+                    auctionUserFav.remove(userTest) ;
                     auctionDao.setUsersList(auctionUserFav);
-                    auctionService.editAuction(auction);
+                    auctionFacade.edit(auctionDao);
                     
                     auctionFavList.remove(auction); 
-                    this.registerUserFavAuction(user, auctionFavList);
+                    this.registerUserFavAuction(user,auctionFavList);
                     
                     
                     
