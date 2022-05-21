@@ -84,6 +84,7 @@
                 Cerrar cuando llegue a: <input type="text" id="inputCloseNumberOfBids" name="inputCloseNumberOfBids" value="<% if(auction!=null){if(auction.getCloseNumberofBids()!=null){%><%= auction.getCloseNumberofBids()%><%}} %>"/> pujas.
                 <br/>
                 <input type="text" name="auctionid" value="<%= auction==null? "": auction.getId() %>" hidden />
+                <input type="text" name="active" value="<%= auction==null? "": auction.isActive() %>" hidden />
                 <% if(auction!=null){ %>
                 <input type="submit" id="checkBtn" value="Editar"/>
                 <% }else{ %>

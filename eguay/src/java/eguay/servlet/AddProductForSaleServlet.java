@@ -124,6 +124,7 @@ public class AddProductForSaleServlet extends HttpServlet {
         // Creamos/Editamos el objeto y lo insertamos en la base de datos
         String auctionid = request.getParameter("auctionid");
         if(auctionid.equals("")){
+            auction.setActive(Boolean.TRUE);
             auctionService.createAuction(auction);
            
             List<AuctionDTO> usersSubmitedAuctions = user.getAuctions();
@@ -133,6 +134,8 @@ public class AddProductForSaleServlet extends HttpServlet {
             
             //userService.AddAuctionToOwner(user,auction);
         }else{
+            boolean active = Boolean.parseBoolean((String) request.getParameter("active"));
+            auction.setActive(active);
             auction.setId(Long.parseLong(auctionid));
             this.auctionService.editAuction(auction);
         }

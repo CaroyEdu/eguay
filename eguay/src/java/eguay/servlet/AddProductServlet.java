@@ -50,6 +50,7 @@ public class AddProductServlet extends HttpServlet {
             Long id = Long.parseLong((String) request.getParameter("id"));
             AuctionDTO auction = auctionService.findById(id);
             request.setAttribute("auction", auction);
+            request.setAttribute("active", auction.isActive());
         }
         
         request.getRequestDispatcher("addProductForSale.jsp").forward(request, response);
