@@ -9,6 +9,7 @@
 <%@page import="eguay.entity.Users"%>
 <%@page import="eguay.entity.Auction"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="cabecera.jsp"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,14 +23,17 @@
     %>
     
     <body>
+        <br>
         
-        <h1>El Precio Final del producto es <%= auction.getClosePrice() %></h1>
+        <h2 style="padding-left: 100px;">El Precio Final del producto: <%= auction.getClosePrice() %></h2>
         <br>
-        <h1>Para el usuario <%= user.getName() + " " + user.getSurname() %></h1>
+        <h2 style="padding-left: 100px;">Para el usuario: <%= user.getName() + " " + user.getSurname() %></h2>
         <br>
-        <h1>Con el address <%= user.getAddress() %></h1>
+        <h2 style="padding-left: 100px;">Con el address: <%= user.getAddress() %></h2>
         <br>
-        <button onclick="window.location.href='FinalizeDirectPurchase?id=<%= auction.getId() %>';">
+        <hr>
+        <br>
+        <button style="margin-left: 100px;" onclick="window.location.href='FinalizeDirectPurchase?id=<%= auction.getId() %>';">
          Finalizar el pago </button>
     </body>
 </html>

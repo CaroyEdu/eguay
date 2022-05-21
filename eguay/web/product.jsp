@@ -29,24 +29,31 @@
     <jsp:include page="cabecera.jsp"/>
     
     <body>
-        <h1><%= auction.getName() %></h1>
-        <img src="<%= auction.getFotourl() %>">
-        <p>Cierre(s) de puja:</p>
+        <h1 style="margin-left: 100px;"><%= auction.getName() %></h1>
+        <br>
+        <img style="margin-left: 100px;" src="<%= auction.getFotourl() %>">
+        <br>
+        <br>
+        <h2 style="margin-left: 100px;">Cierre(s) de puja:</h2>
+        <br>
         <% if(auction.getCloseDate()!=null)
         { %>
-        <p class="description" id="cd_<%= closeDate %>"></p>
+        <p style="margin-left: 100px;" class="description" id="cd_<%= closeDate %>"></p>
         <% } %>
         <% if(auction.getCloseNumberofBids()!=null)
         { %>
-        <p class="description">¡Sólo quedan <%= auction.getCloseNumberofBids() %> pujas disponibles!</p>
+        <p style="margin-left: 100px;" class="description">¡Sólo quedan <%= auction.getCloseNumberofBids() %> pujas disponibles!</p>
         <% } %>
         <% if(auction.getClosePrice()!=null)
         { %>
-        <p class="description" >¡Puja <%= auction.getClosePrice() %>$ y te lo llevas!</p>
+        <p style="margin-left: 100px;" class="description" >¡Puja <%= auction.getClosePrice() %>$ y te lo llevas!</p>
         <% } %>
-        <button onclick="window.location.href='DirectPurchaseServlet?id=<%= auction.getId() %>';">
+        <br>
+        <hr>
+        <br>
+        <button style="margin-left: 100px;" onclick="window.location.href='DirectPurchaseServlet?id=<%= auction.getId() %>';">
          Puja Directa</button>
-        <button onclick="window.location.href='SubmitBidServlet?id=<%= auction.getId() %>';"> Puja </button>
+        <button  onclick="window.location.href='SubmitBidServlet?id=<%= auction.getId() %>';"> Puja </button>
         
         
     <script>

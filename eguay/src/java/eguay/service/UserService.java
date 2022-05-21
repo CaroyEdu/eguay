@@ -202,7 +202,8 @@ public class UserService {
     public void removePurchasedAuction(AuctionDTO auctionDTO , UserDTO userDTO){
        
         Users user = this.toDAO(userDTO);
-        Auction auction = auctionService.toDAO(auctionDTO);
+        Auction auction = auctionFacade.find(auctionDTO.getId());
+        
        List<Auction> userPurchased = user.getAuctionList1();
        userPurchased.remove(auction);
        user.setAuctionList1(userPurchased);

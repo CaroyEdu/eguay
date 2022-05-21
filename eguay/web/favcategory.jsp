@@ -15,11 +15,15 @@
 <html>
 <body>
 
-<h1>Show Checkboxes</h1>
+<h1 style="padding-left: 100px;">Show Checkboxes</h1>
+
+<br>
+<hr>
+<br>
     
       
                 
-<form method="POST" action="RegisterFavCategory">                
+<form method="POST" action="RegisterFavCategory" style="padding-left: 100px;" >                
  <%
       List<CategoryDTO> categories = (List) request.getAttribute("categoryAllList");
         UserDTO user = (UserDTO) session.getAttribute("user");
@@ -38,6 +42,7 @@
   <label for="<%= category.getId().toString() %>"> <%= category.getName() %> </label><br>
   
   <% }} %>
+  <br>
   <input type="submit" value="Submit">
   
 </form>

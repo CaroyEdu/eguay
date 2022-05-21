@@ -7,10 +7,13 @@ package eguay.servlet;
 
 import eguay.dao.AuctionFacade;
 import eguay.dto.AuctionDTO;
+import eguay.dto.CategoryDTO;
 import eguay.entity.Auction;
 import eguay.service.AuctionService;
+import eguay.service.CategoryService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DirectPurchaseServlet extends HttpServlet {
 
     @EJB AuctionService auctionService ; 
+    @EJB CategoryService categoryService ; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,7 +46,8 @@ public class DirectPurchaseServlet extends HttpServlet {
         
         request.setAttribute("auction", auction);
         
-        
+        List<CategoryDTO> categoryList =  categoryService.getAllCategories();
+        request.setAttribute("categoryList", categoryList);
         
         request.getRequestDispatcher("directpurchase.jsp").forward(request, response); 
         
