@@ -16,13 +16,13 @@
     <jsp:include page="userConnectedCheck.jsp"/>
     <jsp:include page="cabecera.jsp"/>
     
-    <body>
-        <h1>Perfil</h1>
+    <body >
+        <h1 class="container">Perfil</h1>
         <form>
-      <input type="button" onclick="window.location.href='AddFavCategoryServlet';" value="Editar Categorias Favorias" />
-      <input type="button" onclick="window.location.href='EditFavAuctionServlet';" value="Editar pujas favoritas" />
-      <input type="button" onclick="window.location.href='CheckPurchasedAuctionsServlet';" value="Pujas Compradas" /> 
-      <input type="button" onclick="window.location.href='MyProductsServlet';" value="Mis Subastas" /> 
+      <input type="button" class="container" onclick="window.location.href='AddFavCategoryServlet';" value="Editar Categorias Favorias" />
+      <input type="button" class="container" onclick="window.location.href='EditFavAuctionServlet';" value="Editar pujas favoritas" />
+      <input type="button" class="container" onclick="window.location.href='CheckPurchasedAuctionsServlet';" value="Pujas Compradas" /> 
+      <input type="button" class="container" onclick="window.location.href='MyProductsServlet';" value="Mis Subastas" /> 
     </form>
 </div>
     </body>

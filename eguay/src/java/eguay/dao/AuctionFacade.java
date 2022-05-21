@@ -44,7 +44,7 @@ public class AuctionFacade extends AbstractFacade<Auction> {
     public List<Auction> findByTitle(String title)
     {
         Query q;
-        q = this.em.createQuery("SELECT c FROM Auction c WHERE c.title like :title");
+        q = this.em.createQuery("SELECT c FROM Auction c WHERE lower(c.title) like :title");
         q.setParameter("title", '%' + title + '%');
         return q.getResultList();
     }

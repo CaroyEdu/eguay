@@ -76,7 +76,7 @@ public class UsersFacade extends AbstractFacade<Users> {
     public List<Auction> findPurchasedAuctionsByTitleAndUser(String title, Users userid)
     {
         Query q;
-        q = this.em.createQuery("SELECT c FROM Auction c WHERE c.usersList1 = :userid AND c.title LIKE :title");
+        q = this.em.createQuery("SELECT c FROM Auction c WHERE c.usersList1 = :userid AND lower(c.title) LIKE :title");
         q.setParameter("title", '%' + title + '%');
         q.setParameter("userid", userid);
         return q.getResultList();
@@ -85,7 +85,7 @@ public class UsersFacade extends AbstractFacade<Users> {
     public List<Auction> findFavAuctionsByTitleAndUser(String title, Users userid)
     {
         Query q;
-        q = this.em.createQuery("SELECT c FROM Auction c WHERE c.usersList = :userid AND c.title LIKE :title");
+        q = this.em.createQuery("SELECT c FROM Auction c WHERE c.usersList = :userid AND lower(c.title) LIKE :title");
         q.setParameter("title", '%' + title + '%');
         q.setParameter("userid", userid);
         return q.getResultList();

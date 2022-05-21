@@ -6,9 +6,11 @@
 package eguay.servlet;
 
 import eguay.dto.AuctionDTO;
+import eguay.dto.CategoryDTO;
 import eguay.dto.UserDTO;
 import eguay.entity.Auction;
 import eguay.entity.Users;
+import eguay.service.CategoryService;
 import eguay.service.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,6 +30,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "EditFavAuctionServlet", urlPatterns = {"/EditFavAuctionServlet"})
 public class EditFavAuctionServlet extends HttpServlet {
 @EJB UserService userService ; 
+@EJB CategoryService categoryService ; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,7 +55,8 @@ public class EditFavAuctionServlet extends HttpServlet {
         List<AuctionDTO> purchasedAuctions = userService.filterFavAuctionByUser(filter, user);
         
         request.setAttribute("favAuctions" ,purchasedAuctions );
-        
+        List<CategoryDTO> categoryList =  categoryService.getAllCategories();
+        request.setAttribute("categoryList", categoryList);
         
         request.getRequestDispatcher("favauction.jsp").forward(request, response);
     }

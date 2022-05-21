@@ -47,6 +47,8 @@ public class AddFavCategoryServlet extends HttpServlet {
          HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
         List <CategoryDTO> userFavCate = userService.getFavCategories(user);
+        List<CategoryDTO> categoryList =  categoryService.getAllCategories();
+        request.setAttribute("categoryList", categoryList);
         
         request.setAttribute("categoryAllList", categoryAllList);
         request.setAttribute("userFav", userFavCate);

@@ -6,8 +6,10 @@
 package eguay.servlet;
 
 import eguay.dto.AuctionDTO;
+import eguay.dto.CategoryDTO;
 import eguay.dto.UserDTO;
 import eguay.entity.Users;
+import eguay.service.CategoryService;
 import eguay.service.UserService;
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +27,8 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "CheckPurchasedAuctionsServlet", urlPatterns = {"/CheckPurchasedAuctionsServlet"})
 public class CheckPurchasedAuctionsServlet extends HttpServlet {
-    @EJB UserService userService ; 
+    @EJB UserService userService ;
+    @EJB CategoryService categoryService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,6 +50,9 @@ public class CheckPurchasedAuctionsServlet extends HttpServlet {
         List<AuctionDTO> purchasedAuctions = userService.filterPurchasedAuctionByUser(filter, user);
         
         request.setAttribute("purchasedAuctions" ,purchasedAuctions );
+        
+        List<CategoryDTO> categoryList =  categoryService.getAllCategories();
+        request.setAttribute("categoryList", categoryList);
         
         request.getRequestDispatcher("purchasedauction.jsp").forward(request, response);
     }

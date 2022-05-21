@@ -10,6 +10,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="eguay.entity.Category"%>
 <%@page import="java.util.List"%>
+<jsp:include page="cabecera.jsp"/>
 <!DOCTYPE html>
 <html>
 <body>

@@ -1,6 +1,6 @@
 <%@page import="eguay.dto.AuctionDTO"%>
 <%@page import="eguay.dto.UserDTO"%>
-7<%-- 
+<%-- 
     Document   : favAuction
     Created on : Apr 17, 2022, 10:53:57 AM
     Author     : Parsa zendehdel nobari
@@ -17,6 +17,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <jsp:include page="cabecera.jsp"/>
     </head>
         <style>
         .star {
@@ -50,12 +51,16 @@
     
     <body>   
         <div class="title">
-            <p>Pujas compradas</p>
+            <p>Pujas favoritas</p>
+            <br>
         </div>
-        <form method="POST" action="EditFavAuctionServlet">
+        <hr>
+        <br>
+        <br>
+        <form method="POST" action="EditFavAuctionServlet" style="padding-left: 100px;">
             
-            <input type="text" name="filter">
-            <input type="submit" name="buscar">
+            <input type="text" name="filter" placeholder="Buscar tu puja favorita">
+            <input type="submit" name="buscar" value="buscar">
         </form>
                     <%
                 int cantidad = 0;
@@ -82,9 +87,9 @@
                 <div class="card">
                     <% if(!a.getFotourl().equals("") )
                     { %>
-                    <img src="<%= a.getFotourl() %>" style="width:10%">
+                    <img src="<%= a.getFotourl() %>" style="width:100%">
                     <% }else { %>
-                    <img src="img/placeholder.png" style="width:10%">
+                    <img src="img/placeholder.png" style="width:100%">
                     <% } %>
                     <h4><a href="ProductServlet?id=<%= a.getId() %>"><%= a.getName() %></a></h4>
                     <p class="description"><%= a.getDescription() %></p>

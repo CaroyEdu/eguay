@@ -1,6 +1,6 @@
 <%@page import="eguay.dto.AuctionDTO"%>
 <%@page import="eguay.dto.UserDTO"%>
-7<%-- 
+<%-- 
     Document   : purchasedauction
     Created on : Apr 17, 2022, 10:53:57 AM
     Author     : Parsa zendehdel nobari
@@ -17,6 +17,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <jsp:include page="cabecera.jsp"/>
     </head>
         <style>
         .star {
@@ -51,11 +52,16 @@
     <body>   
         <div class="title">
             <p>Pujas compradas</p>
+            <br>
         </div>
-        <form method="POST" action="CheckPurchasedAuctionsServlet">
+        <hr>
+        <br>
+        <br>
+        <form method="POST" action="CheckPurchasedAuctionsServlet" style="padding-left: 100px;">
             
-            <input type="text" name="filter">
-            <input type="submit" name="buscar">
+            <input type="text" name="filter" placeholder="buscar tu compra favorita">
+            <input type="submit" name="buscar" value="buscar">
+            
         </form>
         <form method="POST" action="EditPurchasedAuctions"> 
                     <%
@@ -85,9 +91,9 @@
                 <div class="card">
                     <% if(!a.getFotourl().equals("") )
                     { %>
-                    <img src="<%= a.getFotourl() %>" style="width:10%">
+                    <img src="<%= a.getFotourl() %>" style="width:100%">
                     <% }else { %>
-                    <img src="img/placeholder.png" style="width:10%">
+                    <img src="img/placeholder.png" style="width:100%">
                     <% } %>
                     <h4><a href="ProductServlet?id=<%= a.getId() %>"><%= a.getName() %></a></h4>
                     <p class="description"><%= a.getDescription() %></p>
@@ -118,8 +124,10 @@
             </div>
             
                 <%}%> 
+                <br>
                 <hr>
-                <input type="submit" value="Borrar">
+                <h3 class="container" style="border-right-width: 40px;padding-left: 0px;" >Borra tus compras seleccionadas</h3>
+                <input class="container" type="submit" value="Borrar">
                 <%}%>
         <script>
             function TimeRemaining(){
