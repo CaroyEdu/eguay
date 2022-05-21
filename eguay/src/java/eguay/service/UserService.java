@@ -276,7 +276,7 @@ public class UserService {
     }
 
     public UserDTO getSessionUser(HttpSession session) {
-        return ((Users) session.getAttribute("user")).toDTO();
+        return (UserDTO) session.getAttribute("user");
     }
     
     public Users toDAO(UserDTO user)
