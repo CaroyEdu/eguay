@@ -314,4 +314,10 @@ public class UserService {
         
             usersFacade.edit(user);
     }
+    
+    public UserDTO getUserById(Long id)
+    {
+        Users user = this.usersFacade.find(id);
+        return user.toDTO();
+    }
 }

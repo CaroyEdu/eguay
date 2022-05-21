@@ -4,7 +4,6 @@
  */
 package eguay.dto;
 
-import eguay.entity.Auction;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;

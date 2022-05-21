@@ -30,6 +30,7 @@ public class BidService {
 @EJB UsersFacade userFacade ;
 @EJB UserService userService;
 @EJB AuctionService auctionService;
+
     public List<BidDTO> getHighestBid(AuctionDTO auction){
      List<Bid> highest = bidFacade.highestBid(auction);
      return BidService.toDTO(highest) ; 

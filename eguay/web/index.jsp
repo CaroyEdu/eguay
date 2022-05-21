@@ -77,7 +77,13 @@
     transform: translate(-50%, -50%) scale(0);
     transition: transform 0.2s;
   }
-}
+  
+  .botones{
+      display: inline-block;
+      margin-right: 20px;
+    }
+  }
+
 
 
 </style>
@@ -126,8 +132,10 @@
                     <% }else {  %>
                     <h4><a href="LoginServlet"><%= a.getName() %></a></h4>
                     <% } %>
-                    <p class="description"><%= a.getName() %></p>
-                    <p class="price">$<%= a.getClosePrice() %></p>
+                    <p class="description" style="margin: 5px"><%= a.getName() %></p>
+                    <hr style="margin: 5px">
+                    <p class="price">Precio Inicial: <%= a.getStartPrice() %>€</p>
+                    <hr style="margin: 5px">
                     <% if(a.getCloseDate()!=null)
                     { %>
                     <p class="description" id="cd_<%= closeDate %>"></p>
@@ -138,19 +146,19 @@
                     <% } %>
                     <% if(a.getClosePrice()!=null)
                     { %>
-                    <p class="description" >¡Puja <%= a.getClosePrice() %>$ y te lo llevas!</p>
+                    <p class="description" >¡Puja <%= a.getClosePrice() %>€ y te lo llevas!</p>
                     <% } %>
                     
                     <% if (user!=null) {
                         
                         %>
-                        <p><button onclick="location.href='ProductServlet?id=<%= a.getId() %>'">Pujar</button></p>
+                        <div><button onclick="location.href='ProductServlet?id=<%= a.getId() %>'"/>Pujar
                         <%
                         if( auctionFavList.contains(a)){
                     %>    
-                    <button onclick="location.href='RegisterFavAuction?id=<%= a.getId() %>'" class="like-buttonlike-button">♥ </button>
+                    <button onclick="location.href='RegisterFavAuction?id=<%= a.getId() %>'" class="like-buttonlike-button"/>♥ </div>
                     <% } else{ %>
-                    <button onclick="location.href='RegisterFavAuction?id=<%= a.getId() %>'" class="dislike-button">x </button>
+                    <button onclick="location.href='RegisterFavAuction?id=<%= a.getId() %>'" class="dislike-button"/>x</div>
                     <% }} %>
                 </div>
             <%

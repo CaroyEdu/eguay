@@ -6,10 +6,10 @@
 package eguay.dao;
 
 import eguay.dto.AuctionDTO;
-import eguay.entity.Auction;
-import eguay.entity.Bid;
-import eguay.entity.Users;
+import eguay.dto.BidDTO;
+import eguay.dto.UserDTO;
 import eguay.service.AuctionService;
+import eguay.service.BidService;
 import eguay.service.MailService;
 import eguay.service.UserService;
 import java.util.Date;
@@ -28,9 +28,9 @@ public class TimerSessionBean {
     @EJB AuctionService auctionService;
     @EJB UserService userService;
     @EJB MailService mailService;
-    @EJB BidFacade bidFacade;
+    @EJB BidService bidService;
 
-   //@Schedule(hour = "*", minute = "*", second = "*/30", persistent = false)
+    //@Schedule(hour = "*", minute = "*", second = "*/30", persistent = false)
     
     public void myTimer() {
         Date now = new Date();
@@ -41,13 +41,13 @@ public class TimerSessionBean {
             if(a.getCloseDate() != null){
                 if(now.compareTo(a.getCloseDate()) >= 0)
                 {
-                    List<Bid> bidList = this.bidFacade.highestBid(a);
+                    List<BidDTO> bidList = this.bidService.getHighestBid(a);
                     if(bidList.size()>0)
                     {
-                        Bid higherBid = bidList.get(0);
-                        Users user = higherBid.getBiderid();
-                        userService.finilizeBuyingAuction(user.toDTO(), a);
-                        //mailService.sendMailToAuctionWinner(String.format("Has ganado la subasta %s", a.getTitle()), a.getAuctionid(), user.getUserid());
+                        BidDTO higherBid = bidList.get(0);
+                        UserDTO user = userService.getUserById(higherBid.getBider());
+                        userService.finilizeBuyingAuction(user, a);
+                        mailService.sendMailToAuctionWinner(String.format("Has ganado la subasta %s", a.getName()), a.getId(), user.getId());
                         System.out.println("La subasta " + a.getId() + " con titulo:  " + a.getName() + " ha sido ganada por " + user.getName() );
                     }else{
                         a.setActive(Boolean.FALSE);
