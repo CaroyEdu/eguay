@@ -1,5 +1,9 @@
 # eguay
 
+## Repositoio
+
+[Repositorio](https://github.com/RoyEdu/eguay)
+
 ## Requisitos
 
 ### ¿Qué es eguay?
