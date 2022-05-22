@@ -8,6 +8,8 @@ package eguay.dao;
 import eguay.dto.AuctionDTO;
 import eguay.dto.BidDTO;
 import eguay.dto.UserDTO;
+import eguay.entity.Auction;
+import eguay.entity.Users;
 import eguay.service.AuctionService;
 import eguay.service.BidService;
 import eguay.service.MailService;
@@ -29,30 +31,35 @@ public class TimerSessionBean {
     @EJB UserService userService;
     @EJB MailService mailService;
     @EJB BidService bidService;
+    @EJB AuctionFacade auctionFacade ; 
+    @EJB UsersFacade userFacade;
 
-    //@Schedule(hour = "*", minute = "*", second = "*/30", persistent = false)
+    @Schedule(hour = "*", minute = "*", second = "*/30", persistent = false)
     
     public void myTimer() {
         Date now = new Date();
         //System.out.println("Ejecutando comprobación de subastas");
         List<AuctionDTO> activeAuctions = auctionService.filterAuctionByActive();
-        for(AuctionDTO a : activeAuctions)
+        for(AuctionDTO aDTO : activeAuctions)
         {
-            if(a.getCloseDate() != null){
-                if(now.compareTo(a.getCloseDate()) >= 0)
+            Auction a = auctionFacade.find(aDTO.getId());
+            if(a.getClosedate()!= null){
+                if(now.compareTo(a.getClosedate()) >= 0)
                 {
-                    List<BidDTO> bidList = this.bidService.getHighestBid(a);
+                    List<BidDTO> bidList = this.bidService.getHighestBid(aDTO);
                     if(bidList.size()>0)
                     {
                         BidDTO higherBid = bidList.get(0);
-                        UserDTO user = userService.getUserById(higherBid.getBider());
-                        userService.finilizeBuyingAuction(user, a);
-                        mailService.sendMailToAuctionWinner(String.format("Has ganado la subasta %s", a.getName()), a.getId(), user.getId());
-                        System.out.println("La subasta " + a.getId() + " con titulo:  " + a.getName() + " ha sido ganada por " + user.getName() );
+                        Long id = higherBid.getBider().longValue();
+                        Users UserDao  = userFacade.find(id.intValue());
+                        UserDTO user = UserDao.toDTO();
+                        userService.finilizeBuyingAuction(user, aDTO);
+                     //   mailService.sendMailToAuctionWinner(String.format("Has ganado la subasta %s", a.getName()), a.getId(), user.getId());
+                        System.out.println("La subasta " + a.getAuctionid()+ " con titulo:  " + a.getTitle()+ " ha sido ganada por " + user.getName() );
                     }else{
                         a.setActive(Boolean.FALSE);
-                        auctionService.editAuction(a);
-                        System.out.println("La subasta " + a.getId() + " con titulo:  " + a.getName() + " ha sido cerrada sin ganador");
+                        auctionFacade.edit(a);
+                        System.out.println("La subasta " + a.getAuctionid()+ " con titulo:  " + a.getAuctionid()+ " ha sido cerrada sin ganador");
                     }
                 }
             }
