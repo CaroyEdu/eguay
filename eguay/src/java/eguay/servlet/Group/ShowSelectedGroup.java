@@ -6,12 +6,15 @@ package eguay.servlet.Group;
 
 import eguay.dao.GroupsFacade;
 import eguay.dao.UsersFacade;
+import eguay.dto.CategoryDTO;
 import eguay.dto.GroupDTO;
+import eguay.service.CategoryService;
 import eguay.service.GroupService;
 import eguay.service.UserService;
 import eguay.services.ServletUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,6 +31,7 @@ public class ShowSelectedGroup extends HttpServlet {
 
     @EJB UserService userService;
     @EJB GroupService groupService;
+    @EJB CategoryService categoryService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,6 +52,9 @@ public class ShowSelectedGroup extends HttpServlet {
             groupId = ServletUtils.getIdLong(request, "id");
         }
         GroupDTO group = groupService.getGroup(groupId);
+        
+        List<CategoryDTO> categoryList = categoryService.getAllCategories();
+        request.setAttribute("categoryList", categoryList);
         
         request.setAttribute("group", group);
         request.setAttribute("usersMap", groupService.GetUsersInGroupMap(group));
