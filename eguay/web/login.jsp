@@ -20,6 +20,9 @@
 	<link rel="stylesheet" href="css/style.css">
 
 	</head>
+        <%
+            String error = (String) request.getAttribute("error");
+        %>
 	<body>
 	<section class="ftco-section">
 		<div class="container">
@@ -57,6 +60,9 @@
                                 
                                  <a href="IndexServlet">Volver al Inicio</a>
 		            </div>
+                                        <% if(error != null){ %>
+                                <label style="color: red"><%= error %></label>
+                                        <% } %>
 		          </form>
 		        </div>
 		      </div>
