@@ -47,7 +47,13 @@ public class UserService {
     
     public UserDTO loginUser(String username, String password)
     {
-        return this.usersFacade.userLogin(username, password).toDTO();
+        Users user = this.usersFacade.userLogin(username, password);
+        if(user != null)
+        {
+            return user.toDTO();
+        }else{
+            return null;
+        }
     }
     
     public List<UserDTO> getAllUsersDTO(){
