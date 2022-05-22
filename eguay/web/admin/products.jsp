@@ -29,7 +29,7 @@
                 <jsp:include page="components/header.jsp"/>
                 </div>
                 <div class="col py-3">
-                    <h1>Productos <a href="Productos/Nuevo"><i class="bi bi-plus-square" style="font-size: 1.75rem;"></i></a></h1>
+                    <h1>Productos</h1>
                     <%= msg != null ? msg : "" %>
                     
                     <form action="" method="GET">

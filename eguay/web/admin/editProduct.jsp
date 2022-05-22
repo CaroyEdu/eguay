@@ -52,13 +52,13 @@
                         <div class="row mb-3">
                           <label for="id" class="col-sm-2 col-form-label">Descripcion</label>
                           <div class="col-sm-6">  
-                            <input type="text" class="form-control" value="<%= producto.getDescripcion() %>"  name="description">
+                            <input type="text" class="form-control" value="<%= producto.getDescription()%>"  name="description">
                           </div>
                         </div>
                         <div class="row mb-3">
                           <label for="id" class="col-sm-2 col-form-label">URL Foto</label>
                           <div class="col-sm-6">  
-                            <input type="text" class="form-control" value="<%= producto.getUrlFoto() %>"  name="fotoUrl">
+                            <input type="text" class="form-control" value="<%= producto.getFotourl()%>"  name="fotoUrl">
                           </div>
                         </div>
                         <div class="row mb-3">

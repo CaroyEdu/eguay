@@ -51,7 +51,7 @@ public abstract class AdminServlet extends HttpServlet {
     protected boolean checkAdmin(HttpServletRequest request, HttpServletResponse response) 
                 throws ServletException, IOException { 
         // TODO: Change attribute name
-        UserDTO user = (UserDTO) request.getSession().getAttribute("userDTO");
+        UserDTO user = (UserDTO) request.getSession().getAttribute("user");
         
         boolean is = user != null && user.isAdmin();
         

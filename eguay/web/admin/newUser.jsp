@@ -102,20 +102,20 @@
                           
                         <h3>Roles</h3>
                         <div class="form-check">
-                          <input name="roleIds" class="form-check-input" type="checkbox" value="2" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
+                          <input name="roleIds" class="form-check-input" id="roleMarketing" type="checkbox" value="2" id="flexCheckDefault">
+                          <label class="form-check-label" for="roleMarketing">
                             Marketing
                           </label>
                         </div>
                         <div class="form-check">
-                          <input name="roleIds" class="form-check-input" type="checkbox" value="3" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
+                          <input name="roleIds" class="form-check-input" id="roleAnalista" type="checkbox" value="3" id="flexCheckDefault">
+                          <label class="form-check-label" for="roleAnalista">
                             Analista
                           </label>
                         </div>
                         <div class="form-check">
-                          <input name="roleIds" class="form-check-input" type="checkbox" value="4" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
+                            <input name="roleIds" class="form-check-input" id="roleAdmin" type="checkbox" value="4" id="flexCheckDefault">
+                          <label class="form-check-label" for="roleAdmin">
                             Admin
                           </label>
                         </div>

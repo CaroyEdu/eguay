@@ -111,20 +111,20 @@
                           
                         <h3>Roles</h3>
                         <div class="form-check">
-                          <input <%= user.isMarketing() ? "checked" : "" %> name="roleIds" class="form-check-input" type="checkbox" value="2" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
+                            <input <%= user.isMarketing() ? "checked" : "" %> name="roleIds" id="roleMarketing" class="form-check-input" type="checkbox" value="2" id="flexCheckDefault">
+                          <label class="form-check-label" for="roleMarketing">
                             Marketing
                           </label>
                         </div>
                         <div class="form-check">
-                          <input <%= user.isAnalista() ? "checked" : "" %> name="roleIds" class="form-check-input" type="checkbox" value="3" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
+                            <input <%= user.isAnalista() ? "checked" : "" %> name="roleIds" id="roleAnalista" class="form-check-input" type="checkbox" value="3" id="flexCheckDefault">
+                          <label class="form-check-label" for="roleAnalista">
                             Analista
                           </label>
                         </div>
                         <div class="form-check">
-                          <input <%= user.isAdmin() ? "checked" : "" %> name="roleIds" class="form-check-input" type="checkbox" value="4" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
+                          <input <%= user.isAdmin() ? "checked" : "" %> name="roleIds" id="roleAdmin" class="form-check-input" type="checkbox" value="4" id="flexCheckDefault">
+                          <label class="form-check-label" for="roleAdmin">
                             Admin
                           </label>
                         </div>
