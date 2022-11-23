@@ -37,6 +37,9 @@ eguay es una aplicación que busca reunir a vendedores y compradores en una mism
         - Modelo (Clases java de lógica de la aplicación)
         - Mapeo. EJB (Operaciones CRUD)
 
+### Características
+Aplicación web creada en Java y usando un servidor GlassFish.
+
 ### Instalación
 
-Abrir el proyecto en un IDE estilo IntelliJ o Eclipse y ejecutar.
+Abrir el proyecto en un IDE estilo IntelliJ o NetBeans.
