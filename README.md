@@ -1,7 +1,5 @@
 # eguay
 
-## Requisitos
-
 ### ¿Qué es eguay?
 
 eguay es una aplicación que busca reunir a vendedores y compradores en una misma plataforma.
@@ -26,16 +24,6 @@ eguay es una aplicación que busca reunir a vendedores y compradores en una mism
     - Empleados de la plataforma que puede crear y gestionar (editar, borrar, etc.) listas de usuarios compradores a partir de una búsqueda, en función de diversos criterios. Podrán también enviarles notificaciones a todos los compradores de una lista sobre promociones de ciertos artículos, etc.
         Deberán también gestionar la recepción de los mensajes en la bandeja de entrada de mensajes de los usuarios compradores.
 
-## Desarrollo
-
-### Modelo conceptual
-
-![Modelo](./images/classDiagram/conceptualModel.png)
-
-### Database Model
-
-![Modelo de Base de Datos](./images/classDiagram/dbModel.png)
-
 ### Convenciones
 
 - Notación Camel.
@@ -49,9 +37,6 @@ eguay es una aplicación que busca reunir a vendedores y compradores en una mism
         - Modelo (Clases java de lógica de la aplicación)
         - Mapeo. EJB (Operaciones CRUD)
 
-### Tareas
+### Instalación
 
-- Hacer modelo entidad relación.
-- Repartirse un rol para cada uno (Compradores, Vendedores, ...).
-- Modelo de diseño.
-
+Abrir el proyecto en un IDE estilo IntelliJ o Eclipse y ejecutar.
